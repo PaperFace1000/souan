@@ -106,7 +106,7 @@ applyTheme(loadTheme());
 - `features/theme/theme.ts` にテーマの一覧（キーと名前）、`loadTheme`・`saveTheme`・`applyTheme` を置く。キーは `data-theme` の値と一致させる
 - 選んだテーマは `localStorage` に `<アプリ名>.theme` の鍵で保存する。`system` を選んだら `data-theme` を外す
 - **描画の前に適用する**。React の中（`useEffect`）で適用すると、最初の 1 枚が既定の色で出てちらつく
-- テーマで描き分けるもの（図・プロジェクトの色）は、`data-theme` の変化と OS の `prefers-color-scheme` の変化の両方を見張る（`MutationObserver` + `matchMedia`、`useSyncExternalStore`）
+- テーマで描き分けるもの（図・その他の配色）は、`data-theme` の変化と OS の `prefers-color-scheme` の変化の両方を見張る（`MutationObserver` + `matchMedia`、`useSyncExternalStore`）
 
 ## 💾 localStorage
 

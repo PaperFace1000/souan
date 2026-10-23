@@ -11,7 +11,7 @@
 README.md            このファイル
 docs/
   principles.md      デザインの原則
-  color.md           配色（7 テーマ、役割の色、コントラスト、プロジェクトの色 30 色）
+  color.md           配色（7 テーマ、役割の色、コントラスト、その他の配色 30 色）
   typography.md      フォント、文字の大きさ・行間、日時の表記
   components.md      部品の決まり（ボタン、フォーム、入力欄、ダイアログ、アイコン、欄、一覧の行、バッジ）
   layout.md          ヘッダー、列の組み方、スマホ幅、余白の段階
@@ -21,13 +21,13 @@ docs/
 tokens/
   palette.json       7 テーマの色の値（正本）
   themes.css         そのまま読み込める CSS 変数
-  project-colors.json  プロジェクト（分類）の色 30 色
-  project-colors.css   data-project-color 属性で色を出す CSS
-  project-icons.json   プロジェクトに選べる Lucide のアイコン 86 個
+  extra-colors.json  その他の配色 30 色（分類やタグを色で見分ける）
+  extra-colors.css   data-extra-color 属性で色を出す CSS
+  icons.json         バッジに選べる Lucide のアイコン 86 個
 samples/             ブラウザで直接開ける見本（単一の HTML、外部の読み込みなし）
   index.html         目次
   palette.html       7 テーマの色とコントラスト比
-  project-colors.html  30 色の見本（ライトと夜）
+  extra-colors.html  30 色の見本（ライトと夜）
   ui-kit.html        部品の見本
   layout.html        ダッシュボード風の 2 列と、360px の見え方
 ```
@@ -39,9 +39,9 @@ samples/             ブラウザで直接開ける見本（単一の HTML、外
 1. `tokens/themes.css` をアプリの `styles/themes.css` に写し、入口（`main.tsx` など）で最初に読み込む
 2. 画面の CSS では `var(--color-text)` のように変数だけを使い、色を直接書かない
 3. テーマの切り替えは `<html data-theme="hakushi">` のように `data-theme` を付け替える。付けなければ OS のライト・ダークに合わせる（詳しくは `docs/color.md`）
-4. プロジェクトや分類に色を付けるアプリは `tokens/project-colors.css` も読み込み、要素に `data-project-color="deep-002"` を付けて `var(--project-bg)` などで塗る
+4. 分類やタグに色を付けるアプリは `tokens/extra-colors.css` も読み込み、要素に `data-extra-color="deep-002"` を付けて `var(--extra-bg)` などで塗る
 
-色の値を変えるときは、このリポジトリの `tokens/palette.json` を先に直し、`themes.css`・`project-colors.css`・`samples/*.html` のインラインの値を同じにしてから、各アプリへ写すこと。アプリの側だけで色を足したり変えたりしない。
+色の値を変えるときは、このリポジトリの `tokens/palette.json` を先に直し、`themes.css`・`extra-colors.css`・`samples/*.html` のインラインの値を同じにしてから、各アプリへ写すこと。アプリの側だけで色を足したり変えたりしない。
 
 ### 🧩 部品と決まりを取り込む
 

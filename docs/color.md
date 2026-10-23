@@ -86,12 +86,12 @@ Markdown のコードなど、色分けが要るアプリのために Shiki の 
 
 - `data-theme` を付けていないときは OS の設定に合わせる。`@media (prefers-color-scheme: dark)` の中の `:root:not([data-theme])` に夜更かしと同じ値を入れている
 - テーマを選ぶメニューの先頭は「OS の設定に合わせる」（`system`）にし、選ぶと `data-theme` を外す
-- 「今の見た目が暗いか」は `data-theme="yofukashi"`、または `data-theme` が無くて OS がダークのとき。プロジェクトの色や図（Mermaid など）を切り替えるときはこの判定を使う
+- 「今の見た目が暗いか」は `data-theme="yofukashi"`、または `data-theme` が無くて OS がダークのとき。その他の配色や図（Mermaid など）を切り替えるときはこの判定を使う
 - `color-scheme` もテーマごとに入れている（フォームの部品やスクロールバーがテーマに合う）
 
-## 🌈 プロジェクト（分類）の色 30 色
+## 🌈 その他の配色（30 色）
 
-プロジェクト・カテゴリ・タグなど「どれに属するか」を色で見分けたいときに使う 30 色。値は `tokens/project-colors.json`、CSS は `tokens/project-colors.css`、見本は `samples/project-colors.html`。
+役割の色とは別に、分類・タグ・グラフの系列など「どれに属するか」を色で見分けたいときに使う 30 色。値は `tokens/extra-colors.json`、CSS は `tokens/extra-colors.css`、見本は `samples/extra-colors.html`。
 
 ### 🧪 作り方
 
@@ -115,35 +115,35 @@ Markdown のコードなど、色分けが要るアプリのために Shiki の 
 ### 🖌️ 使い方
 
 ```html
-<span class="project-badge" data-project-color="deep-226">
-  <span class="project-dot" aria-hidden="true"></span>案件エー
+<span class="extra-badge" data-extra-color="deep-226">
+  <span class="extra-dot" aria-hidden="true"></span>分類エー
 </span>
 ```
 
 ```css
-.project-badge {
-  background: var(--project-bg);
-  border: 1px solid var(--project-border);
-  color: var(--project-text);
+.extra-badge {
+  background: var(--extra-bg);
+  border: 1px solid var(--extra-border);
+  color: var(--extra-text);
 }
-.project-dot { background: var(--project-dot); }
+.extra-dot { background: var(--extra-dot); }
 ```
 
 - **印（dot）**: 7px の丸。名前の前に置く。飾りなので `aria-hidden="true"` にし、色だけで何かを伝えない（必ず名前と並べる）
 - **バッジ**: `bg`・`border`・`text` で塗り、先頭に印。角は 6px、文字 12px、高さ 18px の行。長い名前は省略（`text-overflow: ellipsis`）し、`title` に全文を入れる
 - **行の帯**: 一覧の行の左端に幅 4px の帯を `dot` の色で置く。行の背景は塗らない（文字の比が下がるため）
 - **色なし**: 色を選んでいないものは、枠線（`--color-border`）と薄い文字（`--color-muted`）だけのバッジにする
-- **ライトと夜の切り替え**: `project-colors.css` を読み込めば、`data-theme` と OS の設定に合わせて自動で切り替わる。JavaScript で値を入れる場合も、上の「今の見た目が暗いか」の判定で `light` と `dark` を選ぶ
-### 🧷 プロジェクトのアイコン
+- **ライトと夜の切り替え**: `extra-colors.css` を読み込めば、`data-theme` と OS の設定に合わせて自動で切り替わる。JavaScript で値を入れる場合も、上の「今の見た目が暗いか」の判定で `light` と `dark` を選ぶ
+### 🧷 バッジのアイコン
 
-- プロジェクトには色に加えて Lucide のアイコンを 1 つ選べる。選べるのは `tokens/project-icons.json` の **86 個**（建物・店・乗り物・お金・グラフ・書類・機械・自然・人・道具など。`key` は Lucide のアイコン名、`label` は選ぶときの名前）
+- バッジには色に加えて Lucide のアイコンを 1 つ選べる。選べるのは `tokens/icons.json` の **86 個**（建物・店・乗り物・お金・グラフ・書類・機械・自然・人・道具など。`key` は Lucide のアイコン名、`label` は選ぶときの名前）
 - Lucide の全体を読み込まない。アプリでは一覧の key と、名前付きで import した部品の対応表を作り、テストで一覧と対応表の key が一致することを確かめる
 - バッジは、色のチップの中の先頭にアイコン（12px、線 1.5、文字と同じ `text` の色）を出す。アイコンを選んでいなければ 7px の丸（`dot`）を出す
 - アイコンも飾りなので `aria-hidden="true"`。名前を必ず並べる
 
 ```html
-<span class="project-badge" data-project-color="deep-158" title="案件エー">
-  <svg class="icon" aria-hidden="true"><!-- Lucide の leaf --></svg>案件エー
+<span class="extra-badge" data-extra-color="deep-158" title="分類エー">
+  <svg class="icon" aria-hidden="true"><!-- Lucide の leaf --></svg>分類エー
 </span>
 ```
 
@@ -156,4 +156,4 @@ Markdown のコードなど、色分けが要るアプリのために Shiki の 
 - **色の値**: 各アプリの `themes.css` の `--color-*` は 7 テーマとも完全に一致していた。`palette.json` を持つアプリの値とも一致
 - **コードの色分け**: `--shiki-*` があるアプリと無いアプリがあった。souan では入れる側にそろえた（使わないアプリは無視してよい）
 - **テーマのキー**: `palette.json` で `L0`〜`L5`・`dark` と呼んでいるアプリがあった。souan は CSS と同じ `hakushi`〜`yofukashi` を正にした
-- **プロジェクトの色**: 2026-10-23 に比べた案のうち「案 B（明るめ）」を正にした。検査に使った値（コントラスト比・近い色との差）は `project-colors.json` から除いた
+- **その他の配色**: 2026-10-23 に比べた案のうち「案 B（明るめ）」を正にした。検査に使った値（コントラスト比・近い色との差）は `extra-colors.json` から除いた
