@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>画面の組み立ての見本</title>
+<style>
+/* tokens/themes.css と同じ値（souan の値を変えたらここも同じにすること） */
+/* @tokens:themes */
+/* souan の 7 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
+   値を変えるときは tokens/palette.json と samples/*.html のインラインの値も同じにすること */
+
+/* 白紙（既定） */
+:root,
+:root[data-theme="hakushi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #5e736c;
+  --color-on-accent-strong: #fffcf7;
+  --color-base: #fffcf7;
+  --color-surface: #f9f6f0;
+  --color-border: #e7e3dc;
+  --color-text: #544739;
+  --color-muted: #766959;
+  --color-success: #56704b;
+  --color-success-bg: #edf2e6;
+  --color-success-border: #b9c9ae;
+  --color-warning: #85651c;
+  --color-warning-bg: #f8f0da;
+  --color-warning-border: #dcc48a;
+  --color-danger: #a04a3e;
+  --color-danger-bg: #f8e7e2;
+  --color-danger-border: #ddaa9f;
+  --color-info: #4d6a84;
+  --color-info-bg: #e8eef3;
+  --color-info-border: #a9bccd;
+  --color-on-danger: #fffcf7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f9f6f0;
+  --shiki-token-constant: #85651c;
+  --shiki-token-string: #56704b;
+  --shiki-token-comment: #766959;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #4d6a84;
+  --shiki-token-string-expression: #56704b;
+  --shiki-token-punctuation: #766959;
+  --shiki-token-link: #4d6a84;
+  --shiki-token-inserted: #56704b;
+  --shiki-token-deleted: #a04a3e;
+  --shiki-token-changed: #85651c;
+}
+
+/* 半紙 */
+:root[data-theme="hanshi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #5b7069;
+  --color-on-accent-strong: #faf6ef;
+  --color-base: #faf6ef;
+  --color-surface: #f4f0e9;
+  --color-border: #e3ded6;
+  --color-text: #544739;
+  --color-muted: #766959;
+  --color-success: #556e4a;
+  --color-success-bg: #e8ecde;
+  --color-success-border: #b4c3a6;
+  --color-warning: #83631c;
+  --color-warning-bg: #f3ead2;
+  --color-warning-border: #d7be82;
+  --color-danger: #a04a3e;
+  --color-danger-bg: #f3e1da;
+  --color-danger-border: #d8a497;
+  --color-info: #4c6982;
+  --color-info-bg: #e3e8eb;
+  --color-info-border: #a4b6c5;
+  --color-on-danger: #faf6ef;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f4f0e9;
+  --shiki-token-constant: #83631c;
+  --shiki-token-string: #556e4a;
+  --shiki-token-comment: #766959;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #4c6982;
+  --shiki-token-string-expression: #556e4a;
+  --shiki-token-punctuation: #766959;
+  --shiki-token-link: #4c6982;
+  --shiki-token-inserted: #556e4a;
+  --shiki-token-deleted: #a04a3e;
+  --shiki-token-changed: #83631c;
+}
+
+/* 鳥の子 */
+:root[data-theme="torinoko"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #586d66;
+  --color-on-accent-strong: #f6f1e7;
+  --color-base: #f6f1e7;
+  --color-surface: #f0ebe1;
+  --color-border: #dfd9cf;
+  --color-text: #544739;
+  --color-muted: #746757;
+  --color-success: #546c49;
+  --color-success-bg: #e4e7d6;
+  --color-success-border: #b0be9e;
+  --color-warning: #7f5f1c;
+  --color-warning-bg: #efe5ca;
+  --color-warning-border: #d3b97a;
+  --color-danger: #9c483c;
+  --color-danger-bg: #efdcd2;
+  --color-danger-border: #d49f8f;
+  --color-info: #49667c;
+  --color-info-bg: #dfe3e3;
+  --color-info-border: #a0b1bd;
+  --color-on-danger: #f6f1e7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f0ebe1;
+  --shiki-token-constant: #7f5f1c;
+  --shiki-token-string: #546c49;
+  --shiki-token-comment: #746757;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #49667c;
+  --shiki-token-string-expression: #546c49;
+  --shiki-token-punctuation: #746757;
+  --shiki-token-link: #49667c;
+  --shiki-token-inserted: #546c49;
+  --shiki-token-deleted: #9c483c;
+  --shiki-token-changed: #7f5f1c;
+}
+
+/* 生成り */
+:root[data-theme="kinari"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #556a63;
+  --color-on-accent-strong: #f1ebdf;
+  --color-base: #f1ebdf;
+  --color-surface: #ece5d9;
+  --color-border: #dbd4c8;
+  --color-text: #544739;
+  --color-muted: #706353;
+  --color-success: #526847;
+  --color-success-bg: #dfe1ce;
+  --color-success-border: #abb896;
+  --color-warning: #7b5b1c;
+  --color-warning-bg: #eadfc2;
+  --color-warning-border: #ceb372;
+  --color-danger: #964539;
+  --color-danger-bg: #ead6ca;
+  --color-danger-border: #cf9987;
+  --color-info: #466376;
+  --color-info-bg: #dadddb;
+  --color-info-border: #9babb5;
+  --color-on-danger: #f1ebdf;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #ece5d9;
+  --shiki-token-constant: #7b5b1c;
+  --shiki-token-string: #526847;
+  --shiki-token-comment: #706353;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #466376;
+  --shiki-token-string-expression: #526847;
+  --shiki-token-punctuation: #706353;
+  --shiki-token-link: #466376;
+  --shiki-token-inserted: #526847;
+  --shiki-token-deleted: #964539;
+  --shiki-token-changed: #7b5b1c;
+}
+
+/* 和紙 */
+:root[data-theme="washi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #51665f;
+  --color-on-accent-strong: #ece4d6;
+  --color-base: #ece4d6;
+  --color-surface: #e7dfd1;
+  --color-border: #d7cec0;
+  --color-text: #544739;
+  --color-muted: #6d6050;
+  --color-success: #4f6244;
+  --color-success-bg: #dadac5;
+  --color-success-border: #a6b18d;
+  --color-warning: #77571c;
+  --color-warning-bg: #e5d8b9;
+  --color-warning-border: #c9ac69;
+  --color-danger: #904236;
+  --color-danger-bg: #e5cfc1;
+  --color-danger-border: #ca927e;
+  --color-info: #425f6e;
+  --color-info-bg: #d5d6d2;
+  --color-info-border: #96a4ac;
+  --color-on-danger: #ece4d6;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #e7dfd1;
+  --shiki-token-constant: #77571c;
+  --shiki-token-string: #4f6244;
+  --shiki-token-comment: #6d6050;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #425f6e;
+  --shiki-token-string-expression: #4f6244;
+  --shiki-token-punctuation: #6d6050;
+  --shiki-token-link: #425f6e;
+  --shiki-token-inserted: #4f6244;
+  --shiki-token-deleted: #904236;
+  --shiki-token-changed: #77571c;
+}
+
+/* 古紙 */
+:root[data-theme="koshi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #4d625b;
+  --color-on-accent-strong: #e6ddcd;
+  --color-base: #e6ddcd;
+  --color-surface: #e1d8c8;
+  --color-border: #d2c8b8;
+  --color-text: #544739;
+  --color-muted: #685b4b;
+  --color-success: #4d5e42;
+  --color-success-bg: #d4d3bc;
+  --color-success-border: #a0aa84;
+  --color-warning: #73541c;
+  --color-warning-bg: #dfd1b0;
+  --color-warning-border: #c3a560;
+  --color-danger: #8a3f33;
+  --color-danger-bg: #dfc8b8;
+  --color-danger-border: #c48b75;
+  --color-info: #3e5b66;
+  --color-info-bg: #cfcfc9;
+  --color-info-border: #909da3;
+  --color-on-danger: #e6ddcd;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #e1d8c8;
+  --shiki-token-constant: #73541c;
+  --shiki-token-string: #4d5e42;
+  --shiki-token-comment: #685b4b;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #3e5b66;
+  --shiki-token-string-expression: #4d5e42;
+  --shiki-token-punctuation: #685b4b;
+  --shiki-token-link: #3e5b66;
+  --shiki-token-inserted: #4d5e42;
+  --shiki-token-deleted: #8a3f33;
+  --shiki-token-changed: #73541c;
+}
+
+/* 夜更かし */
+:root[data-theme="yofukashi"] {
+  color-scheme: dark;
+  --color-accent: #859a93;
+  --color-accent-strong: #a3b7b0;
+  --color-on-accent-strong: #221e1a;
+  --color-base: #2b2621;
+  --color-surface: #352f29;
+  --color-border: #4a423a;
+  --color-text: #e8dfd2;
+  --color-muted: #b3a696;
+  --color-success: #a8c29a;
+  --color-success-bg: #2f3829;
+  --color-success-border: #4e6045;
+  --color-warning: #d8b869;
+  --color-warning-bg: #3b3222;
+  --color-warning-border: #6a5a31;
+  --color-danger: #e49c90;
+  --color-danger-bg: #42292a;
+  --color-danger-border: #74463f;
+  --color-info: #9fb8ce;
+  --color-info-bg: #28323c;
+  --color-info-border: #475b6e;
+  --color-on-danger: #221e1a;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #e8dfd2;
+  --shiki-background: #352f29;
+  --shiki-token-constant: #d8b869;
+  --shiki-token-string: #a8c29a;
+  --shiki-token-comment: #b3a696;
+  --shiki-token-keyword: #d4a8c9;
+  --shiki-token-parameter: #e8dfd2;
+  --shiki-token-function: #9fb8ce;
+  --shiki-token-string-expression: #a8c29a;
+  --shiki-token-punctuation: #b3a696;
+  --shiki-token-link: #9fb8ce;
+  --shiki-token-inserted: #a8c29a;
+  --shiki-token-deleted: #e49c90;
+  --shiki-token-changed: #d8b869;
+}
+
+/* テーマを選んでいないときは OS の設定に合わせる */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-accent: #859a93;
+    --color-accent-strong: #a3b7b0;
+    --color-on-accent-strong: #221e1a;
+    --color-base: #2b2621;
+    --color-surface: #352f29;
+    --color-border: #4a423a;
+    --color-text: #e8dfd2;
+    --color-muted: #b3a696;
+    --color-success: #a8c29a;
+    --color-success-bg: #2f3829;
+    --color-success-border: #4e6045;
+    --color-warning: #d8b869;
+    --color-warning-bg: #3b3222;
+    --color-warning-border: #6a5a31;
+    --color-danger: #e49c90;
+    --color-danger-bg: #42292a;
+    --color-danger-border: #74463f;
+    --color-info: #9fb8ce;
+    --color-info-bg: #28323c;
+    --color-info-border: #475b6e;
+    --color-on-danger: #221e1a;
+    /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+    --shiki-foreground: #e8dfd2;
+    --shiki-background: #352f29;
+    --shiki-token-constant: #d8b869;
+    --shiki-token-string: #a8c29a;
+    --shiki-token-comment: #b3a696;
+    --shiki-token-keyword: #d4a8c9;
+    --shiki-token-parameter: #e8dfd2;
+    --shiki-token-function: #9fb8ce;
+    --shiki-token-string-expression: #a8c29a;
+    --shiki-token-punctuation: #b3a696;
+    --shiki-token-link: #9fb8ce;
+    --shiki-token-inserted: #a8c29a;
+    --shiki-token-deleted: #e49c90;
+    --shiki-token-changed: #d8b869;
+  }
+}
+/* @end:themes */
+/* @tokens:extra-colors */
+/* その他の配色（30 色）。要素に data-extra-color="<key>" を付けると --extra-bg / --extra-border / --extra-text / --extra-dot が決まる。
+   夜更かし（と、テーマを選ばずに OS がダーク）のときは dark の組に切り替わる。tokens/themes.css と一緒に読み込むこと */
+
+[data-extra-color="deep-002"] { --extra-bg: #f6d6de; --extra-border: #d199a7; --extra-text: #743649; --extra-dot: #7f3d51; } /* 小豆鼠 */
+[data-extra-color="mid-002"] { --extra-bg: #ffe0e7; --extra-border: #e3acba; --extra-text: #723849; --extra-dot: #ac697c; } /* 梅鼠 */
+[data-extra-color="pale-002"] { --extra-bg: #ffe8f0; --extra-border: #fbbdcd; --extra-text: #753549; --extra-dot: #df90a6; } /* 桜鼠 */
+[data-extra-color="deep-055"] { --extra-bg: #f8d9c4; --extra-border: #d49d78; --extra-text: #773a00; --extra-dot: #824102; } /* 樺茶 */
+[data-extra-color="mid-055"] { --extra-bg: #ffe3d0; --extra-border: #e6b18d; --extra-text: #753b07; --extra-dot: #b06e3e; } /* 胡桃 */
+[data-extra-color="pale-055"] { --extra-bg: #ffebd6; --extra-border: #fec29a; --extra-text: #793900; --extra-dot: #e39660; } /* 洗柿 */
+[data-extra-color="deep-108"] { --extra-bg: #e2e2c3; --extra-border: #afaf76; --extra-text: #535000; --extra-dot: #5b5900; } /* 鶯茶 */
+[data-extra-color="mid-108"] { --extra-bg: #ebeccf; --extra-border: #c2c28b; --extra-text: #525000; --extra-dot: #86843a; } /* 柳茶 */
+[data-extra-color="pale-108"] { --extra-bg: #f5f5d4; --extra-border: #d6d698; --extra-text: #535000; --extra-dot: #b1b05c; } /* 裏柳 */
+[data-extra-color="deep-158"] { --extra-bg: #cde7d7; --extra-border: #88b89b; --extra-text: #1a5b3b; --extra-dot: #1f6442; } /* 常磐 */
+[data-extra-color="mid-158"] { --extra-bg: #d8f1e1; --extra-border: #9ccbae; --extra-text: #1e5a3c; --extra-dot: #52906d; } /* 青竹 */
+[data-extra-color="pale-158"] { --extra-bg: #dffbe9; --extra-border: #abdfc0; --extra-text: #145b3a; --extra-dot: #76bd94; } /* 白緑 */
+[data-extra-color="deep-190"] { --extra-bg: #c6e8e5; --extra-border: #78b9b4; --extra-text: #005b57; --extra-dot: #006460; } /* 錆納戸 */
+[data-extra-color="mid-190"] { --extra-bg: #d1f1ee; --extra-border: #8ecbc7; --extra-text: #005a57; --extra-dot: #37908b; } /* 錆浅葱 */
+[data-extra-color="pale-190"] { --extra-bg: #d7fbf8; --extra-border: #9be0db; --extra-text: #005c58; --extra-dot: #5cbeb8; } /* 水浅葱 */
+[data-extra-color="deep-226"] { --extra-bg: #c9e5f1; --extra-border: #7fb4ca; --extra-text: #00556f; --extra-dot: #035e79; } /* 藍鼠 */
+[data-extra-color="mid-226"] { --extra-bg: #d4effa; --extra-border: #94c6dc; --extra-text: #0a556d; --extra-dot: #458aa5; } /* 湊鼠 */
+[data-extra-color="pale-226"] { --extra-bg: #daf8ff; --extra-border: #a2dbf3; --extra-text: #005670; --extra-dot: #69b7d6; } /* 白藍 */
+[data-extra-color="deep-272"] { --extra-bg: #d7dff9; --extra-border: #9ba9d8; --extra-text: #3c497d; --extra-dot: #435189; } /* 紺桔梗 */
+[data-extra-color="mid-272"] { --extra-bg: #e1e9ff; --extra-border: #aebcea; --extra-text: #3d497b; --extra-dot: #6e7db6; } /* 桔梗鼠 */
+[data-extra-color="pale-272"] { --extra-bg: #e9f2ff; --extra-border: #c0cfff; --extra-text: #3c4880; --extra-dot: #95a7e9; } /* 紅掛空 */
+[data-extra-color="deep-298"] { --extra-bg: #e2dbf6; --extra-border: #b0a2d2; --extra-text: #534177; --extra-dot: #5c4982; } /* 古代紫 */
+[data-extra-color="mid-298"] { --extra-bg: #ece5ff; --extra-border: #c2b5e4; --extra-text: #534275; --extra-dot: #8774af; } /* 鳩羽 */
+[data-extra-color="pale-298"] { --extra-bg: #f5edff; --extra-border: #d6c7fc; --extra-text: #544079; --extra-dot: #b29de1; } /* 藤鼠 */
+[data-extra-color="deep-060"] { --extra-bg: #e5ded9; --extra-border: #b4a89f; --extra-text: #5f4835; --extra-dot: #605247; } /* 鈍色 */
+[data-extra-color="mid-060"] { --extra-bg: #efe8e3; --extra-border: #c7bbb2; --extra-text: #5f4835; --extra-dot: #8c7d72; } /* 灰汁色 */
+[data-extra-color="pale-060"] { --extra-bg: #f8f1eb; --extra-border: #dbcec4; --extra-text: #5f4835; --extra-dot: #b8a79a; } /* 白鼠 */
+[data-extra-color="deep-076"] { --extra-bg: #edddc7; --extra-border: #c2a67e; --extra-text: #66460e; --extra-dot: #704e13; } /* 丁子茶 */
+[data-extra-color="mid-076"] { --extra-bg: #f6e7d2; --extra-border: #d5b992; --extra-text: #654714; --extra-dot: #9c7a46; } /* 香色 */
+[data-extra-color="pale-076"] { --extra-bg: #fff0d9; --extra-border: #ebcca0; --extra-text: #674607; --extra-dot: #cba369; } /* 赤白橡 */
+
+/* 夜更かし */
+:root[data-theme="yofukashi"] [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; }
+
+/* テーマを選んでいないときは OS の設定に合わせる */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; }
+  :root:not([data-theme]) [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; }
+  :root:not([data-theme]) [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; }
+  :root:not([data-theme]) [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; }
+  :root:not([data-theme]) [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; }
+  :root:not([data-theme]) [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; }
+  :root:not([data-theme]) [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; }
+  :root:not([data-theme]) [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; }
+  :root:not([data-theme]) [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; }
+  :root:not([data-theme]) [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; }
+  :root:not([data-theme]) [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; }
+  :root:not([data-theme]) [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; }
+  :root:not([data-theme]) [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; }
+  :root:not([data-theme]) [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; }
+  :root:not([data-theme]) [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; }
+  :root:not([data-theme]) [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; }
+  :root:not([data-theme]) [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; }
+  :root:not([data-theme]) [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; }
+  :root:not([data-theme]) [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; }
+  :root:not([data-theme]) [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; }
+  :root:not([data-theme]) [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; }
+  :root:not([data-theme]) [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; }
+  :root:not([data-theme]) [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; }
+  :root:not([data-theme]) [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; }
+  :root:not([data-theme]) [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; }
+  :root:not([data-theme]) [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; }
+  :root:not([data-theme]) [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; }
+  :root:not([data-theme]) [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; }
+  :root:not([data-theme]) [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; }
+  :root:not([data-theme]) [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; }
+}
+/* @end:extra-colors */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+a { color: var(--color-accent-strong); }
+:root { --scrollbar-thumb: color-mix(in srgb, var(--color-muted) 45%, transparent); }
+* { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) transparent; }
+code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em; }
+.icon { flex: none; }
+
+/* 見本のページの上の、テーマを切り替える帯（アプリの部品ではない） */
+.theme-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px;
+  padding: 8px 16px; border-bottom: 1px dashed var(--color-border);
+  background: var(--color-base); font-size: 13px;
+}
+.theme-bar__label { color: var(--color-muted); margin-right: 4px; display: inline-flex; align-items: center; gap: 6px; }
+.theme-bar__back { margin-left: auto; font-size: 13px; }
+.theme-bar button {
+  font: inherit; font-size: 12px; min-height: 30px; padding: 2px 10px;
+  border: 1px solid var(--color-border); border-radius: 999px;
+  background: var(--color-base); color: var(--color-text); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.theme-bar button[aria-pressed="true"] { border-color: var(--color-accent); background: var(--color-surface); font-weight: 600; }
+.theme-bar__swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgb(0 0 0 / 0.2); }
+
+.doc { max-width: 76rem; margin: 0 auto; padding: 28px 32px 80px; }
+@media (max-width: 899px) { .doc { padding: 20px 16px 64px; } }
+.doc > h1 { font-size: 22px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+.lead { margin: 0 0 24px; color: var(--color-muted); font-size: 14px; }
+.doc h2.kit-title { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--color-border); }
+.doc h3.kit-sub { font-size: 14px; margin: 16px 0 8px; color: var(--color-muted); font-weight: 600; }
+.note { margin: 8px 0 0; font-size: 12px; color: var(--color-muted); }
+
+/* ===== 部品（各アプリの CSS Modules と同じ値） ===== */
+.button {
+  font: inherit; font-size: 14px; line-height: 1.4;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 40px; padding: 8px 16px; border-radius: 8px; border: 1px solid transparent;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.button:disabled { opacity: 0.55; cursor: not-allowed; }
+.primary { background: var(--color-accent-strong); color: var(--color-on-accent-strong); }
+.secondary { background: var(--color-base); color: var(--color-text); border-color: var(--color-accent); }
+.ghost { background: transparent; color: var(--color-accent-strong); }
+.ghost:hover:not(:disabled) { background: var(--color-surface); }
+.danger { background: var(--color-danger); color: var(--color-on-danger); }
+.small { min-height: 32px; padding: 4px 12px; font-size: 13px; }
+.block { width: 100%; }
+.spinner {
+  display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: spin 0.8s linear infinite; flex: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+
+.field { display: grid; gap: 4px; }
+.field__row { display: flex; align-items: stretch; gap: 8px; }
+.field__row > :last-child { flex-shrink: 0; }
+.field__label { font-size: 13px; }
+.input {
+  font: inherit; width: 100%; padding: 8px 10px; min-height: 40px;
+  border: 1px solid var(--color-border); border-radius: 8px;
+  background: var(--color-base); color: var(--color-text);
+}
+.input::placeholder { color: var(--color-muted); }
+.input:focus, .input.is-focused { outline: 2px solid var(--color-accent); outline-offset: 0; border-color: var(--color-accent); }
+.input.is-invalid { border-color: var(--color-danger); }
+.field__description { font-size: 12px; color: var(--color-muted); overflow-wrap: anywhere; }
+.field__error { font-size: 12px; color: var(--color-danger); }
+/* チェックボックス・ラジオボタン。見本では本物の input を見えなくし、隣の飾りの箱で状態を見せる（アプリでは React Aria の data-selected などで同じ見た目にする） */
+.check-group { display: grid; align-content: start; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.check-group > legend { margin-bottom: 4px; padding: 0; font-size: 13px; }
+.check { display: inline-flex; align-items: center; gap: 8px; min-width: 0; font-size: 14px; cursor: pointer; }
+.check:has(input:disabled) { opacity: 0.5; cursor: default; }
+.check__box { flex: none; width: 18px; height: 18px; border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-base); }
+.check--radio .check__box { border-radius: 999px; }
+.check input:checked + .check__box { border-color: var(--color-accent-strong); background: var(--color-accent-strong); box-shadow: inset 0 0 0 3px var(--color-base); }
+.check input:focus-visible + .check__box { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.check__label { min-width: 0; overflow-wrap: anywhere; }
+/* 選択肢のボタン。送信のボタン（塗りつぶし）と見分けられるよう、選んだものは枠と文字の色で示す */
+.choices { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; gap: 8px; }
+.choice { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-base); color: var(--color-text); font-size: 14px; cursor: pointer; }
+.choice:hover:not(:has(input:checked)) { border-color: var(--color-accent); }
+.choice:has(input:checked) { border-color: var(--color-accent-strong); box-shadow: inset 0 0 0 1px var(--color-accent-strong); color: var(--color-accent-strong); font-weight: bold; }
+.choice:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.choice:has(input:disabled) { opacity: 0.55; cursor: not-allowed; }
+/* 切り替えのボタン。押すたびに文言とアイコンが次の状態に変わる薄いボタン */
+.button.toggle-button { color: var(--color-muted); }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
+
+.dialog-stage {
+  position: relative; display: grid; place-items: center; padding: 32px 16px;
+  border-radius: 12px; background: rgb(30 25 20 / 0.45);
+}
+.modal {
+  display: flex; flex-direction: column; width: min(440px, 100%);
+  border: 1px solid var(--color-border); border-radius: 14px;
+  background: var(--color-base); color: var(--color-text);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.25);
+}
+.modal--wide { width: min(880px, 100%); }
+.modal__body { padding: 18px 20px 16px; }
+.modal__heading { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 17px; }
+.modal__form { display: grid; gap: 12px; }
+.modal__text { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.modal__actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.modal__danger-action { margin-right: auto; color: var(--color-danger); }
+
+.section {
+  display: grid; gap: 8px; min-width: 0; padding: 14px 16px;
+  border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface);
+}
+.section__header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.section__heading { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; }
+.count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 6px;
+  border: 1px solid var(--color-accent); border-radius: 999px;
+  color: var(--color-accent-strong); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.section__updated { margin-left: auto; font-size: 12px; color: var(--color-muted); white-space: nowrap; }
+.section__note { margin: 0; font-size: 14px; color: var(--color-muted); }
+.section__body { display: grid; gap: 8px; min-width: 0; }
+
+.band {
+  display: flex; align-items: center; gap: 8px; margin: 0; padding: 6px 10px;
+  border: 1px solid var(--color-danger-border); border-left-width: 4px; border-radius: 8px;
+  background: var(--color-danger-bg); color: var(--color-danger); font-size: 13px;
+}
+.band--warning { border-color: var(--color-warning-border); background: var(--color-warning-bg); color: var(--color-warning); }
+.band--info { border-color: var(--color-info-border); background: var(--color-info-bg); color: var(--color-text); padding: 10px 14px; border-radius: 10px; font-size: 14px; align-items: flex-start; }
+.band--info .icon { color: var(--color-info); margin-top: 3px; }
+.band--success { border-color: var(--color-success-border); background: var(--color-success-bg); color: var(--color-success); }
+
+.rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; padding: 6px 10px;
+  border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-base); font-size: 14px;
+  position: relative;
+}
+.row--draft { border-style: dashed; color: var(--color-muted); }
+.row--banded { padding-left: 16px; overflow: hidden; }
+.row__band { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--extra-dot, var(--color-border)); }
+.row__key { flex: none; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row__main { display: grid; gap: 1px; flex: 1 1 12rem; min-width: 0; }
+.row__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 12px; color: var(--color-muted); }
+.row__cell { flex: none; font-size: 13px; color: var(--color-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row__hours { flex: none; min-width: 3.4rem; text-align: right; font-variant-numeric: tabular-nums; }
+.row__actions { display: flex; flex: none; align-items: center; gap: 2px; margin-left: auto; }
+.due-today { color: var(--color-warning); font-weight: 600; }
+.overdue { color: var(--color-danger); font-weight: 600; }
+.menu-button {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; color: var(--color-muted); cursor: pointer;
+}
+.menu-button:hover { background: var(--color-surface); color: var(--color-text); }
+
+.tag { padding: 0 6px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); font-size: 11px; white-space: nowrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 12px; padding: 0 9px;
+  border-radius: 999px; border: 1px solid; line-height: 1.8; white-space: nowrap;
+}
+.badge--success { color: var(--color-success); background: var(--color-success-bg); border-color: var(--color-success-border); }
+.badge--warning { color: var(--color-warning); background: var(--color-warning-bg); border-color: var(--color-warning-border); }
+.badge--danger { color: var(--color-danger); background: var(--color-danger-bg); border-color: var(--color-danger-border); }
+.badge--info { color: var(--color-info); background: var(--color-info-bg); border-color: var(--color-info-border); }
+.badge--muted { color: var(--color-muted); background: var(--color-surface); border-color: var(--color-border); }
+.chips { display: flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; }
+.chip {
+  flex-shrink: 0; max-width: 10em; padding: 0 8px; border: 1px solid var(--color-border);
+  border-radius: 999px; font-size: 12px; line-height: 1.7; color: var(--color-text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chips__rest { flex-shrink: 0; font-size: 12px; color: var(--color-muted); }
+.extra-badge {
+  display: inline-block; max-width: 14rem; padding: 0 7px;
+  border: 1px solid var(--extra-border, var(--color-border)); border-radius: 6px;
+  background: var(--extra-bg, transparent); color: var(--extra-text, var(--color-muted));
+  font-size: 12px; line-height: 18px; vertical-align: middle;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: none;
+}
+.mark { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.mark--danger { color: var(--color-danger); }
+.mark--warning { color: var(--color-warning); }
+.mark--success { color: var(--color-success); }
+.mark--muted { color: var(--color-muted); }
+.extra-badge .icon { vertical-align: -2px; margin-right: 4px; }
+.extra-dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; vertical-align: 1px; background: var(--extra-dot); }
+
+.empty { display: grid; justify-items: center; gap: 6px; padding: 24px 16px; color: var(--color-muted); font-size: 14px; text-align: center; }
+.empty .icon { color: var(--color-accent); }
+
+.popover {
+  min-width: 220px; padding: 4px; background: var(--color-base);
+  border: 1px solid var(--color-border); border-radius: 10px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
+}
+.menu-item { font-size: 14px; padding: 8px 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px; color: var(--color-text); }
+.menu-item.is-focused { background: var(--color-surface); }
+.menu-item__check { margin-left: auto; color: var(--color-accent-strong); }
+
+/* ヘッダー */
+.app-header {
+  display: flex; align-items: center; gap: 8px; height: 56px; padding: 0 12px;
+  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+}
+.logo { display: inline-flex; align-items: center; gap: 0.3em; line-height: 1; color: var(--color-text); white-space: nowrap; font-size: 18px; text-decoration: none; min-height: 40px; }
+.logo-mark { width: 1.3em; height: 1.3em; flex: none; }
+.logo-type { font-family: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: 0.02em; font-variation-settings: "SOFT" 50; }
+.nav { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.nav-link, .icon-button {
+  font: inherit; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-width: 40px; min-height: 40px; padding: 6px 10px; border-radius: 8px; white-space: nowrap;
+}
+.nav-link { color: var(--color-muted); text-decoration: none; }
+.nav-link:hover { background: var(--color-base); color: var(--color-text); }
+.nav-link--active { color: var(--color-text); font-weight: 600; }
+.icon-button { border: 1px solid transparent; background: transparent; color: var(--color-text); cursor: pointer; }
+.icon-button:hover { background: var(--color-base); }
+.header-actions { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* 見本では、画面の幅の代わりに枠の幅で崩す（コンテナクエリ）。アプリでは同じ値を @media で書く */
+.app { container-type: inline-size; container-name: app; }
+@container app (max-width: 599px) {
+  .button-text { display: none; }
+  .app-header { gap: 4px; padding: 0 8px; }
+  .header-actions, .nav { gap: 0; }
+  .icon-button, .nav-link { min-width: 36px; padding: 6px 8px; }
+    .row__main { flex-basis: calc(100% - 6rem); }
+  .row__actions { flex-basis: 100%; justify-content: flex-end; }
+}
+
+.demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.demo-span { grid-column: 1 / -1; }
+.demo-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.stack { display: grid; gap: 12px; min-width: 0; }
+@container app (max-width: 899px) { .demo-cols { grid-template-columns: minmax(0, 1fr); } }
+
+/* ===== 画面の組み立て・ナビ（docs/patterns.md） ===== */
+
+/* 画面全体を使う見本を縮めて描く枠（layout.html と同じ値。.app を一緒に付けてコンテナクエリで崩す） */
+.frame { border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; background: var(--color-base); }
+.frame--wide { min-width: 0; }
+.frame--phone { width: 360px; max-width: 100%; }
+.demo-label { margin: 16px 0 8px; font-size: 13px; color: var(--color-muted); }
+
+/* タブ（下線式）。選んだタブは accent-strong の 2px の線と太字。入りきらないときは並びの中だけ横にスクロールする */
+.tabs { container-type: inline-size; container-name: tabs; min-width: 0; }
+.tab-list {
+  display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--color-border);
+}
+.tab-list::-webkit-scrollbar { display: none; }
+.tab {
+  font: inherit; font-size: 14px; line-height: 1.5;
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  margin-bottom: -1px; padding: 8px 14px;
+  border: 0; border-bottom: 2px solid transparent; background: transparent;
+  color: var(--color-muted); white-space: nowrap; cursor: pointer;
+}
+.tab:hover { color: var(--color-text); }
+.tab[aria-selected="true"] { border-bottom-color: var(--color-accent-strong); color: var(--color-accent-strong); font-weight: bold; }
+.tab:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; border-radius: 6px; }
+.tab-panel { padding-top: 16px; font-size: 14px; }
+.tab-panel:focus-visible { outline: none; }
+.tabs--small .tab-list { gap: 2px; padding: 0 8px; }
+.tabs--small .tab { gap: 4px; padding: 8px 10px; font-size: 13px; }
+.tabs--small .tab-panel { padding: 10px 8px; font-size: 13px; }
+@container tabs (max-width: 480px) {
+  .tabs--small .tab { padding: 8px 6px; }
+  .tabs--small .tab > .icon { display: none; }
+}
+.tab-demo-panel { width: 520px; max-width: 100%; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-base); }
+
+/* サイドバー・引き出し・幅のつまみ。--sidebar-width は JS が決める（既定 280px、200〜560px） */
+.shell {
+  position: relative; display: grid; height: 420px;
+  grid-template-columns: var(--sidebar-width, 280px) minmax(0, 1fr);
+}
+.sidebar {
+  min-width: 0; overflow-y: auto; padding: 12px 8px 40px;
+  background: var(--color-surface); border-right: 1px solid var(--color-border);
+}
+.sidebar__heading { margin: 0 0 4px; padding: 4px 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--color-muted); }
+.shell__main { min-width: 0; overflow-y: auto; padding: 28px 32px 40px; font-size: 14px; }
+.shell__main > h3 { margin: 0 0 8px; font-size: 18px; }
+.shell__main > p { margin: 0 0 8px; }
+.resizer {
+  position: absolute; top: 0; bottom: 0; left: calc(var(--sidebar-width, 280px) - 3px); z-index: 12;
+  width: 6px; cursor: col-resize; touch-action: none;
+}
+.resizer::after { content: ""; position: absolute; inset: 0 2px; background: transparent; transition: background 0.15s; }
+.resizer:hover::after, .resizer:focus-visible::after, .resizer[data-dragging]::after { background: var(--color-accent); }
+.resizer:focus-visible { outline: none; }
+.drawer-toggle { display: none; }
+.scrim { display: none; }
+@container app (max-width: 899px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .sidebar {
+    position: absolute; top: 0; bottom: 0; left: 0; z-index: 15; width: min(320px, 85%);
+    transform: translateX(-100%); visibility: hidden;
+    transition: transform 0.2s ease, visibility 0.2s;
+    box-shadow: 4px 0 16px rgb(0 0 0 / 0.12);
+  }
+  .sidebar[data-open] { transform: none; visibility: visible; }
+  .resizer { display: none; }
+  .scrim:not([hidden]) { display: block; position: absolute; inset: 0; z-index: 14; background: rgb(0 0 0 / 0.3); }
+  .shell__main { padding: 20px 16px 32px; }
+  .drawer-toggle { display: inline-flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .resizer::after { transition: none; }
+}
+
+/* ツリー。行 32px、深さ 1 段で 14px 字下げ。開いているページは accent を 28% 混ぜた背景と太さ 600（左の縦線は使わない） */
+.tree { margin: 0; padding: 0; list-style: none; }
+.tree-row {
+  --indent: calc(var(--depth, 0) * 14px);
+  font: inherit; font-size: 14px; line-height: 1.4;
+  display: flex; align-items: center; gap: 4px; width: 100%; min-height: 32px;
+  padding: 4px 8px 4px calc(8px + var(--indent));
+  border: 0; border-radius: 6px; background: transparent;
+  color: var(--color-text); text-align: left; text-decoration: none; cursor: pointer;
+}
+.tree-row:hover { background: var(--color-base); }
+.tree-row[aria-current="page"] { background: color-mix(in srgb, var(--color-accent) 28%, transparent); font-weight: 600; }
+.tree-row__icon { color: var(--color-muted); }
+.tree-row[aria-current="page"] .tree-row__icon { color: var(--color-text); }
+.tree-row__spacer { flex: none; width: 14px; }
+.tree-row__name, .tree-row__file { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree-row__names { display: flex; flex-direction: column; min-width: 0; }
+.tree-row__file { font-size: 12px; font-weight: 400; line-height: 1.3; color: var(--color-muted); }
+.tree-row[aria-current="page"] .tree-row__file { color: var(--color-text); }
+.tree-dir { position: relative; display: flex; align-items: center; }
+.tree-dir > .tree-row { padding-right: 40px; }
+.tree-add {
+  position: absolute; right: 4px; display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; color: var(--color-muted); cursor: pointer; opacity: 0;
+}
+.tree-dir:hover .tree-add, .tree-dir:focus-within .tree-add { opacity: 1; }
+.tree-add:hover { background: var(--color-surface); color: var(--color-accent-strong); }
+@media (hover: none) { .tree-add { opacity: 1; } }
+.tree-demo { width: 280px; max-width: 100%; padding: 12px 8px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); }
+
+/* 目次。広い画面は本文の右に固定（13px、左に 1px の線）。狭い画面は本文の上に閉じた箱で出す */
+.toc { font-size: 13px; line-height: 1.5; }
+.toc--side { position: sticky; top: 72px; max-height: calc(100dvh - 96px); overflow-y: auto; width: 15rem; max-width: 100%; }
+.toc--inline { padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); font-size: 14px; }
+.toc--inline[data-open] { padding-bottom: 10px; }
+.toc__toggle {
+  font: inherit; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+  margin: 0; padding: 4px 6px 4px 2px; border: 0; border-radius: 6px;
+  background: transparent; color: var(--color-muted); cursor: pointer;
+}
+.toc__toggle:hover { color: var(--color-accent-strong); }
+.toc[data-open] .toc__toggle { margin-bottom: 6px; }
+.toc__list { margin: 0; padding: 0 0 0 10px; list-style: none; border-left: 1px solid var(--color-border); }
+.toc__list li { margin: 0 0 6px; }
+.toc__list li[data-depth="1"] { padding-left: 12px; }
+.toc__list li[data-depth="2"] { padding-left: 24px; }
+.toc__list a { color: var(--color-text); text-decoration: none; overflow-wrap: anywhere; }
+.toc__list a:hover { color: var(--color-accent-strong); text-decoration: underline; }
+
+/* 検索のダイアログ。上から 10vh、幅 640px（ModalDialog の 440px / 880px の例外）、角は 14px にそろえる */
+.search-stage {
+  container-type: inline-size; container-name: search;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 32px 16px; border-radius: 12px; background: rgb(30 25 20 / 0.45);
+}
+.search-dialog {
+  display: flex; flex-direction: column; width: min(640px, 100%); max-height: 80vh; overflow: hidden;
+  border: 1px solid var(--color-border); border-radius: 14px;
+  background: var(--color-base); color: var(--color-text);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.25);
+}
+.search-dialog__input-row { display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px; border-bottom: 1px solid var(--color-border); }
+.search-dialog__input-row > .icon { color: var(--color-muted); }
+.search-dialog__input {
+  flex: 1; min-width: 0; min-height: 40px; border: 0; background: transparent;
+  color: var(--color-text); font: inherit; font-size: 16px; outline: none;
+}
+.search-dialog__input::placeholder { color: var(--color-muted); }
+.search-dialog__close {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  min-width: 40px; min-height: 40px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--color-text); cursor: pointer;
+}
+.search-dialog__close:hover { background: var(--color-surface); }
+.search-dialog__status { margin: 0; padding: 8px 14px; font-size: 13px; color: var(--color-muted); }
+.search-dialog__results { flex: 1; min-height: 0; overflow-y: auto; margin: 0; padding: 0 6px 6px; list-style: none; }
+.search-dialog__results[data-stale] { opacity: 0.6; }
+.search-result { padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+.search-result[aria-selected="true"] { background: var(--color-surface); box-shadow: inset 3px 0 0 var(--color-accent-strong); }
+.search-result__title { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.search-result__path { margin: 0; font-size: 12px; color: var(--color-muted); overflow-wrap: anywhere; }
+.search-result__snippet { margin: 2px 0 0; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.search-result mark { border-radius: 2px; background: var(--color-warning-bg); color: var(--color-text); box-shadow: 0 0 0 1px var(--color-warning-border); }
+.search-dialog__help { margin: 0; padding: 6px 14px; border-top: 1px solid var(--color-border); font-size: 12px; color: var(--color-muted); }
+.search-dialog__help kbd {
+  display: inline-block; min-width: 1.6em; margin-right: 2px; padding: 0 4px;
+  border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-surface);
+  font: inherit; text-align: center;
+}
+@container search (max-width: 599px) {
+  .search-dialog { width: 100%; max-height: none; border: 0; border-radius: 0; }
+  .search-dialog__help { display: none; }
+}
+@container app (max-width: 599px) {
+  .search-stage { padding: 0; border-radius: 0; }
+}
+
+/* カード。14rem ずつのマスに並べる。なぞると枠を accent に */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.card {
+  display: grid; gap: 2px; height: 100%; padding: 10px 12px;
+  border: 1px solid var(--color-border); border-radius: 10px;
+  background: var(--color-surface); color: var(--color-text); text-decoration: none; font-size: 14px;
+}
+a.card:hover { border-color: var(--color-accent); }
+.card__name { font-weight: 600; overflow-wrap: anywhere; }
+.card__sub { font-size: 12px; color: var(--color-muted); overflow-wrap: anywhere; }
+.card--missing { color: var(--color-muted); }
+.card--missing .card__name { text-decoration: line-through; }
+.card__missing-note { font-size: 11px; color: var(--color-danger); }
+.cards-heading { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 16px; }
+
+/* ヘッダーの状態の小ボタン（丸、高さ 32px、12px）と、押すと出る 360px のポップオーバー */
+.status-pill {
+  font: inherit; font-size: 12px; font-variant-numeric: tabular-nums;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 2px 10px;
+  border: 1px solid transparent; border-radius: 999px; background: transparent;
+  color: var(--color-muted); white-space: nowrap; cursor: pointer;
+}
+.status-pill:hover, .status-pill:focus-visible, .status-pill[aria-expanded="true"] { background: var(--color-base); color: var(--color-text); }
+.status-pill--failed, .status-pill--failed:hover, .status-pill--failed:focus-visible, .status-pill--failed[aria-expanded="true"] { color: var(--color-danger); }
+@container app (max-width: 599px) {
+  .status-pill { padding: 2px 8px; }
+  .status-pill__text { display: none; }
+}
+.status-anchor { position: relative; }
+.popover.status-popover {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 30;
+  width: min(360px, calc(100cqw - 16px)); min-width: 0; padding: 12px 14px;
+  display: grid; gap: 10px; font-size: 13px;
+}
+.status-popover[hidden] { display: none; }
+.status-popover__heading { margin: 0; font-size: 14px; }
+.status-jobs { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.status-job {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 8px 10px;
+  border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface);
+}
+.status-job__main { display: grid; gap: 2px; flex: 1 1 10rem; min-width: 0; }
+.status-job__name { font-weight: 600; }
+.status-job__meta { color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.status-job__failed { color: var(--color-danger); overflow-wrap: anywhere; }
+.status-demo { overflow: visible; }
+.status-demo .app-header { position: relative; border-radius: 12px 12px 0 0; }
+/* 狭い枠では、ポップオーバーをヘッダーの右端に合わせて枠の中に収める（アプリでは React Aria が画面の中に収める） */
+@container app (max-width: 599px) {
+  .status-anchor { position: static; }
+  .popover.status-popover { right: 8px; }
+}
+.status-demo__body { min-height: 300px; padding: 16px; font-size: 13px; color: var(--color-muted); }
+
+/* ログインの画面。幅 360px のカードを中央に置く */
+.login-stage { display: grid; place-content: center; gap: 16px; min-height: 520px; padding: 24px 16px; }
+.login-card {
+  width: min(360px, 100%); padding: 24px 20px;
+  border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-surface);
+}
+.login-card__logo { display: flex; justify-content: center; margin: 0 0 20px; font-size: 26px; font-weight: normal; }
+.login-card__logo .logo { font-size: 26px; }
+.login-form { display: grid; gap: 14px; }
+.band.login-error { padding: 8px 12px; font-size: 14px; }
+.login-help { margin: 16px 0 0; font-size: 12px; color: var(--color-muted); }
+.login-footer { margin: 0; font-size: 13px; text-align: center; }
+.login-footer a { color: var(--color-muted); }
+/* ===== 中身の見せ方（表・本文・コード・差分・並べ替え・一覧と中身） ===== */
+
+/* 表（数字や項目を並べて比べる画面の表。本文の表とは別） */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { padding: 6px 8px; border-bottom: 1px solid var(--color-border); background: var(--color-surface); text-align: left; font-weight: 600; white-space: nowrap; }
+.data-table td { padding: 6px 8px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+.data-table .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.data-table__sub { display: block; font-size: 12px; color: var(--color-muted); overflow-wrap: anywhere; }
+.data-table tfoot td { font-weight: 600; }
+@container app (max-width: 699px) {
+  .data-table, .data-table tbody, .data-table tfoot, .data-table tr, .data-table td { display: block; }
+  .data-table thead { display: none; }
+  .data-table tr { margin-bottom: 8px; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-base); }
+  .data-table td, .data-table .num { display: flex; align-items: baseline; gap: 8px; padding: 4px 0; border: 0; text-align: left; white-space: normal; }
+  .data-table td::before { content: attr(data-label); flex: none; width: 6.5rem; font-size: 12px; color: var(--color-muted); }
+  .data-table td > .data-table__cell { min-width: 0; }
+}
+
+/* Markdown の本文（読むためのページ） */
+.prose { font-size: 16px; line-height: 1.85; overflow-wrap: anywhere; }
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose :is(h1, h2, h3, h4) { line-height: 1.4; margin: 2em 0 0.6em; scroll-margin-top: 72px; }
+.prose h1 { font-size: 1.75em; margin-top: 0.4em; }
+.prose h2 { font-size: 1.4em; padding-bottom: 0.25em; border-bottom: 1px solid var(--color-border); }
+.prose h3 { font-size: 1.2em; }
+.prose h4 { font-size: 1em; }
+.prose :is(p, ul, ol, blockquote, table, details) { margin: 0 0 1em; }
+.prose :is(ul, ol) { padding-left: 1.6em; }
+.prose :is(li + li, li > ul, li > ol) { margin-top: 0.25em; }
+.prose hr { margin: 2em 0; border: 0; border-top: 1px solid var(--color-border); }
+.prose a { color: var(--color-accent-strong); text-underline-offset: 0.2em; }
+.prose mark { padding: 0 0.15em; border-radius: 3px; background: var(--color-warning-bg); color: var(--color-text); }
+.prose :not(pre) > code { padding: 0.1em 0.35em; border: 1px solid var(--color-border); border-radius: 4px; background: var(--color-surface); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em; }
+.prose kbd { padding: 0.1em 0.4em; border: 1px solid var(--color-border); border-bottom-width: 2px; border-radius: 4px; background: var(--color-surface); font: 0.85em ui-monospace, "SF Mono", Menlo, monospace; }
+.prose blockquote { padding: 0.2em 1em; border-left: 4px solid var(--color-border); color: var(--color-muted); }
+.prose blockquote > :last-child { margin-bottom: 0; }
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.94em; line-height: 1.6; }
+.prose :is(th, td) { padding: 6px 12px; border: 1px solid var(--color-border); vertical-align: top; }
+.prose th { background: var(--color-surface); font-weight: 600; text-align: left; }
+.prose tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--color-surface) 50%, transparent); }
+.prose :is(th, td).num { text-align: right; font-variant-numeric: tabular-nums; }
+.prose details { padding: 0.5em 1em; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); }
+.prose summary { font-weight: 600; cursor: pointer; }
+.prose details[open] > summary { margin-bottom: 0.5em; }
+.prose details > :last-child { margin-bottom: 0; }
+.prose .footnote-ref { text-decoration: none; }
+.prose .footnotes { margin-top: 3em; padding-top: 1em; border-top: 1px solid var(--color-border); font-size: 0.9em; color: var(--color-muted); }
+.prose .footnotes ol { margin-bottom: 0; }
+
+/* Markdown の本文（欄の中の小さい版）。大きな見出しや脚注は持たない */
+.prose--small { font-size: 14px; line-height: 1.7; }
+.prose--small :is(h1, h2, h3, h4) { margin: 1em 0 0.4em; padding: 0; border: 0; }
+.prose--small h1 { font-size: 18px; }
+.prose--small h2 { font-size: 16px; }
+.prose--small :is(h3, h4) { font-size: 15px; }
+.prose--small :is(p, ul, ol, blockquote, table) { margin: 0.5em 0; }
+.prose--small blockquote { padding: 0 0 0 12px; border-left-width: 3px; }
+.prose--small :not(pre) > code { padding: 1px 4px; border: 0; font-size: 13px; }
+.prose--small table { font-size: 13px; }
+.prose--small :is(th, td) { padding: 4px 8px; }
+.prose--small tbody tr:nth-child(even) td { background: none; }
+
+/* コードブロック（色は --shiki-*。上に言語名とコピーのボタンの帯） */
+.code-block { margin: 0 0 1em; border: 1px solid var(--color-border); border-radius: 8px; background: var(--shiki-background); color: var(--shiki-foreground); overflow: hidden; }
+.code-block__bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 6px 2px 12px; border-bottom: 1px solid var(--color-border); font-size: 12px; color: var(--color-muted); }
+.code-block__lang { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+.code-block__copy { display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 2px 8px; border: 0; border-radius: 6px; background: transparent; color: var(--color-muted); font: inherit; cursor: pointer; }
+.code-block__copy:hover { background: var(--color-base); color: var(--color-text); }
+.code-block pre { margin: 0; padding: 12px 14px; overflow-x: auto; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13.5px; line-height: 1.6; tab-size: 4; }
+.code-block pre code { font: inherit; }
+.code-block pre:focus-visible { outline-offset: -2px; }
+.sk-keyword { color: var(--shiki-token-keyword); }
+.sk-function { color: var(--shiki-token-function); }
+.sk-string { color: var(--shiki-token-string); }
+.sk-constant { color: var(--shiki-token-constant); }
+.sk-comment { color: var(--shiki-token-comment); }
+.sk-punctuation { color: var(--shiki-token-punctuation); }
+.sk-parameter { color: var(--shiki-token-parameter); }
+
+/* 差分の表示（行は役割の色の背景、変わった文字は -border の色に線） */
+.diff { position: relative; width: 100%; min-width: 0; padding: 16px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-base); color: var(--color-text); }
+.diff__summary { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 12px; font-size: 13px; color: var(--color-muted); }
+.diff__count--added { color: var(--color-success); }
+.diff__count--removed { color: var(--color-danger); }
+.diff__lines { font-size: 16px; line-height: 1.9; }
+.diff__lines--code { max-height: 50dvh; overflow-y: auto; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; line-height: 1.6; }
+.diff__row { display: grid; grid-template-columns: 1.5em minmax(0, 1fr); min-height: 1lh; margin: 0; padding: 0 4px; border-radius: 4px; }
+.diff__mark { font-weight: bold; text-align: center; }
+.diff__text { min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; text-decoration: none; }
+.diff__row--removed { background: var(--color-danger-bg); }
+.diff__row--removed .diff__mark { color: var(--color-danger); }
+.diff__row--added { background: var(--color-success-bg); }
+.diff__row--added .diff__mark { color: var(--color-success); }
+.diff__chars--removed { border-radius: 2px; background: var(--color-danger-border); text-decoration: line-through; text-decoration-thickness: 2px; }
+.diff__chars--added { border-radius: 2px; background: var(--color-success-border); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+.diff__skipped { margin: 4px 0; padding: 2px 4px; font-size: 13px; color: var(--color-muted); text-align: center; }
+
+/* 並べ替え（ドラッグ）の一覧 */
+.reorder { display: grid; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-base); overflow: hidden; }
+.reorder__item { display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 6px 8px 6px 4px; border-top: 1px solid var(--color-border); cursor: pointer; }
+.reorder__item:first-child { border-top: 0; }
+.reorder__item.is-focused { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+.reorder__item.is-dragging { opacity: 0.5; }
+.reorder__item.is-drop-target { background: var(--color-surface); }
+.reorder__drop-line { height: 2px; margin: -1px 8px; background: var(--color-accent-strong); border-radius: 999px; position: relative; z-index: 1; }
+.reorder__cell { display: contents; }
+.reorder__button { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; border: 0; border-radius: 8px; background: transparent; color: var(--color-muted); cursor: pointer; }
+.reorder__button:hover { background: var(--color-surface); }
+.reorder__handle { cursor: grab; touch-action: none; }
+.reorder__label { flex: 1; min-width: 0; font-size: 15px; overflow-wrap: anywhere; }
+.reorder__meta { flex: none; font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+
+/* 選択肢の一覧と中身を左右に並べる */
+.picker { display: grid; grid-template-columns: minmax(180px, 220px) minmax(0, 1fr); gap: 12px; min-height: 0; }
+@container app (max-width: 640px) { .picker { grid-template-columns: minmax(0, 1fr); } }
+.picker__list { display: grid; align-content: start; gap: 2px; }
+.picker__item { display: grid; gap: 2px; padding: 8px 10px; border: 1px solid transparent; border-radius: 8px; cursor: pointer; }
+.picker__item:hover { background: var(--color-surface); }
+.picker__item[aria-selected="true"] { border-color: var(--color-accent-strong); background: var(--color-surface); }
+.picker__item:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 0; }
+.picker__when { font-size: 13px; font-variant-numeric: tabular-nums; }
+.picker__meta { font-size: 12px; color: var(--color-muted); }
+.picker__detail { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.picker__hint { margin: 0; font-size: 13px; color: var(--color-muted); }
+</style>
+
+<script>
+  (() => {
+    const KEY = "souan.samples.theme";
+    const themes = ["system", "hakushi", "hanshi", "torinoko", "kinari", "washi", "koshi", "yofukashi"];
+    const read = () => {
+      const fromUrl = new URLSearchParams(location.search).get("theme");
+      if (themes.includes(fromUrl)) return fromUrl;
+      try {
+        const saved = localStorage.getItem(KEY);
+        return themes.includes(saved) ? saved : "system";
+      } catch {
+        return "system";
+      }
+    };
+    const apply = (choice) => {
+      if (choice === "system") delete document.documentElement.dataset.theme;
+      else document.documentElement.dataset.theme = choice;
+      document.querySelectorAll("[data-theme-choice]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.themeChoice === choice));
+      });
+      document.dispatchEvent(new CustomEvent("souan:theme"));
+    };
+    // 描く前に当てて、ちらつかないようにする
+    apply(read());
+    document.addEventListener("DOMContentLoaded", () => {
+      apply(read());
+      document.querySelectorAll("[data-theme-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const choice = button.dataset.themeChoice;
+          try { localStorage.setItem(KEY, choice); } catch { /* 保存できなくても今の画面には反映する */ }
+          apply(choice);
+        });
+      });
+    });
+  })();
+</script>
+
+</head>
+<body>
+<!-- @license:lucide 下の SVG のアイコンは Lucide（https://lucide.dev/）。ISC の条件により許諾文を添える（2026-10-23 時点の控え）。最新の条件は https://lucide.dev/license を見ること -->
+<script type="text/plain" data-license="lucide">
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</script>
+<!-- @end:license -->
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-move-horizontal" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/></symbol><symbol id="i-fold-horizontal" viewBox="0 0 24 24"><path d="M2 12h6"/><path d="M22 12h-6"/><path d="M12 2v2"/><path d="M12 8v2"/><path d="M12 14v2"/><path d="M12 20v2"/><path d="m19 9-3 3 3 3"/><path d="m5 15 3-3-3-3"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.929 4.929 19.07 19.071"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-folder-open" viewBox="0 0 24 24"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"/><rect x="3" y="7" width="18" height="4" rx="1"/></symbol><symbol id="i-grip-vertical" viewBox="0 0 24 24"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-log-in" viewBox="0 0 24 24"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol><symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol><symbol id="i-shapes" viewBox="0 0 24 24"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></symbol><symbol id="i-shopping-cart" viewBox="0 0 24 24"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol><symbol id="i-tags" viewBox="0 0 24 24"><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol><symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol></svg>
+<nav class="theme-bar" aria-label="テーマ"><span class="theme-bar__label"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg>テーマ</span><button type="button" data-theme-choice="system" aria-pressed="false">OS に合わせる</button><button type="button" data-theme-choice="hakushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>白紙</button><button type="button" data-theme-choice="hanshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #faf6ef;"></span>半紙</button><button type="button" data-theme-choice="torinoko" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f6f1e7;"></span>鳥の子</button><button type="button" data-theme-choice="kinari" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f1ebdf;"></span>生成り</button><button type="button" data-theme-choice="washi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #ece4d6;"></span>和紙</button><button type="button" data-theme-choice="koshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #e6ddcd;"></span>古紙</button><button type="button" data-theme-choice="yofukashi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #2b2621;"></span>夜更かし</button><a class="theme-bar__back" href="index.html">見本の目次へ</a></nav>
+
+<div class="app">
+<header class="app-header">
+  <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+  <nav class="nav" aria-label="主なページ"><a href="#" class="nav-link nav-link--active" aria-current="page" aria-label="ダッシュボード"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg><span class="button-text">ダッシュボード</span></a><a href="#" class="nav-link" aria-label="一覧"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg><span class="button-text">一覧</span></a><a href="#" class="nav-link" aria-label="メモ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="button-text">メモ</span></a></nav>
+  <div class="header-actions"><button type="button" class="icon-button" aria-label="テーマ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg><span class="button-text">テーマ</span></button>
+    <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+  </div>
+</header>
+<main class="doc">
+  <h1><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg>画面の組み立てと中身の見せ方</h1>
+  <p class="lead">タブ・サイドバー・ツリー・検索・ログインの画面などの組み立てと、表・本文・コード・差分などの中身の見せ方。決まりは <code>docs/patterns.md</code>。</p>
+
+  <h2 class="kit-title">タブ</h2>
+  <p class="demo-label">普通の大きさ（ページの中の切り替え）</p>
+  <div class="tabs">
+    <div class="tab-list" role="tablist" aria-label="暮らしのメモ">
+      <button type="button" class="tab" role="tab" id="js-tab-todo" aria-selected="true" aria-controls="js-tabpanel-todo" tabindex="0"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg>やること</button>
+      <button type="button" class="tab" role="tab" id="js-tab-plan" aria-selected="false" aria-controls="js-tabpanel-plan" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg>予定</button>
+      <button type="button" class="tab" role="tab" id="js-tab-memo" aria-selected="false" aria-controls="js-tabpanel-memo" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg>メモ</button>
+      <button type="button" class="tab" role="tab" id="js-tab-book" aria-selected="false" aria-controls="js-tabpanel-book" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-book-open"/></svg>読書の記録</button>
+      <button type="button" class="tab" role="tab" id="js-tab-garden" aria-selected="false" aria-controls="js-tabpanel-garden" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-leaf"/></svg>庭の手入れ</button>
+    </div>
+    <div class="tab-panel" role="tabpanel" id="js-tabpanel-todo" aria-labelledby="js-tab-todo" tabindex="0">週末の買い出しリストを作る、ベランダの掃除をする。</div>
+    <div class="tab-panel" role="tabpanel" id="js-tabpanel-plan" aria-labelledby="js-tab-plan" tabindex="0" hidden>土曜の午前は図書館、午後は実家に寄る。</div>
+    <div class="tab-panel" role="tabpanel" id="js-tabpanel-memo" aria-labelledby="js-tab-memo" tabindex="0" hidden>冷蔵庫の棚の高さを変えると、背の高い瓶も入る。</div>
+    <div class="tab-panel" role="tabpanel" id="js-tabpanel-book" aria-labelledby="js-tab-book" tabindex="0" hidden>今月読んだ本は 3 冊。返却日は 10 月 30 日。</div>
+    <div class="tab-panel" role="tabpanel" id="js-tabpanel-garden" aria-labelledby="js-tab-garden" tabindex="0" hidden>チューリップの球根を植える。水やりは土が乾いてから。</div>
+  </div>
+  <p class="demo-label">小さい大きさ（横の欄の中の切り替え。幅 480px 以下ではアイコンを外して詰める）</p>
+  <div class="tab-demo-panel">
+    <div class="tabs tabs--small">
+      <div class="tab-list" role="tablist" aria-label="旅行の計画">
+        <button type="button" class="tab" role="tab" id="js-tab-s-route" aria-selected="true" aria-controls="js-tabpanel-s-route" tabindex="0"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg>行き先</button>
+        <button type="button" class="tab" role="tab" id="js-tab-s-stay" aria-selected="false" aria-controls="js-tabpanel-s-stay" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg>日程</button>
+        <button type="button" class="tab" role="tab" id="js-tab-s-bag" aria-selected="false" aria-controls="js-tabpanel-s-bag" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-briefcase"/></svg>持ち物</button>
+        <button type="button" class="tab" role="tab" id="js-tab-s-cost" aria-selected="false" aria-controls="js-tabpanel-s-cost" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-coffee"/></svg>食事</button>
+        <button type="button" class="tab" role="tab" id="js-tab-s-note" aria-selected="false" aria-controls="js-tabpanel-s-note" tabindex="-1"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg>メモ</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="js-tabpanel-s-route" aria-labelledby="js-tab-s-route" tabindex="0">京都の寺を 2 つと、帰りに奈良の公園に寄る。</div>
+      <div class="tab-panel" role="tabpanel" id="js-tabpanel-s-stay" aria-labelledby="js-tab-s-stay" tabindex="0" hidden>11 月 3 日から 2 泊。</div>
+      <div class="tab-panel" role="tabpanel" id="js-tabpanel-s-bag" aria-labelledby="js-tab-s-bag" tabindex="0" hidden>上着、折りたたみの傘、充電器。</div>
+      <div class="tab-panel" role="tabpanel" id="js-tabpanel-s-cost" aria-labelledby="js-tab-s-cost" tabindex="0" hidden>1 日目の夜は湯豆腐の店を予約する。</div>
+      <div class="tab-panel" role="tabpanel" id="js-tabpanel-s-note" aria-labelledby="js-tab-s-note" tabindex="0" hidden>紅葉の見ごろは 11 月の中ごろ。</div>
+    </div>
+  </div>
+  <p class="note">選んだタブは accent-strong の 2px の下線と太字、ほかは muted。入りきらないときはタブの並びの中だけ横にスクロールし、ページには横スクロールを出さない。←→ で移る。</p>
+
+  <h2 class="kit-title">サイドバー・引き出し・幅のつまみ</h2>
+  <p class="demo-label">PC の幅（つまみをなぞると accent の線。ドラッグか ←→ で幅を変え、ダブルクリックで 280px に戻す）</p>
+  <div class="frame frame--wide app">
+    <header class="app-header">
+      <button type="button" class="icon-button drawer-toggle" aria-expanded="false" aria-controls="js-sidebar-wide" aria-label="ノートの一覧を開く" data-drawer-toggle><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg></button>
+      <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+      <div class="header-actions"><button type="button" class="icon-button" aria-label="検索"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><span class="button-text">検索</span></button></div>
+    </header>
+    <div class="shell" style="--sidebar-width: 280px;">
+      <nav class="sidebar" id="js-sidebar-wide" aria-label="ノート">
+        <p class="sidebar__heading">ノート</p>
+        <ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">旅行</span></button><button type="button" class="tree-add" aria-label="旅行 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><a class="tree-row" href="#" aria-current="page" style="--depth: 1;" aria-label="秋の京都のメモ 秋の京都、宿と行き先"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">秋の京都のメモ</span><span class="tree-row__name">秋の京都、宿と行き先</span></span></a></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="持ち物 冬の旅の持ち物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">持ち物</span><span class="tree-row__name">冬の旅の持ち物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">暮らし</span></button><button type="button" class="tree-add" aria-label="暮らし に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 1;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">庭</span></button><button type="button" class="tree-add" aria-label="庭 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 2;" aria-label="庭の手入れ 季節ごとの庭の手入れ"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">庭の手入れ</span><span class="tree-row__name">季節ごとの庭の手入れ</span></span></a></li></ul></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="献立 今週の献立と買い物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">献立</span><span class="tree-row__name">今週の献立と買い物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">読書</span></button><button type="button" class="tree-add" aria-label="読書 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="今年の本 今年読んだ本"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">今年の本</span><span class="tree-row__name">今年読んだ本</span></span></a></li></ul></li></ul>
+      </nav>
+      <div class="resizer" role="separator" aria-orientation="vertical" aria-label="ノートの一覧の幅" aria-controls="js-sidebar-wide" aria-valuenow="280" aria-valuemin="200" aria-valuemax="560" tabindex="0" title="ドラッグで幅を変える（ダブルクリックで元の幅）"></div>
+      <div class="scrim" aria-hidden="true" hidden></div>
+      <div class="shell__main">
+        <h3>秋の京都、宿と行き先</h3>
+        <p>1 日目は東山を歩いて、夕方に宿へ入る。2 日目は朝早くに嵐山へ。</p>
+        <p>宿は駅から歩いて 10 分ほどの、朝ごはんの付いたところにする。</p>
+      </div>
+    </div>
+  </div>
+  <p class="demo-label">スマホの幅（899px 以下。左から出る引き出しと、後ろの幕）</p>
+  <div class="frame frame--phone app">
+    <header class="app-header">
+      <button type="button" class="icon-button drawer-toggle" aria-expanded="true" aria-controls="js-sidebar-phone" aria-label="ノートの一覧を閉じる" data-drawer-toggle><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+      <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+      <div class="header-actions"><button type="button" class="icon-button" aria-label="検索"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><span class="button-text">検索</span></button></div>
+    </header>
+    <div class="shell">
+      <nav class="sidebar" id="js-sidebar-phone" aria-label="ノート" data-open>
+        <p class="sidebar__heading">ノート</p>
+        <ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">旅行</span></button><button type="button" class="tree-add" aria-label="旅行 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><a class="tree-row" href="#" aria-current="page" style="--depth: 1;" aria-label="秋の京都のメモ 秋の京都、宿と行き先"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">秋の京都のメモ</span><span class="tree-row__name">秋の京都、宿と行き先</span></span></a></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="持ち物 冬の旅の持ち物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">持ち物</span><span class="tree-row__name">冬の旅の持ち物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">暮らし</span></button><button type="button" class="tree-add" aria-label="暮らし に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 1;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">庭</span></button><button type="button" class="tree-add" aria-label="庭 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 2;" aria-label="庭の手入れ 季節ごとの庭の手入れ"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">庭の手入れ</span><span class="tree-row__name">季節ごとの庭の手入れ</span></span></a></li></ul></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="献立 今週の献立と買い物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">献立</span><span class="tree-row__name">今週の献立と買い物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">読書</span></button><button type="button" class="tree-add" aria-label="読書 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="今年の本 今年読んだ本"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">今年の本</span><span class="tree-row__name">今年読んだ本</span></span></a></li></ul></li></ul>
+      </nav>
+      <div class="scrim" aria-hidden="true"></div>
+      <div class="shell__main">
+        <h3>秋の京都、宿と行き先</h3>
+        <p>1 日目は東山を歩いて、夕方に宿へ入る。2 日目は朝早くに嵐山へ。</p>
+      </div>
+    </div>
+  </div>
+  <p class="note">既定 280px（200〜560px、画面の幅の半分まで）、背景 surface。つまみは 6px で role="separator" と aria-valuenow。899px 以下は幅 min(320px, 85vw) の引き出しにし、幕 0.3・動き 0.2s。Esc と幕で閉じる。動きを減らす設定では動かさない。</p>
+
+  <h2 class="kit-title">ツリー</h2>
+  <div class="tree-demo">
+    <ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">旅行</span></button><button type="button" class="tree-add" aria-label="旅行 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><a class="tree-row" href="#" aria-current="page" style="--depth: 1;" aria-label="秋の京都のメモ 秋の京都、宿と行き先"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">秋の京都のメモ</span><span class="tree-row__name">秋の京都、宿と行き先</span></span></a></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="持ち物 冬の旅の持ち物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">持ち物</span><span class="tree-row__name">冬の旅の持ち物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="true" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-open"/></svg><span class="tree-row__name">暮らし</span></button><button type="button" class="tree-add" aria-label="暮らし に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree"><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 1;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">庭</span></button><button type="button" class="tree-add" aria-label="庭 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 2;" aria-label="庭の手入れ 季節ごとの庭の手入れ"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">庭の手入れ</span><span class="tree-row__name">季節ごとの庭の手入れ</span></span></a></li></ul></li><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="献立 今週の献立と買い物"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">献立</span><span class="tree-row__name">今週の献立と買い物</span></span></a></li></ul></li><li><div class="tree-dir"><button type="button" class="tree-row" aria-expanded="false" style="--depth: 0;" data-tree-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span class="tree-row__name">読書</span></button><button type="button" class="tree-add" aria-label="読書 に新しいページを作る"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg></button></div><ul class="tree" hidden><li><a class="tree-row" href="#" style="--depth: 1;" aria-label="今年の本 今年読んだ本"><span class="tree-row__spacer"></span><svg class="icon tree-row__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="tree-row__names"><span class="tree-row__file">今年の本</span><span class="tree-row__name">今年読んだ本</span></span></a></li></ul></li></ul>
+  </div>
+  <p class="note">行 32px・角 6px・深さ 1 段で 14px 字下げ。開いているページは accent を 28% 混ぜた背景と太さ 600（左の縦線は使わない）。名前はファイル名と最初の見出しの 2 段。+ はなぞったときとフォーカス中だけ出す。フォルダは aria-expanded、開いているページは aria-current="page"。</p>
+
+  <h2 class="kit-title">目次</h2>
+  <div class="demo-cols">
+    <div class="stack">
+      <p class="demo-label">広い画面（1200px 以上。本文の右に固定）</p>
+      <nav class="toc toc--side" aria-label="目次" data-open>
+        <button type="button" class="toc__toggle" aria-expanded="true" aria-controls="js-toc-side" data-toc-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg>目次</button>
+        <ul class="toc__list" id="js-toc-side"><li data-depth="0"><a href="#">春の植え付け</a></li><li data-depth="1"><a href="#">土づくり</a></li><li data-depth="1"><a href="#">苗の選び方</a></li><li data-depth="0"><a href="#">夏の水やり</a></li><li data-depth="0"><a href="#">秋の剪定</a></li><li data-depth="1"><a href="#">道具の手入れ</a></li><li data-depth="0"><a href="#">冬の支度</a></li></ul>
+      </nav>
+    </div>
+    <div class="stack">
+      <p class="demo-label">狭い画面（本文の上に閉じた箱。項目を押したら閉じる）</p>
+      <nav class="toc toc--inline" aria-label="目次">
+        <button type="button" class="toc__toggle" aria-expanded="false" data-toc-toggle><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg>目次</button>
+        <ul class="toc__list" id="js-toc-inline" hidden><li data-depth="0"><a href="#">春の植え付け</a></li><li data-depth="1"><a href="#">土づくり</a></li><li data-depth="1"><a href="#">苗の選び方</a></li><li data-depth="0"><a href="#">夏の水やり</a></li><li data-depth="0"><a href="#">秋の剪定</a></li><li data-depth="1"><a href="#">道具の手入れ</a></li><li data-depth="0"><a href="#">冬の支度</a></li></ul>
+      </nav>
+    </div>
+  </div>
+  <p class="note">13px・行間 1.5、左に border の 1px の線。見出しの深さごとに 12px 字下げ。開け閉めのボタンに aria-expanded。広い画面の開閉は覚えておき、狭い画面は毎回閉じた状態から始める。</p>
+
+  <h2 class="kit-title">検索のダイアログ（開いた状態の静的な見本）</h2>
+  <div class="search-stage">
+    <div class="search-dialog" role="dialog" aria-modal="true" aria-label="ページを検索">
+      <div class="search-dialog__input-row">
+        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+        <input class="search-dialog__input" id="js-search-input" value="球根" placeholder="題名・本文から探す" aria-label="検索する語" role="combobox" aria-expanded="true" aria-controls="js-search-results" aria-autocomplete="list" aria-activedescendant="js-search-r1">
+        <button type="button" class="search-dialog__close" aria-label="検索を閉じる"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-x"/></svg></button>
+      </div>
+      <p class="search-dialog__status" role="status">3 件</p>
+      <ul class="search-dialog__results" id="js-search-results" role="listbox" aria-label="検索結果">
+        <li class="search-result" id="js-search-r1" role="option" aria-selected="true">
+          <p class="search-result__title">庭の手入れ</p>
+          <p class="search-result__path">暮らし / 庭</p>
+          <p class="search-result__snippet">10 月の終わりにチューリップの<mark>球根</mark>を植える。深さは<mark>球根</mark>の高さの 3 倍</p>
+        </li>
+        <li class="search-result" id="js-search-r2" role="option" aria-selected="false">
+          <p class="search-result__title">ベランダの鉢</p>
+          <p class="search-result__path">暮らし / 庭</p>
+          <p class="search-result__snippet">ヒヤシンスの<mark>球根</mark>は水栽培でも育つ</p>
+        </li>
+        <li class="search-result" id="js-search-r3" role="option" aria-selected="false">
+          <p class="search-result__title">買い物のメモ</p>
+          <p class="search-result__path">暮らし</p>
+          <p class="search-result__snippet">園芸店で<mark>球根</mark>と腐葉土を買う</p>
+        </li>
+      </ul>
+      <p class="search-dialog__help" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> で選ぶ <kbd>Enter</kbd> で開く <kbd>Esc</kbd> で閉じる</p>
+    </div>
+  </div>
+  <p class="note">上から 10vh、幅 640px（検索だけの例外）、角 14px。選んでいる行は surface の背景と左の内側の線 3px（accent-strong）。一致した語は warning-bg。下にキーの操作の説明。599px 以下は全画面にし、操作の説明を隠す。</p>
+
+  <h2 class="kit-title">カード</h2>
+  <h3 class="cards-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>お気に入り</h3>
+  <ul class="cards">
+    <li><a class="card" href="#" title="暮らし / 庭 / 庭の手入れ"><span class="card__name">庭の手入れ</span><span class="card__sub">暮らし / 庭 / 庭の手入れ</span></a></li>
+    <li><a class="card" href="#" title="旅行 / 秋の京都、宿と行き先"><span class="card__name">秋の京都</span><span class="card__sub">旅行 / 秋の京都、宿と行き先</span></a></li>
+    <li><a class="card" href="#" title="読書 / 今年読んだ本"><span class="card__name">今年読んだ本</span><span class="card__sub">読書 / 今年読んだ本</span></a></li>
+    <li><div class="card card--missing" title="暮らし / 古い家計簿"><span class="card__name">家計簿</span><span class="card__sub"><span class="card__missing-note">見つかりません</span> 暮らし / 古い家計簿</span></div></li>
+  </ul>
+  <p class="note">14rem ずつのマスに並べ、間は 8px。余白 10px 12px・角 10px・背景 surface。なぞると枠を accent に。元が無くなったものは線を引いて薄くし、「見つかりません」を添える。</p>
+
+  <h2 class="kit-title">ヘッダーの状態の小ボタン</h2>
+  <div class="frame frame--wide app status-demo">
+    <header class="app-header">
+      <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+      <div class="header-actions">
+        <span class="status-anchor">
+          <button type="button" class="status-pill status-pill--failed" aria-label="同期の状態（同期に失敗（接続できません））" aria-expanded="true" aria-controls="js-status-popover" data-status-toggle><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg><span class="status-pill__text">同期に失敗（接続できません）</span></button>
+          <div class="popover status-popover" id="js-status-popover" role="dialog" aria-label="同期の状態">
+            <h3 class="status-popover__heading">同期の状態</h3>
+            <ul class="status-jobs">
+              <li class="status-job" aria-label="予定表">
+                <span class="status-job__main"><span class="status-job__name">予定表</span><span class="status-job__meta">最終成功 2026-10-23 09:12（14 件）</span></span>
+                <button type="button" class="button secondary small"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg>今すぐ更新</button>
+              </li>
+              <li class="status-job" aria-label="写真の控え">
+                <span class="status-job__main"><span class="status-job__name">写真の控え</span><span class="status-job__meta">最終成功 2026-10-22 21:40</span><span class="status-job__failed">失敗: 接続できません</span></span>
+                <button type="button" class="button secondary small"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg>今すぐ更新</button>
+              </li>
+            </ul>
+          </div>
+        </span>
+        <button type="button" class="status-pill" aria-label="同期の状態（同期 09:12）"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg><span class="status-pill__text">同期 09:12</span></button>
+        <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+      </div>
+    </header>
+    <div class="status-demo__body">（左は失敗のときの押した後、右はふつうのとき）</div>
+  </div>
+  <p class="note">丸・高さ 32px・12px・muted。失敗は danger の文字。押すと幅 360px のポップオーバーで中身を出す。599px 以下は文字を隠してアイコンだけにし、aria-label に状態を全部入れる。</p>
+
+  <h2 class="kit-title">ログインの画面</h2>
+  <div class="demo-cols">
+    <div class="frame frame--wide app">
+      <div class="login-stage">
+        <div class="login-card">
+          <h3 class="login-card__logo"><span class="logo"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></span></h3>
+          <div class="login-form" role="form" aria-label="ログイン">
+            <div class="field"><label class="field__label" for="js-login-user">ユーザー名</label><input class="input" id="js-login-user" name="username" autocomplete="username" required></div>
+            <div class="field"><label class="field__label" for="js-login-pass">パスワード</label><input class="input" id="js-login-pass" name="password" type="password" autocomplete="current-password" required></div>
+            <button type="button" class="button primary block"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-log-in"/></svg>ログイン</button>
+          </div>
+          <p class="login-help">パスワードを忘れたときは、管理者に再設定を頼んでください。</p>
+        </div>
+        <p class="login-footer"><a href="#">ライセンス</a></p>
+      </div>
+    </div>
+    <div class="frame frame--phone app">
+      <div class="login-stage">
+        <div class="login-card">
+          <h3 class="login-card__logo"><span class="logo"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></span></h3>
+          <div class="login-form" role="form" aria-label="ログイン（失敗のとき）">
+            <p class="band login-error" role="alert"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-alert"/></svg>ユーザー名かパスワードが違います</p>
+            <div class="field"><label class="field__label" for="js-login-user-2">ユーザー名</label><input class="input" id="js-login-user-2" name="username" autocomplete="username" value="hanako" required></div>
+            <div class="field"><label class="field__label" for="js-login-pass-2">パスワード</label><input class="input" id="js-login-pass-2" name="password" type="password" autocomplete="current-password" required></div>
+            <button type="button" class="button primary block"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-log-in"/></svg>ログイン</button>
+          </div>
+        </div>
+        <p class="login-footer"><a href="#">ライセンス</a></p>
+      </div>
+    </div>
+  </div>
+  <p class="note">幅 360px・背景 surface・角 14px・余白 24px 20px のカードを画面の中央に。ロゴ 26px。失敗は左の枠 4px の帯（role="alert"）を入力欄の上に。下の footer（ライセンスなど）と、カードの中の案内の文は使うアプリだけ。</p>
+
+  <h2 class="kit-title">表</h2>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <caption class="visually-hidden">10 月の出費</caption>
+      <thead>
+        <tr><th scope="col">日付</th><th scope="col">費目</th><th scope="col">お店・メモ</th><th scope="col" class="num">予算</th><th scope="col" class="num">使った額</th></tr>
+      </thead>
+      <tbody>
+        <tr><td data-label="日付">2026-10-03</td><td data-label="費目">食費</td><td data-label="お店・メモ"><span class="data-table__cell">駅前の市場<span class="data-table__sub">週末の作り置きの材料</span></span></td><td data-label="予算" class="num">8,000</td><td data-label="使った額" class="num">6,420</td></tr>
+        <tr><td data-label="日付">2026-10-11</td><td data-label="費目">本</td><td data-label="お店・メモ"><span class="data-table__cell">商店街の古本屋<span class="data-table__sub">庭づくりの図鑑と文庫を 2 冊</span></span></td><td data-label="予算" class="num">3,000</td><td data-label="使った額" class="num">2,150</td></tr>
+        <tr><td data-label="日付">2026-10-18</td><td data-label="費目">庭</td><td data-label="お店・メモ"><span class="data-table__cell">ホームセンター<span class="data-table__sub">腐葉土・チューリップの球根</span></span></td><td data-label="予算" class="num">2,500</td><td data-label="使った額" class="num"><span class="overdue">3,180</span></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3">合計</td><td data-label="予算" class="num">13,500</td><td data-label="使った額" class="num">11,750</td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="note">数字や項目を並べて比べる画面の表。13px、セルの余白 6px 8px、見出しの行は surface、数字は等幅で右寄せ。699px 以下は行ごとのカードに崩し、各セルの頭に data-label の項目名を出す。Markdown の本文の中の表は下の「本文」の表を使う。</p>
+
+  <h2 class="kit-title">Markdown の本文</h2>
+  <div class="demo-cols">
+    <article class="prose" aria-label="本文の見本">
+      <h2>秋の庭の手入れ</h2>
+      <p>朝晩が冷えてきたら、夏の一年草を片づけて<mark>球根を植える準備</mark>をします。肥料の量は <code>1 平方メートルあたり 100g</code> を目安にします<sup><a href="#fn-1" id="fnref-1" class="footnote-ref" aria-describedby="footnote-label">1</a></sup>。</p>
+      <h3>やること</h3>
+      <ul>
+        <li>枯れた花がらを摘む</li>
+        <li>土を深さ 20cm ほど耕す
+          <ul><li>腐葉土を 2 割ほど混ぜる</li></ul>
+        </li>
+        <li>水やりの記録を <a href="https://example.com/">庭のノート</a> に残す</li>
+      </ul>
+      <blockquote><p>球根は、とがった方を上にして、球根の高さの 2 倍の深さに植える。</p></blockquote>
+      <table>
+        <thead><tr><th>球根</th><th>植える時期</th><th class="num">深さ</th></tr></thead>
+        <tbody>
+          <tr><td>チューリップ</td><td>10 月〜11 月</td><td class="num">10cm</td></tr>
+          <tr><td>ムスカリ</td><td>10 月</td><td class="num">5cm</td></tr>
+          <tr><td>スイセン</td><td>9 月〜10 月</td><td class="num">10cm</td></tr>
+        </tbody>
+      </table>
+      <p>メモを保存するには <kbd>Ctrl</kbd> + <kbd>S</kbd> を押します。</p>
+      <details><summary>去年の失敗</summary><p>植えるのが 12 月にずれこみ、花が小さくなった。</p></details>
+      <section class="footnotes" aria-labelledby="footnote-label">
+        <h2 id="footnote-label" class="visually-hidden">脚注</h2>
+        <ol><li id="fn-1">肥料の袋に書いてある量を優先する。<a href="#fnref-1">本文に戻る</a></li></ol>
+      </section>
+    </article>
+    <section class="section" aria-label="欄の中の小さい本文">
+      <div class="section__header"><h2 class="section__heading">旅行の計画のメモ</h2><span class="section__updated">2026-10-20 21:05</span></div>
+      <div class="section__body">
+        <div class="prose prose--small">
+          <h3>1 日目</h3>
+          <p>朝 8 時の電車に乗る。切符は <code>往復割引</code> で買う。</p>
+          <ul><li>宿に荷物を預ける</li><li>昼は市場の食堂</li></ul>
+          <blockquote><p>雨なら美術館に回す。</p></blockquote>
+          <table>
+            <thead><tr><th>もの</th><th class="num">予算</th></tr></thead>
+            <tbody><tr><td>宿</td><td class="num">9,800</td></tr><tr><td>電車</td><td class="num">4,600</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p class="note">読むためのページは 16px・行の高さ 1.85。h2 に下線、インラインのコードは surface の背景に枠、kbd は下の枠だけ 2px、本文の表は枠付きで偶数行を薄く塗る（幅が足りなければ表だけ横にスクロール）。欄やカードの中で書いたメモを見せるときは小さい版（14px・1.7）にし、見出しの下線と表の縞は付けない。</p>
+
+  <h2 class="kit-title">コードブロック</h2>
+  <div class="demo-cols">
+    <div class="code-block">
+      <div class="code-block__bar"><span class="code-block__lang">js</span><button type="button" class="code-block__copy js-copy-code" title="コードをコピー"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></div>
+<pre tabindex="0"><code><span class="sk-comment">// ひと月の食費を合計する</span>
+<span class="sk-keyword">function</span> <span class="sk-function">sumFood</span><span class="sk-punctuation">(</span><span class="sk-parameter">entries</span><span class="sk-punctuation">)</span> <span class="sk-punctuation">{</span>
+  <span class="sk-keyword">return</span> entries
+    <span class="sk-punctuation">.</span><span class="sk-function">filter</span><span class="sk-punctuation">((</span><span class="sk-parameter">entry</span><span class="sk-punctuation">)</span> <span class="sk-keyword">=&gt;</span> entry<span class="sk-punctuation">.</span>category <span class="sk-keyword">===</span> <span class="sk-string">"食費"</span><span class="sk-punctuation">)</span>
+    <span class="sk-punctuation">.</span><span class="sk-function">reduce</span><span class="sk-punctuation">((</span><span class="sk-parameter">total</span><span class="sk-punctuation">,</span> <span class="sk-parameter">entry</span><span class="sk-punctuation">)</span> <span class="sk-keyword">=&gt;</span> total <span class="sk-keyword">+</span> entry<span class="sk-punctuation">.</span>amount<span class="sk-punctuation">,</span> <span class="sk-constant">0</span><span class="sk-punctuation">);</span>
+<span class="sk-punctuation">}</span></code></pre>
+    </div>
+    <div class="code-block">
+      <div class="code-block__bar"><span class="code-block__lang">toml</span><button type="button" class="code-block__copy is-copied" title="コードをコピー"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span aria-live="polite">コピーしました</span></button></div>
+<pre tabindex="0"><code><span class="sk-comment"># 水やりの通知の設定</span>
+<span class="sk-punctuation">[</span><span class="sk-function">reminder</span><span class="sk-punctuation">]</span>
+time <span class="sk-punctuation">=</span> <span class="sk-string">"07:30"</span>
+days <span class="sk-punctuation">=</span> <span class="sk-punctuation">[</span><span class="sk-string">"mon"</span><span class="sk-punctuation">,</span> <span class="sk-string">"wed"</span><span class="sk-punctuation">,</span> <span class="sk-string">"fri"</span><span class="sk-punctuation">]</span>
+skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">true</span></code></pre>
+    </div>
+  </div>
+  <p class="note">角 8px、枠 border、背景と文字の色は --shiki-*。上の帯に言語名（等幅 12px）とコピーのボタンを置き、押すと 1.5 秒だけ「コピーしました」に変わる。長い行は折り返さず、ブロックの中だけ横にスクロールする。</p>
+
+  <h2 class="kit-title">差分の表示</h2>
+  <div class="demo-cols">
+    <section class="diff" aria-label="本文の差分">
+      <p class="visually-hidden">2 行追加・1 行削除</p>
+      <p class="diff__summary" aria-hidden="true"><span class="diff__count--added">＋2 行</span><span class="diff__count--removed">－1 行</span></p>
+      <div class="diff__lines">
+        <p class="diff__skipped">（変わっていない 3 行）</p>
+        <p class="diff__row"><span class="diff__mark" aria-hidden="true"></span><span class="diff__text">雨の日曜に、縁側で最後まで読んだ。</span></p>
+        <p class="diff__row diff__row--removed"><span class="diff__mark" aria-hidden="true">－</span><del class="diff__text"><span class="visually-hidden">削除：</span>庭の手入れの話が<span class="diff__chars--removed">少し長い</span>と思った。</del></p>
+        <p class="diff__row diff__row--added"><span class="diff__mark" aria-hidden="true">＋</span><ins class="diff__text"><span class="visually-hidden">追加：</span>庭の手入れの話が<span class="diff__chars--added">いちばん心に残った</span>。</ins></p>
+        <p class="diff__row diff__row--added"><span class="diff__mark" aria-hidden="true">＋</span><ins class="diff__text"><span class="visually-hidden">追加：</span>来年の春、同じように球根を植えてみたい。</ins></p>
+      </div>
+    </section>
+    <section class="diff" aria-label="設定の差分">
+      <p class="visually-hidden">1 行追加・1 行削除</p>
+      <p class="diff__summary" aria-hidden="true"><span class="diff__count--added">＋1 行</span><span class="diff__count--removed">－1 行</span></p>
+      <div class="diff__lines diff__lines--code">
+        <p class="diff__row"><span class="diff__mark" aria-hidden="true"></span><span class="diff__text">[reminder]</span></p>
+        <p class="diff__row diff__row--removed"><span class="diff__mark" aria-hidden="true">－</span><del class="diff__text"><span class="visually-hidden">削除：</span>time = "0<span class="diff__chars--removed">7:3</span>0"</del></p>
+        <p class="diff__row diff__row--added"><span class="diff__mark" aria-hidden="true">＋</span><ins class="diff__text"><span class="visually-hidden">追加：</span>time = "0<span class="diff__chars--added">6:4</span>0"</ins></p>
+        <p class="diff__row"><span class="diff__mark" aria-hidden="true"></span><span class="diff__text">days = ["mon", "wed", "fri"]</span></p>
+      </div>
+    </section>
+  </div>
+  <p class="note">行の背景は success-bg（追加）と danger-bg（削除）、行の頭に「＋」「－」。行の一部だけ変わったときは、変わった文字を -border の色で塗り、追加は下線・削除は取り消し線（2px）。色だけに頼らない。字体は用途で変える：文章は本文の字体（16px・1.9）、コードや設定は等幅（13px・1.6）。</p>
+
+  <h2 class="kit-title">並べ替え（ドラッグ）</h2>
+  <div class="demo-cols">
+    <div class="stack">
+      <h3 class="kit-sub">ふだん</h3>
+      <div class="reorder" role="grid" aria-label="料理の手順">
+        <div class="reorder__item" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="玉ねぎを薄切りにするを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">玉ねぎを薄切りにする</span><span class="reorder__meta">5 分</span><button type="button" class="reorder__button" aria-label="玉ねぎを薄切りにするのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+        <div class="reorder__item is-focused" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="弱火で飴色になるまで炒めるを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">弱火で飴色になるまで炒める</span><span class="reorder__meta">30 分</span><button type="button" class="reorder__button" aria-label="弱火で飴色になるまで炒めるのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+        <div class="reorder__item" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="スープを足して煮込むを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">スープを足して煮込む</span><span class="reorder__meta">15 分</span><button type="button" class="reorder__button" aria-label="スープを足して煮込むのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+      </div>
+    </div>
+    <div class="stack">
+      <h3 class="kit-sub">つかんで動かしている最中</h3>
+      <div class="reorder" role="grid" aria-label="料理の手順（動かしている最中）">
+        <div class="reorder__item is-dragging" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="玉ねぎを薄切りにするを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">玉ねぎを薄切りにする</span><span class="reorder__meta">5 分</span><button type="button" class="reorder__button" aria-label="玉ねぎを薄切りにするのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+        <div class="reorder__item is-drop-target" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="弱火で飴色になるまで炒めるを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">弱火で飴色になるまで炒める</span><span class="reorder__meta">30 分</span><button type="button" class="reorder__button" aria-label="弱火で飴色になるまで炒めるのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+        <div class="reorder__drop-line" aria-hidden="true"></div>
+        <div class="reorder__item" role="row"><div class="reorder__cell" role="gridcell"><button type="button" class="reorder__button reorder__handle" aria-label="スープを足して煮込むを動かす"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-grip-vertical"/></svg></button><span class="reorder__label">スープを足して煮込む</span><span class="reorder__meta">15 分</span><button type="button" class="reorder__button" aria-label="スープを足して煮込むのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></div></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">つかむ所は 40px 四方（行の左端、cursor: grab）。引っ張っている行は opacity 0.5、落とす先の行は surface、落とす位置に accent-strong の 2px の線。ドラッグできない人のために、行のメニューに「上へ」「下へ」も置く。</p>
+
+  <h2 class="kit-title">選択肢の一覧と中身を左右に並べる</h2>
+  <div class="dialog-stage">
+    <div class="modal modal--wide" role="dialog" aria-labelledby="picker-heading"><div class="modal__body">
+      <h2 class="modal__heading" id="picker-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-history"/></svg>読書の記録の書き直しの履歴</h2>
+      <div class="modal__form">
+        <div class="picker">
+          <div class="picker__list" role="listbox" aria-label="版の一覧">
+            <div class="picker__item" role="option" aria-selected="false" tabindex="-1"><span class="picker__when">2026-10-22 21:40</span><span class="picker__meta">自動で保存・412 字</span></div>
+            <div class="picker__item" role="option" aria-selected="true" tabindex="0"><span class="picker__when">2026-10-20 08:15</span><span class="picker__meta">書き直す前・386 字</span></div>
+            <div class="picker__item" role="option" aria-selected="false" tabindex="-1"><span class="picker__when">2026-10-18 22:03</span><span class="picker__meta">はじめて保存・240 字</span></div>
+          </div>
+          <div class="picker__detail">
+            <p class="picker__hint">選んだ版と今の文章の違い</p>
+            <section class="diff" aria-label="選んだ版と今の文章の差分">
+              <p class="visually-hidden">1 行追加・1 行削除</p>
+              <p class="diff__summary" aria-hidden="true"><span class="diff__count--added">＋1 行</span><span class="diff__count--removed">－1 行</span></p>
+              <div class="diff__lines">
+                <p class="diff__row"><span class="diff__mark" aria-hidden="true"></span><span class="diff__text">雨の日曜に、縁側で最後まで読んだ。</span></p>
+                <p class="diff__row diff__row--removed"><span class="diff__mark" aria-hidden="true">－</span><del class="diff__text"><span class="visually-hidden">削除：</span>庭の手入れの話が<span class="diff__chars--removed">少し長い</span>と思った。</del></p>
+                <p class="diff__row diff__row--added"><span class="diff__mark" aria-hidden="true">＋</span><ins class="diff__text"><span class="visually-hidden">追加：</span>庭の手入れの話が<span class="diff__chars--added">いちばん心に残った</span>。</ins></p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="button secondary">閉じる</button>
+          <button type="button" class="button primary"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-rotate-ccw"/></svg>この版に戻す</button>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <p class="note">左に選択肢（幅 180〜220px）、右に選んだものの中身。選んだ行は accent-strong の枠と surface の背景。640px 以下では縦に重ねる。何も選んでいないときは右に「版を選ぶと、今の文章との違いを表示します」と出し、戻すボタンを押せなくする。</p>
+</main>
+</div>
+
+
+<script>
+// 画面の組み立て・ナビの見本の動き（タブ・引き出し・つまみ・ツリー・目次・検索・状態のポップオーバー）
+(() => {
+  const ICON_HREF = (svg, name) => svg?.querySelector("use")?.setAttribute("href", `#i-${name}`);
+
+  // タブ: 押すか ←→・Home・End で選ぶ（React Aria の Tabs と同じ動き）
+  document.querySelectorAll('[role="tablist"]').forEach((list) => {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const select = (tab) => {
+      tabs.forEach((other) => {
+        const selected = other === tab;
+        other.setAttribute("aria-selected", String(selected));
+        other.tabIndex = selected ? 0 : -1;
+        document.getElementById(other.getAttribute("aria-controls")).hidden = !selected;
+      });
+      tab.focus();
+      tab.scrollIntoView({ block: "nearest", inline: "nearest" });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => select(tab));
+      tab.addEventListener("keydown", (event) => {
+        const next = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: tabs.length - 1 }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        select(tabs[(next + tabs.length) % tabs.length]);
+      });
+    });
+  });
+
+  // 引き出し: ヘッダーのボタンで開け閉めし、幕と Esc で閉じる
+  const setDrawer = (toggle, open) => {
+    const sidebar = document.getElementById(toggle.getAttribute("aria-controls"));
+    const scrim = sidebar.parentElement.querySelector(".scrim");
+    sidebar.toggleAttribute("data-open", open);
+    scrim.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "ノートの一覧を閉じる" : "ノートの一覧を開く");
+    ICON_HREF(toggle.querySelector("svg"), open ? "x" : "menu");
+  };
+  document.querySelectorAll("[data-drawer-toggle]").forEach((toggle) => {
+    toggle.addEventListener("click", () => setDrawer(toggle, toggle.getAttribute("aria-expanded") !== "true"));
+    const sidebar = document.getElementById(toggle.getAttribute("aria-controls"));
+    sidebar.parentElement.querySelector(".scrim").addEventListener("click", () => setDrawer(toggle, false));
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    document.querySelectorAll('[data-drawer-toggle][aria-expanded="true"]').forEach((toggle) => setDrawer(toggle, false));
+    document.querySelectorAll('[data-status-toggle][aria-expanded="true"]').forEach((toggle) => setStatus(toggle, false));
+  });
+
+  // 幅のつまみ: ドラッグ・←→（Shift で 4 倍）・Home・End、ダブルクリックで既定の幅に戻す
+  const DEFAULT_WIDTH = 280;
+  const MIN_WIDTH = 200;
+  const MAX_WIDTH = 560;
+  const STEP = 16;
+  document.querySelectorAll(".resizer").forEach((resizer) => {
+    const shell = resizer.closest(".shell");
+    const maxWidth = () => Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, Math.floor(shell.clientWidth / 2)));
+    const current = () => Number(resizer.getAttribute("aria-valuenow"));
+    const apply = (width) => {
+      const next = Math.round(Math.min(maxWidth(), Math.max(MIN_WIDTH, width)));
+      shell.style.setProperty("--sidebar-width", `${next}px`);
+      resizer.setAttribute("aria-valuenow", String(next));
+      resizer.setAttribute("aria-valuemax", String(maxWidth()));
+    };
+    let drag = null;
+    resizer.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      resizer.setPointerCapture(event.pointerId);
+      drag = { startX: event.clientX, startWidth: current() };
+      resizer.setAttribute("data-dragging", "");
+    });
+    resizer.addEventListener("pointermove", (event) => {
+      if (drag !== null) apply(drag.startWidth + event.clientX - drag.startX);
+    });
+    const finish = () => {
+      drag = null;
+      resizer.removeAttribute("data-dragging");
+    };
+    resizer.addEventListener("pointerup", finish);
+    resizer.addEventListener("pointercancel", finish);
+    resizer.addEventListener("dblclick", () => apply(DEFAULT_WIDTH));
+    resizer.addEventListener("keydown", (event) => {
+      const step = event.shiftKey ? STEP * 4 : STEP;
+      const target = { ArrowLeft: current() - step, ArrowRight: current() + step, Home: MIN_WIDTH, End: maxWidth() }[event.key];
+      if (target === undefined) return;
+      event.preventDefault();
+      apply(target);
+    });
+  });
+
+  // ツリー: フォルダを開け閉めする（同じ見本が 3 か所にあるので、押した行の下だけを変える）
+  document.querySelectorAll("[data-tree-toggle]").forEach((row) => {
+    row.addEventListener("click", () => {
+      const open = row.getAttribute("aria-expanded") !== "true";
+      row.setAttribute("aria-expanded", String(open));
+      const [chevron, folder] = row.querySelectorAll("svg");
+      ICON_HREF(chevron, open ? "chevron-down" : "chevron-right");
+      ICON_HREF(folder, open ? "folder-open" : "folder");
+      const children = row.closest("li").querySelector(":scope > ul");
+      if (children !== null) children.hidden = !open;
+    });
+  });
+
+  // 目次: 見出しの「目次」で開け閉めする。狭い画面の目次は、項目を押したら閉じる
+  const setToc = (toggle, open) => {
+    const nav = toggle.closest(".toc");
+    const list = nav.querySelector(".toc__list");
+    list.hidden = !open;
+    nav.toggleAttribute("data-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    if (open) toggle.setAttribute("aria-controls", list.id);
+    else toggle.removeAttribute("aria-controls");
+    ICON_HREF(toggle.querySelector("svg"), open ? "chevron-down" : "chevron-right");
+  };
+  document.querySelectorAll("[data-toc-toggle]").forEach((toggle) => {
+    toggle.addEventListener("click", () => setToc(toggle, toggle.getAttribute("aria-expanded") !== "true"));
+    const nav = toggle.closest(".toc");
+    if (nav.classList.contains("toc--inline")) {
+      nav.querySelectorAll(".toc__list a").forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          setToc(toggle, false);
+        });
+      });
+    }
+  });
+
+  // 検索: 入力欄で ↑↓ を押すと、選んでいる行を動かす（フォーカスは入力欄のまま）
+  const input = document.getElementById("js-search-input");
+  const results = document.getElementById("js-search-results");
+  if (input !== null && results !== null) {
+    const options = [...results.querySelectorAll('[role="option"]')];
+    const activate = (option) => {
+      options.forEach((other) => other.setAttribute("aria-selected", String(other === option)));
+      input.setAttribute("aria-activedescendant", option.id);
+      option.scrollIntoView({ block: "nearest" });
+    };
+    input.addEventListener("keydown", (event) => {
+      const index = options.findIndex((option) => option.getAttribute("aria-selected") === "true");
+      const next = { ArrowDown: index + 1, ArrowUp: index - 1 }[event.key];
+      if (next === undefined) return;
+      event.preventDefault();
+      activate(options[(next + options.length) % options.length]);
+    });
+    options.forEach((option) => option.addEventListener("click", () => activate(option)));
+  }
+
+  // 状態の小ボタン: 押すとポップオーバーを開け閉めする
+  function setStatus(toggle, open) {
+    document.getElementById(toggle.getAttribute("aria-controls")).hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+  }
+  document.querySelectorAll("[data-status-toggle]").forEach((toggle) => {
+    toggle.addEventListener("click", () => setStatus(toggle, toggle.getAttribute("aria-expanded") !== "true"));
+  });
+})();
+</script>
+<script>
+  // コードブロックのコピーのボタン。押した結果を 1.5 秒だけ出して元に戻す
+  (() => {
+    const COPIED_MS = 1500;
+    document.querySelectorAll(".js-copy-code").forEach((button) => {
+      const label = button.querySelector("[aria-live]");
+      const icon = button.querySelector("use");
+      let timer = 0;
+      const show = (text, iconId) => {
+        label.textContent = text;
+        icon.setAttribute("href", iconId);
+      };
+      button.addEventListener("click", async () => {
+        const text = button.closest(".code-block").querySelector("pre").textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          show("コピーしました", "#i-check");
+        } catch {
+          show("コピーできませんでした", "#i-copy");
+        }
+        clearTimeout(timer);
+        timer = setTimeout(() => show("コピー", "#i-copy"), COPIED_MS);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
