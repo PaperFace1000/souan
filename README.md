@@ -9,6 +9,7 @@
 
 ```
 README.md            このファイル
+THIRD_PARTY_LICENSES.md  第三者の素材（フォント・アイコン）とライセンスの一覧
 docs/
   principles.md      デザインの原則
   color.md           配色（7 テーマ、役割の色、コントラスト、その他の配色 30 色）
@@ -18,6 +19,7 @@ docs/
   logo.md            ロゴの色・ファビコンの決まり
   accessibility.md   コントラスト、キーボード操作、aria、フォーカス
   coding.md          実装の決まり（CSS の書き方、lint、テーマの適用、localStorage）
+  licenses.md        フォント・アイコンのライセンスで守ること
 tokens/
   palette.json       7 テーマの色の値（正本）
   themes.css         そのまま読み込める CSS 変数
@@ -52,6 +54,12 @@ samples/             ブラウザで直接開ける見本（単一の HTML、外
 ### 👀 見本を見る
 
 `samples/index.html` をブラウザで開く。サーバーは要らない。ページの上のボタンで 7 テーマを切り替えられる。
+
+## ⚖️ ライセンス
+
+- souan 自身のライセンスは未定
+- フォント・アイコンなど第三者の素材は、それぞれのライセンスに従う。一覧と許諾文は `THIRD_PARTY_LICENSES.md`、守ることは `docs/licenses.md`
+- **ライセンスは配布元が変えることがある。最新の条件は、必ず配布元の公式のページで確かめること**（Lucide: <https://lucide.dev/license>、Fraunces: <https://github.com/undercasetype/Fraunces/blob/master/OFL.txt>）
 
 ## 📅 取り込んだ時点
 

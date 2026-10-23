@@ -23,9 +23,11 @@ font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
 
 ### ⚖️ OFL 1.1 で守ること
 
+> 下は 2026-10-23 時点で読んだ要点。ライセンスは配布元が変えることがあるので、最新の条件は <https://openfontlicense.org/> と配布元の `OFL.txt` で確かめること。
+
 - フォントのファイルを単体で販売しない（アプリに同梱して配るのはよい）
 - フォントを改変したときも OFL のまま配る
-- 同梱するときは著作権表示と OFL の全文を添える（`THIRD_PARTY_LICENSES` などに載せる）
+- 同梱するときは著作権表示と OFL の全文を添える（`THIRD_PARTY_LICENSES` などに載せる）。全文は配布元の最新のものから写す（`docs/licenses.md`）
 - 作者の名前を許可なく宣伝に使わない
 - 輪郭に変換したロゴの SVG や画像には、これらの義務はかからない
 

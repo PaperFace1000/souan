@@ -67,7 +67,7 @@ React Aria の `TextField` でラベル・説明・エラーを入力欄と結�
 
 ## ✳️ Icon
 
-- アイコンは **Lucide**（ISC。一部は Feather 由来で MIT）、線の太さ **1.5**
+- アイコンは **Lucide**（ISC。一部は Feather 由来で MIT）、線の太さ **1.5**。ライセンスで守ることは `docs/licenses.md`（最新の条件は <https://lucide.dev/license>）
 - Lucide の部品を直接使わず、`Icon` を通す（大きさと線の太さをそろえる）。既定の大きさ 18px、帯や小さい行では 16px
 - 飾りなので `aria-hidden="true"`。アイコンだけのボタンにはボタンの側に `aria-label`
 - オンの状態（登録済みの星、再開の三角など）は `filled` で塗りつぶす
