@@ -1,0 +1,542 @@
+[
+  {
+    "key": "deep-002",
+    "name": "小豆鼠",
+    "tone": "deep",
+    "H": 2,
+    "light": {
+      "bg": "#f6d6de",
+      "border": "#d199a7",
+      "text": "#743649",
+      "dot": "#7f3d51"
+    },
+    "dark": {
+      "bg": "#4a2f36",
+      "border": "#8b5866",
+      "text": "#fac3d1",
+      "dot": "#b17082"
+    }
+  },
+  {
+    "key": "mid-002",
+    "name": "梅鼠",
+    "tone": "mid",
+    "H": 2,
+    "light": {
+      "bg": "#ffe0e7",
+      "border": "#e3acba",
+      "text": "#723849",
+      "dot": "#ac697c"
+    },
+    "dark": {
+      "bg": "#41282f",
+      "border": "#7a4b58",
+      "text": "#f9c4d1",
+      "dot": "#cf90a1"
+    }
+  },
+  {
+    "key": "pale-002",
+    "name": "桜鼠",
+    "tone": "pale",
+    "H": 2,
+    "light": {
+      "bg": "#ffe8f0",
+      "border": "#fbbdcd",
+      "text": "#753549",
+      "dot": "#df90a6"
+    },
+    "dark": {
+      "bg": "#3b1f27",
+      "border": "#6e3b4a",
+      "text": "#fcc2d1",
+      "dot": "#f5acc0"
+    }
+  },
+  {
+    "key": "deep-055",
+    "name": "樺茶",
+    "tone": "deep",
+    "H": 55,
+    "light": {
+      "bg": "#f8d9c4",
+      "border": "#d49d78",
+      "text": "#773a00",
+      "dot": "#824102"
+    },
+    "dark": {
+      "bg": "#4c311e",
+      "border": "#8e5b38",
+      "text": "#fdc7a4",
+      "dot": "#b47549"
+    }
+  },
+  {
+    "key": "mid-055",
+    "name": "胡桃",
+    "tone": "mid",
+    "H": 55,
+    "light": {
+      "bg": "#ffe3d0",
+      "border": "#e6b18d",
+      "text": "#753b07",
+      "dot": "#b06e3e"
+    },
+    "dark": {
+      "bg": "#432a18",
+      "border": "#7d4e2d",
+      "text": "#fbc8a7",
+      "dot": "#d3956a"
+    }
+  },
+  {
+    "key": "pale-055",
+    "name": "洗柿",
+    "tone": "pale",
+    "H": 55,
+    "light": {
+      "bg": "#ffebd6",
+      "border": "#fec29a",
+      "text": "#793900",
+      "dot": "#e39660"
+    },
+    "dark": {
+      "bg": "#3c210d",
+      "border": "#713f18",
+      "text": "#ffc7a1",
+      "dot": "#f9b282"
+    }
+  },
+  {
+    "key": "deep-108",
+    "name": "鶯茶",
+    "tone": "deep",
+    "H": 108,
+    "light": {
+      "bg": "#e2e2c3",
+      "border": "#afaf76",
+      "text": "#535000",
+      "dot": "#5b5900"
+    },
+    "dark": {
+      "bg": "#3a3a1d",
+      "border": "#6d6c35",
+      "text": "#d8d8a2",
+      "dot": "#8b8a45"
+    }
+  },
+  {
+    "key": "mid-108",
+    "name": "柳茶",
+    "tone": "mid",
+    "H": 108,
+    "light": {
+      "bg": "#ebeccf",
+      "border": "#c2c28b",
+      "text": "#525000",
+      "dot": "#86843a"
+    },
+    "dark": {
+      "bg": "#323217",
+      "border": "#5f5e2a",
+      "text": "#d8d8a5",
+      "dot": "#aaa967"
+    }
+  },
+  {
+    "key": "pale-108",
+    "name": "裏柳",
+    "tone": "pale",
+    "H": 108,
+    "light": {
+      "bg": "#f5f5d4",
+      "border": "#d6d698",
+      "text": "#535000",
+      "dot": "#b1b05c"
+    },
+    "dark": {
+      "bg": "#2b2b0b",
+      "border": "#515012",
+      "text": "#d8d99f",
+      "dot": "#cac97e"
+    }
+  },
+  {
+    "key": "deep-158",
+    "name": "常磐",
+    "tone": "deep",
+    "H": 158,
+    "light": {
+      "bg": "#cde7d7",
+      "border": "#88b89b",
+      "text": "#1a5b3b",
+      "dot": "#1f6442"
+    },
+    "dark": {
+      "bg": "#263e30",
+      "border": "#46755a",
+      "text": "#b3e1c5",
+      "dot": "#5b9574"
+    }
+  },
+  {
+    "key": "mid-158",
+    "name": "青竹",
+    "tone": "mid",
+    "H": 158,
+    "light": {
+      "bg": "#d8f1e1",
+      "border": "#9ccbae",
+      "text": "#1e5a3c",
+      "dot": "#52906d"
+    },
+    "dark": {
+      "bg": "#1f3629",
+      "border": "#3a664d",
+      "text": "#b5e1c6",
+      "dot": "#7cb393"
+    }
+  },
+  {
+    "key": "pale-158",
+    "name": "白緑",
+    "tone": "pale",
+    "H": 158,
+    "light": {
+      "bg": "#dffbe9",
+      "border": "#abdfc0",
+      "text": "#145b3a",
+      "dot": "#76bd94"
+    },
+    "dark": {
+      "bg": "#152f21",
+      "border": "#27593e",
+      "text": "#b1e2c4",
+      "dot": "#96d5b0"
+    }
+  },
+  {
+    "key": "deep-190",
+    "name": "錆納戸",
+    "tone": "deep",
+    "H": 190,
+    "light": {
+      "bg": "#c6e8e5",
+      "border": "#78b9b4",
+      "text": "#005b57",
+      "dot": "#006460"
+    },
+    "dark": {
+      "bg": "#1d3f3c",
+      "border": "#357571",
+      "text": "#a5e2dd",
+      "dot": "#449691"
+    }
+  },
+  {
+    "key": "mid-190",
+    "name": "錆浅葱",
+    "tone": "mid",
+    "H": 190,
+    "light": {
+      "bg": "#d1f1ee",
+      "border": "#8ecbc7",
+      "text": "#005a57",
+      "dot": "#37908b"
+    },
+    "dark": {
+      "bg": "#173634",
+      "border": "#296663",
+      "text": "#a8e1dd",
+      "dot": "#69b4af"
+    }
+  },
+  {
+    "key": "pale-190",
+    "name": "水浅葱",
+    "tone": "pale",
+    "H": 190,
+    "light": {
+      "bg": "#d7fbf8",
+      "border": "#9be0db",
+      "text": "#005c58",
+      "dot": "#5cbeb8"
+    },
+    "dark": {
+      "bg": "#092f2d",
+      "border": "#095955",
+      "text": "#a2e3de",
+      "dot": "#81d6d0"
+    }
+  },
+  {
+    "key": "deep-226",
+    "name": "藍鼠",
+    "tone": "deep",
+    "H": 226,
+    "light": {
+      "bg": "#c9e5f1",
+      "border": "#7fb4ca",
+      "text": "#00556f",
+      "dot": "#035e79"
+    },
+    "dark": {
+      "bg": "#213c47",
+      "border": "#3d7185",
+      "text": "#abddf2",
+      "dot": "#4f90a9"
+    }
+  },
+  {
+    "key": "mid-226",
+    "name": "湊鼠",
+    "tone": "mid",
+    "H": 226,
+    "light": {
+      "bg": "#d4effa",
+      "border": "#94c6dc",
+      "text": "#0a556d",
+      "dot": "#458aa5"
+    },
+    "dark": {
+      "bg": "#1b343e",
+      "border": "#326275",
+      "text": "#adddf1",
+      "dot": "#72aec8"
+    }
+  },
+  {
+    "key": "pale-226",
+    "name": "白藍",
+    "tone": "pale",
+    "H": 226,
+    "light": {
+      "bg": "#daf8ff",
+      "border": "#a2dbf3",
+      "text": "#005670",
+      "dot": "#69b7d6"
+    },
+    "dark": {
+      "bg": "#102d38",
+      "border": "#1c5469",
+      "text": "#a9ddf4",
+      "dot": "#8acfec"
+    }
+  },
+  {
+    "key": "deep-272",
+    "name": "紺桔梗",
+    "tone": "deep",
+    "H": 272,
+    "light": {
+      "bg": "#d7dff9",
+      "border": "#9ba9d8",
+      "text": "#3c497d",
+      "dot": "#435189"
+    },
+    "dark": {
+      "bg": "#30374e",
+      "border": "#5b6692",
+      "text": "#c5d2ff",
+      "dot": "#7483b9"
+    }
+  },
+  {
+    "key": "mid-272",
+    "name": "桔梗鼠",
+    "tone": "mid",
+    "H": 272,
+    "light": {
+      "bg": "#e1e9ff",
+      "border": "#aebcea",
+      "text": "#3d497b",
+      "dot": "#6e7db6"
+    },
+    "dark": {
+      "bg": "#292f45",
+      "border": "#4e5881",
+      "text": "#c6d3fe",
+      "dot": "#93a2d7"
+    }
+  },
+  {
+    "key": "pale-272",
+    "name": "紅掛空",
+    "tone": "pale",
+    "H": 272,
+    "light": {
+      "bg": "#e9f2ff",
+      "border": "#c0cfff",
+      "text": "#3c4880",
+      "dot": "#95a7e9"
+    },
+    "dark": {
+      "bg": "#21273f",
+      "border": "#3f4a75",
+      "text": "#c4d2ff",
+      "dot": "#b0c1fe"
+    }
+  },
+  {
+    "key": "deep-298",
+    "name": "古代紫",
+    "tone": "deep",
+    "H": 298,
+    "light": {
+      "bg": "#e2dbf6",
+      "border": "#b0a2d2",
+      "text": "#534177",
+      "dot": "#5c4982"
+    },
+    "dark": {
+      "bg": "#3a334b",
+      "border": "#6e608c",
+      "text": "#d9ccfa",
+      "dot": "#8c7bb3"
+    }
+  },
+  {
+    "key": "mid-298",
+    "name": "鳩羽",
+    "tone": "mid",
+    "H": 298,
+    "light": {
+      "bg": "#ece5ff",
+      "border": "#c2b5e4",
+      "text": "#534275",
+      "dot": "#8774af"
+    },
+    "dark": {
+      "bg": "#332c42",
+      "border": "#5f537c",
+      "text": "#d9ccf9",
+      "dot": "#aa9ad1"
+    }
+  },
+  {
+    "key": "pale-298",
+    "name": "藤鼠",
+    "tone": "pale",
+    "H": 298,
+    "light": {
+      "bg": "#f5edff",
+      "border": "#d6c7fc",
+      "text": "#544079",
+      "dot": "#b29de1"
+    },
+    "dark": {
+      "bg": "#2b243c",
+      "border": "#524470",
+      "text": "#d9cbfc",
+      "dot": "#cbb8f7"
+    }
+  },
+  {
+    "key": "deep-060",
+    "name": "鈍色",
+    "tone": "deep",
+    "H": 60,
+    "light": {
+      "bg": "#e5ded9",
+      "border": "#b4a89f",
+      "text": "#5f4835",
+      "dot": "#605247"
+    },
+    "dark": {
+      "bg": "#3d3732",
+      "border": "#72675e",
+      "text": "#ddd2c9",
+      "dot": "#918379"
+    }
+  },
+  {
+    "key": "mid-060",
+    "name": "灰汁色",
+    "tone": "mid",
+    "H": 60,
+    "light": {
+      "bg": "#efe8e3",
+      "border": "#c7bbb2",
+      "text": "#5f4835",
+      "dot": "#8c7d72"
+    },
+    "dark": {
+      "bg": "#352f2b",
+      "border": "#635951",
+      "text": "#ddd2c9",
+      "dot": "#afa297"
+    }
+  },
+  {
+    "key": "pale-060",
+    "name": "白鼠",
+    "tone": "pale",
+    "H": 60,
+    "light": {
+      "bg": "#f8f1eb",
+      "border": "#dbcec4",
+      "text": "#5f4835",
+      "dot": "#b8a79a"
+    },
+    "dark": {
+      "bg": "#2e2823",
+      "border": "#564b42",
+      "text": "#ded2c8",
+      "dot": "#d0c1b5"
+    }
+  },
+  {
+    "key": "deep-076",
+    "name": "丁子茶",
+    "tone": "deep",
+    "H": 76,
+    "light": {
+      "bg": "#edddc7",
+      "border": "#c2a67e",
+      "text": "#66460e",
+      "dot": "#704e13"
+    },
+    "dark": {
+      "bg": "#433521",
+      "border": "#7e643e",
+      "text": "#ebd0a9",
+      "dot": "#a18050"
+    }
+  },
+  {
+    "key": "mid-076",
+    "name": "香色",
+    "tone": "mid",
+    "H": 76,
+    "light": {
+      "bg": "#f6e7d2",
+      "border": "#d5b992",
+      "text": "#654714",
+      "dot": "#9c7a46"
+    },
+    "dark": {
+      "bg": "#3b2e1b",
+      "border": "#6e5632",
+      "text": "#ead0ab",
+      "dot": "#bf9f71"
+    }
+  },
+  {
+    "key": "pale-076",
+    "name": "赤白橡",
+    "tone": "pale",
+    "H": 76,
+    "light": {
+      "bg": "#fff0d9",
+      "border": "#ebcca0",
+      "text": "#674607",
+      "dot": "#cba369"
+    },
+    "dark": {
+      "bg": "#342611",
+      "border": "#62481f",
+      "text": "#eccfa7",
+      "dot": "#e2be89"
+    }
+  }
+]

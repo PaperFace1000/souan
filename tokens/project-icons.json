@@ -1,0 +1,346 @@
+[
+  {
+    "key": "building-2",
+    "label": "建物"
+  },
+  {
+    "key": "building",
+    "label": "ビル"
+  },
+  {
+    "key": "store",
+    "label": "店"
+  },
+  {
+    "key": "house",
+    "label": "家"
+  },
+  {
+    "key": "factory",
+    "label": "工場"
+  },
+  {
+    "key": "warehouse",
+    "label": "倉庫"
+  },
+  {
+    "key": "shopping-cart",
+    "label": "カート"
+  },
+  {
+    "key": "shopping-bag",
+    "label": "買い物袋"
+  },
+  {
+    "key": "truck",
+    "label": "トラック"
+  },
+  {
+    "key": "package",
+    "label": "荷物"
+  },
+  {
+    "key": "hospital",
+    "label": "病院"
+  },
+  {
+    "key": "stethoscope",
+    "label": "聴診器"
+  },
+  {
+    "key": "school",
+    "label": "学校"
+  },
+  {
+    "key": "graduation-cap",
+    "label": "卒業帽"
+  },
+  {
+    "key": "hotel",
+    "label": "ホテル"
+  },
+  {
+    "key": "bed",
+    "label": "ベッド"
+  },
+  {
+    "key": "map",
+    "label": "地図"
+  },
+  {
+    "key": "map-pin",
+    "label": "地点"
+  },
+  {
+    "key": "globe",
+    "label": "地球"
+  },
+  {
+    "key": "calendar",
+    "label": "カレンダー"
+  },
+  {
+    "key": "clock",
+    "label": "時計"
+  },
+  {
+    "key": "wallet",
+    "label": "財布"
+  },
+  {
+    "key": "banknote",
+    "label": "お金"
+  },
+  {
+    "key": "coins",
+    "label": "硬貨"
+  },
+  {
+    "key": "receipt",
+    "label": "領収書"
+  },
+  {
+    "key": "chart-line",
+    "label": "折れ線グラフ"
+  },
+  {
+    "key": "chart-column",
+    "label": "棒グラフ"
+  },
+  {
+    "key": "chart-pie",
+    "label": "円グラフ"
+  },
+  {
+    "key": "file-text",
+    "label": "書類"
+  },
+  {
+    "key": "clipboard-list",
+    "label": "チェックリスト"
+  },
+  {
+    "key": "folder",
+    "label": "フォルダ"
+  },
+  {
+    "key": "archive",
+    "label": "アーカイブ"
+  },
+  {
+    "key": "code",
+    "label": "コード"
+  },
+  {
+    "key": "terminal",
+    "label": "ターミナル"
+  },
+  {
+    "key": "server",
+    "label": "サーバー"
+  },
+  {
+    "key": "database",
+    "label": "データベース"
+  },
+  {
+    "key": "cloud",
+    "label": "クラウド"
+  },
+  {
+    "key": "smartphone",
+    "label": "スマホ"
+  },
+  {
+    "key": "laptop",
+    "label": "ノートPC"
+  },
+  {
+    "key": "monitor",
+    "label": "モニター"
+  },
+  {
+    "key": "cpu",
+    "label": "CPU"
+  },
+  {
+    "key": "wifi",
+    "label": "通信"
+  },
+  {
+    "key": "settings",
+    "label": "歯車"
+  },
+  {
+    "key": "wrench",
+    "label": "工具"
+  },
+  {
+    "key": "hammer",
+    "label": "金づち"
+  },
+  {
+    "key": "flag",
+    "label": "旗"
+  },
+  {
+    "key": "star",
+    "label": "星"
+  },
+  {
+    "key": "heart",
+    "label": "ハート"
+  },
+  {
+    "key": "leaf",
+    "label": "葉"
+  },
+  {
+    "key": "trees",
+    "label": "木"
+  },
+  {
+    "key": "sun",
+    "label": "太陽"
+  },
+  {
+    "key": "moon",
+    "label": "月"
+  },
+  {
+    "key": "snowflake",
+    "label": "雪"
+  },
+  {
+    "key": "flame",
+    "label": "炎"
+  },
+  {
+    "key": "droplet",
+    "label": "水滴"
+  },
+  {
+    "key": "mountain",
+    "label": "山"
+  },
+  {
+    "key": "waves",
+    "label": "波"
+  },
+  {
+    "key": "ship",
+    "label": "船"
+  },
+  {
+    "key": "plane",
+    "label": "飛行機"
+  },
+  {
+    "key": "car",
+    "label": "車"
+  },
+  {
+    "key": "bike",
+    "label": "自転車"
+  },
+  {
+    "key": "train-front",
+    "label": "電車"
+  },
+  {
+    "key": "user",
+    "label": "人"
+  },
+  {
+    "key": "users",
+    "label": "人々"
+  },
+  {
+    "key": "handshake",
+    "label": "握手"
+  },
+  {
+    "key": "phone",
+    "label": "電話"
+  },
+  {
+    "key": "mail",
+    "label": "メール"
+  },
+  {
+    "key": "message-circle",
+    "label": "会話"
+  },
+  {
+    "key": "bell",
+    "label": "ベル"
+  },
+  {
+    "key": "key",
+    "label": "鍵"
+  },
+  {
+    "key": "shield",
+    "label": "盾"
+  },
+  {
+    "key": "lock",
+    "label": "錠"
+  },
+  {
+    "key": "book-open",
+    "label": "本"
+  },
+  {
+    "key": "pen",
+    "label": "ペン"
+  },
+  {
+    "key": "camera",
+    "label": "カメラ"
+  },
+  {
+    "key": "music",
+    "label": "音符"
+  },
+  {
+    "key": "gamepad-2",
+    "label": "ゲーム"
+  },
+  {
+    "key": "gift",
+    "label": "ギフト"
+  },
+  {
+    "key": "coffee",
+    "label": "カップ"
+  },
+  {
+    "key": "pizza",
+    "label": "ピザ"
+  },
+  {
+    "key": "apple",
+    "label": "リンゴ"
+  },
+  {
+    "key": "rocket",
+    "label": "ロケット"
+  },
+  {
+    "key": "lightbulb",
+    "label": "電球"
+  },
+  {
+    "key": "target",
+    "label": "的"
+  },
+  {
+    "key": "briefcase",
+    "label": "かばん"
+  },
+  {
+    "key": "megaphone",
+    "label": "メガホン"
+  }
+]
