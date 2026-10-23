@@ -799,11 +799,12 @@ SOFTWARE.
   const ratio = (a, b) => { const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
   const el = (tag, props = {}, children = []) => { const node = Object.assign(document.createElement(tag), props); node.append(...children); return node; };
   const ICONS = ["code", "book-open", "rocket", "leaf", "briefcase", "globe", "coffee", "truck", "database", "heart", "folder", "calendar"];
+  const LABELS = ["工作", "読書", "挑戦", "庭", "仕事", "旅行", "喫茶", "引っ越し", "記録", "健康", "書類", "予定"];
   const svgIcon = (name) => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("class", "icon"); s.setAttribute("width", "12"); s.setAttribute("height", "12"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.5"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); s.setAttribute("aria-hidden", "true"); const u = document.createElementNS("http://www.w3.org/2000/svg", "use"); u.setAttribute("href", `#i-${name}`); s.append(u); return s; };
-  const badge = (p, tone, iconName) => {
+  const badge = (p, tone, iconName, label) => {
     const lead = iconName ? svgIcon(iconName) : el("span", { className: "extra-dot" });
     if (!iconName) lead.setAttribute("aria-hidden", "true");
-    const b = el("span", { className: "extra-badge", title: p.name }, [lead, "分類エー"]);
+    const b = el("span", { className: "extra-badge", title: p.name }, [lead, label]);
     if (tone) Object.entries({ bg: tone.bg, border: tone.border, text: tone.text, dot: tone.dot }).forEach(([k, v]) => b.style.setProperty(`--extra-${k}`, v));
     return b;
   };
@@ -814,11 +815,11 @@ SOFTWARE.
       const head = el("div", { className: "pc-card__head" }, [el("span", { className: "dot-lg" }), el("b", { textContent: p.name }), el("span", { className: "pc-card__tone", textContent: `${TONE[p.tone]}・${p.key}` })]);
       const row = el("div", { className: "row row--banded" }, [
         el("span", { className: "row__band" }),
-        el("span", { className: "row__main" }, [el("span", { className: "row__title", textContent: "#1234 ログイン画面の不具合を直す" })]),
-        badge(p, null, ICONS[COLORS.indexOf(p) % ICONS.length]),
+        el("span", { className: "row__main" }, [el("span", { className: "row__title", textContent: "週末の買い出しリストを作る" })]),
+        badge(p, null, ICONS[COLORS.indexOf(p) % ICONS.length], LABELS[COLORS.indexOf(p) % LABELS.length]),
       ]);
       const i = COLORS.indexOf(p);
-      const badges = el("div", { className: "pc-card__badges" }, [badge(p, null, ICONS[i % ICONS.length]), badge(p)]);
+      const badges = el("div", { className: "pc-card__badges" }, [badge(p, null, ICONS[i % ICONS.length], LABELS[i % LABELS.length]), badge(p, null, null, LABELS[i % LABELS.length])]);
       card.append(head, badges, row);
       return card;
     }));
@@ -831,7 +832,7 @@ SOFTWARE.
         const dot = el("span", { className: "dot-lg" }); dot.style.background = tone.dot;
         const name = el("span", { textContent: p.name });
         const r = el("small", { textContent: `文字 ${ratio(tone.text, tone.bg).toFixed(1)}` }); r.style.color = t.muted;
-        const line = el("div", { className: "pc-line" }, [dot, name, badge(p, tone, ICONS[COLORS.indexOf(p) % ICONS.length]), r]);
+        const line = el("div", { className: "pc-line" }, [dot, name, badge(p, tone, ICONS[COLORS.indexOf(p) % ICONS.length], LABELS[COLORS.indexOf(p) % LABELS.length]), r]);
         line.style.borderColor = t.border;
         return line;
       }));

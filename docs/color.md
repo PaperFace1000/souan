@@ -116,7 +116,7 @@ Markdown のコードなど、色分けが要るアプリのために Shiki の 
 
 ```html
 <span class="extra-badge" data-extra-color="deep-226">
-  <span class="extra-dot" aria-hidden="true"></span>分類エー
+  <span class="extra-dot" aria-hidden="true"></span>暮らし
 </span>
 ```
 
@@ -142,8 +142,8 @@ Markdown のコードなど、色分けが要るアプリのために Shiki の 
 - アイコンも飾りなので `aria-hidden="true"`。名前を必ず並べる
 
 ```html
-<span class="extra-badge" data-extra-color="deep-158" title="分類エー">
-  <svg class="icon" aria-hidden="true"><!-- Lucide の leaf --></svg>分類エー
+<span class="extra-badge" data-extra-color="deep-158" title="庭">
+  <svg class="icon" aria-hidden="true"><!-- Lucide の leaf --></svg>庭
 </span>
 ```
 
