@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レイアウトの見本</title>
+<style>
+/* tokens/themes.css と同じ値（souan の値を変えたらここも同じにすること） */
+/* @tokens:themes */
+/* souan の 7 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
+   値を変えるときは tokens/palette.json と samples/*.html のインラインの値も同じにすること */
+
+/* 白紙（既定） */
+:root,
+:root[data-theme="hakushi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #5e736c;
+  --color-on-accent-strong: #fffcf7;
+  --color-base: #fffcf7;
+  --color-surface: #f9f6f0;
+  --color-border: #e7e3dc;
+  --color-text: #544739;
+  --color-muted: #766959;
+  --color-success: #56704b;
+  --color-success-bg: #edf2e6;
+  --color-success-border: #b9c9ae;
+  --color-warning: #85651c;
+  --color-warning-bg: #f8f0da;
+  --color-warning-border: #dcc48a;
+  --color-danger: #a04a3e;
+  --color-danger-bg: #f8e7e2;
+  --color-danger-border: #ddaa9f;
+  --color-info: #4d6a84;
+  --color-info-bg: #e8eef3;
+  --color-info-border: #a9bccd;
+  --color-on-danger: #fffcf7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f9f6f0;
+  --shiki-token-constant: #85651c;
+  --shiki-token-string: #56704b;
+  --shiki-token-comment: #766959;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #4d6a84;
+  --shiki-token-string-expression: #56704b;
+  --shiki-token-punctuation: #766959;
+  --shiki-token-link: #4d6a84;
+  --shiki-token-inserted: #56704b;
+  --shiki-token-deleted: #a04a3e;
+  --shiki-token-changed: #85651c;
+}
+
+/* 半紙 */
+:root[data-theme="hanshi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #5b7069;
+  --color-on-accent-strong: #faf6ef;
+  --color-base: #faf6ef;
+  --color-surface: #f4f0e9;
+  --color-border: #e3ded6;
+  --color-text: #544739;
+  --color-muted: #766959;
+  --color-success: #556e4a;
+  --color-success-bg: #e8ecde;
+  --color-success-border: #b4c3a6;
+  --color-warning: #83631c;
+  --color-warning-bg: #f3ead2;
+  --color-warning-border: #d7be82;
+  --color-danger: #a04a3e;
+  --color-danger-bg: #f3e1da;
+  --color-danger-border: #d8a497;
+  --color-info: #4c6982;
+  --color-info-bg: #e3e8eb;
+  --color-info-border: #a4b6c5;
+  --color-on-danger: #faf6ef;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f4f0e9;
+  --shiki-token-constant: #83631c;
+  --shiki-token-string: #556e4a;
+  --shiki-token-comment: #766959;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #4c6982;
+  --shiki-token-string-expression: #556e4a;
+  --shiki-token-punctuation: #766959;
+  --shiki-token-link: #4c6982;
+  --shiki-token-inserted: #556e4a;
+  --shiki-token-deleted: #a04a3e;
+  --shiki-token-changed: #83631c;
+}
+
+/* 鳥の子 */
+:root[data-theme="torinoko"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #586d66;
+  --color-on-accent-strong: #f6f1e7;
+  --color-base: #f6f1e7;
+  --color-surface: #f0ebe1;
+  --color-border: #dfd9cf;
+  --color-text: #544739;
+  --color-muted: #746757;
+  --color-success: #546c49;
+  --color-success-bg: #e4e7d6;
+  --color-success-border: #b0be9e;
+  --color-warning: #7f5f1c;
+  --color-warning-bg: #efe5ca;
+  --color-warning-border: #d3b97a;
+  --color-danger: #9c483c;
+  --color-danger-bg: #efdcd2;
+  --color-danger-border: #d49f8f;
+  --color-info: #49667c;
+  --color-info-bg: #dfe3e3;
+  --color-info-border: #a0b1bd;
+  --color-on-danger: #f6f1e7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #f0ebe1;
+  --shiki-token-constant: #7f5f1c;
+  --shiki-token-string: #546c49;
+  --shiki-token-comment: #746757;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #49667c;
+  --shiki-token-string-expression: #546c49;
+  --shiki-token-punctuation: #746757;
+  --shiki-token-link: #49667c;
+  --shiki-token-inserted: #546c49;
+  --shiki-token-deleted: #9c483c;
+  --shiki-token-changed: #7f5f1c;
+}
+
+/* 生成り */
+:root[data-theme="kinari"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #556a63;
+  --color-on-accent-strong: #f1ebdf;
+  --color-base: #f1ebdf;
+  --color-surface: #ece5d9;
+  --color-border: #dbd4c8;
+  --color-text: #544739;
+  --color-muted: #706353;
+  --color-success: #526847;
+  --color-success-bg: #dfe1ce;
+  --color-success-border: #abb896;
+  --color-warning: #7b5b1c;
+  --color-warning-bg: #eadfc2;
+  --color-warning-border: #ceb372;
+  --color-danger: #964539;
+  --color-danger-bg: #ead6ca;
+  --color-danger-border: #cf9987;
+  --color-info: #466376;
+  --color-info-bg: #dadddb;
+  --color-info-border: #9babb5;
+  --color-on-danger: #f1ebdf;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #ece5d9;
+  --shiki-token-constant: #7b5b1c;
+  --shiki-token-string: #526847;
+  --shiki-token-comment: #706353;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #466376;
+  --shiki-token-string-expression: #526847;
+  --shiki-token-punctuation: #706353;
+  --shiki-token-link: #466376;
+  --shiki-token-inserted: #526847;
+  --shiki-token-deleted: #964539;
+  --shiki-token-changed: #7b5b1c;
+}
+
+/* 和紙 */
+:root[data-theme="washi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #51665f;
+  --color-on-accent-strong: #ece4d6;
+  --color-base: #ece4d6;
+  --color-surface: #e7dfd1;
+  --color-border: #d7cec0;
+  --color-text: #544739;
+  --color-muted: #6d6050;
+  --color-success: #4f6244;
+  --color-success-bg: #dadac5;
+  --color-success-border: #a6b18d;
+  --color-warning: #77571c;
+  --color-warning-bg: #e5d8b9;
+  --color-warning-border: #c9ac69;
+  --color-danger: #904236;
+  --color-danger-bg: #e5cfc1;
+  --color-danger-border: #ca927e;
+  --color-info: #425f6e;
+  --color-info-bg: #d5d6d2;
+  --color-info-border: #96a4ac;
+  --color-on-danger: #ece4d6;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #e7dfd1;
+  --shiki-token-constant: #77571c;
+  --shiki-token-string: #4f6244;
+  --shiki-token-comment: #6d6050;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #425f6e;
+  --shiki-token-string-expression: #4f6244;
+  --shiki-token-punctuation: #6d6050;
+  --shiki-token-link: #425f6e;
+  --shiki-token-inserted: #4f6244;
+  --shiki-token-deleted: #904236;
+  --shiki-token-changed: #77571c;
+}
+
+/* 古紙 */
+:root[data-theme="koshi"] {
+  color-scheme: light;
+  --color-accent: #859a93;
+  --color-accent-strong: #4d625b;
+  --color-on-accent-strong: #e6ddcd;
+  --color-base: #e6ddcd;
+  --color-surface: #e1d8c8;
+  --color-border: #d2c8b8;
+  --color-text: #544739;
+  --color-muted: #685b4b;
+  --color-success: #4d5e42;
+  --color-success-bg: #d4d3bc;
+  --color-success-border: #a0aa84;
+  --color-warning: #73541c;
+  --color-warning-bg: #dfd1b0;
+  --color-warning-border: #c3a560;
+  --color-danger: #8a3f33;
+  --color-danger-bg: #dfc8b8;
+  --color-danger-border: #c48b75;
+  --color-info: #3e5b66;
+  --color-info-bg: #cfcfc9;
+  --color-info-border: #909da3;
+  --color-on-danger: #e6ddcd;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #544739;
+  --shiki-background: #e1d8c8;
+  --shiki-token-constant: #73541c;
+  --shiki-token-string: #4d5e42;
+  --shiki-token-comment: #685b4b;
+  --shiki-token-keyword: #7b4570;
+  --shiki-token-parameter: #544739;
+  --shiki-token-function: #3e5b66;
+  --shiki-token-string-expression: #4d5e42;
+  --shiki-token-punctuation: #685b4b;
+  --shiki-token-link: #3e5b66;
+  --shiki-token-inserted: #4d5e42;
+  --shiki-token-deleted: #8a3f33;
+  --shiki-token-changed: #73541c;
+}
+
+/* 夜更かし */
+:root[data-theme="yofukashi"] {
+  color-scheme: dark;
+  --color-accent: #859a93;
+  --color-accent-strong: #a3b7b0;
+  --color-on-accent-strong: #221e1a;
+  --color-base: #2b2621;
+  --color-surface: #352f29;
+  --color-border: #4a423a;
+  --color-text: #e8dfd2;
+  --color-muted: #b3a696;
+  --color-success: #a8c29a;
+  --color-success-bg: #2f3829;
+  --color-success-border: #4e6045;
+  --color-warning: #d8b869;
+  --color-warning-bg: #3b3222;
+  --color-warning-border: #6a5a31;
+  --color-danger: #e49c90;
+  --color-danger-bg: #42292a;
+  --color-danger-border: #74463f;
+  --color-info: #9fb8ce;
+  --color-info-bg: #28323c;
+  --color-info-border: #475b6e;
+  --color-on-danger: #221e1a;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #e8dfd2;
+  --shiki-background: #352f29;
+  --shiki-token-constant: #d8b869;
+  --shiki-token-string: #a8c29a;
+  --shiki-token-comment: #b3a696;
+  --shiki-token-keyword: #d4a8c9;
+  --shiki-token-parameter: #e8dfd2;
+  --shiki-token-function: #9fb8ce;
+  --shiki-token-string-expression: #a8c29a;
+  --shiki-token-punctuation: #b3a696;
+  --shiki-token-link: #9fb8ce;
+  --shiki-token-inserted: #a8c29a;
+  --shiki-token-deleted: #e49c90;
+  --shiki-token-changed: #d8b869;
+}
+
+/* テーマを選んでいないときは OS の設定に合わせる */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-accent: #859a93;
+    --color-accent-strong: #a3b7b0;
+    --color-on-accent-strong: #221e1a;
+    --color-base: #2b2621;
+    --color-surface: #352f29;
+    --color-border: #4a423a;
+    --color-text: #e8dfd2;
+    --color-muted: #b3a696;
+    --color-success: #a8c29a;
+    --color-success-bg: #2f3829;
+    --color-success-border: #4e6045;
+    --color-warning: #d8b869;
+    --color-warning-bg: #3b3222;
+    --color-warning-border: #6a5a31;
+    --color-danger: #e49c90;
+    --color-danger-bg: #42292a;
+    --color-danger-border: #74463f;
+    --color-info: #9fb8ce;
+    --color-info-bg: #28323c;
+    --color-info-border: #475b6e;
+    --color-on-danger: #221e1a;
+    /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+    --shiki-foreground: #e8dfd2;
+    --shiki-background: #352f29;
+    --shiki-token-constant: #d8b869;
+    --shiki-token-string: #a8c29a;
+    --shiki-token-comment: #b3a696;
+    --shiki-token-keyword: #d4a8c9;
+    --shiki-token-parameter: #e8dfd2;
+    --shiki-token-function: #9fb8ce;
+    --shiki-token-string-expression: #a8c29a;
+    --shiki-token-punctuation: #b3a696;
+    --shiki-token-link: #9fb8ce;
+    --shiki-token-inserted: #a8c29a;
+    --shiki-token-deleted: #e49c90;
+    --shiki-token-changed: #d8b869;
+  }
+}
+/* @end:themes */
+/* @tokens:project-colors */
+/* プロジェクト（分類）の色 30 色。要素に data-project-color="<key>" を付けると --project-bg / --project-border / --project-text / --project-dot が決まる。
+   夜更かし（と、テーマを選ばずに OS がダーク）のときは dark の組に切り替わる。tokens/themes.css と一緒に読み込むこと */
+
+[data-project-color="deep-002"] { --project-bg: #f6d6de; --project-border: #d199a7; --project-text: #743649; --project-dot: #7f3d51; } /* 小豆鼠 */
+[data-project-color="mid-002"] { --project-bg: #ffe0e7; --project-border: #e3acba; --project-text: #723849; --project-dot: #ac697c; } /* 梅鼠 */
+[data-project-color="pale-002"] { --project-bg: #ffe8f0; --project-border: #fbbdcd; --project-text: #753549; --project-dot: #df90a6; } /* 桜鼠 */
+[data-project-color="deep-055"] { --project-bg: #f8d9c4; --project-border: #d49d78; --project-text: #773a00; --project-dot: #824102; } /* 樺茶 */
+[data-project-color="mid-055"] { --project-bg: #ffe3d0; --project-border: #e6b18d; --project-text: #753b07; --project-dot: #b06e3e; } /* 胡桃 */
+[data-project-color="pale-055"] { --project-bg: #ffebd6; --project-border: #fec29a; --project-text: #793900; --project-dot: #e39660; } /* 洗柿 */
+[data-project-color="deep-108"] { --project-bg: #e2e2c3; --project-border: #afaf76; --project-text: #535000; --project-dot: #5b5900; } /* 鶯茶 */
+[data-project-color="mid-108"] { --project-bg: #ebeccf; --project-border: #c2c28b; --project-text: #525000; --project-dot: #86843a; } /* 柳茶 */
+[data-project-color="pale-108"] { --project-bg: #f5f5d4; --project-border: #d6d698; --project-text: #535000; --project-dot: #b1b05c; } /* 裏柳 */
+[data-project-color="deep-158"] { --project-bg: #cde7d7; --project-border: #88b89b; --project-text: #1a5b3b; --project-dot: #1f6442; } /* 常磐 */
+[data-project-color="mid-158"] { --project-bg: #d8f1e1; --project-border: #9ccbae; --project-text: #1e5a3c; --project-dot: #52906d; } /* 青竹 */
+[data-project-color="pale-158"] { --project-bg: #dffbe9; --project-border: #abdfc0; --project-text: #145b3a; --project-dot: #76bd94; } /* 白緑 */
+[data-project-color="deep-190"] { --project-bg: #c6e8e5; --project-border: #78b9b4; --project-text: #005b57; --project-dot: #006460; } /* 錆納戸 */
+[data-project-color="mid-190"] { --project-bg: #d1f1ee; --project-border: #8ecbc7; --project-text: #005a57; --project-dot: #37908b; } /* 錆浅葱 */
+[data-project-color="pale-190"] { --project-bg: #d7fbf8; --project-border: #9be0db; --project-text: #005c58; --project-dot: #5cbeb8; } /* 水浅葱 */
+[data-project-color="deep-226"] { --project-bg: #c9e5f1; --project-border: #7fb4ca; --project-text: #00556f; --project-dot: #035e79; } /* 藍鼠 */
+[data-project-color="mid-226"] { --project-bg: #d4effa; --project-border: #94c6dc; --project-text: #0a556d; --project-dot: #458aa5; } /* 湊鼠 */
+[data-project-color="pale-226"] { --project-bg: #daf8ff; --project-border: #a2dbf3; --project-text: #005670; --project-dot: #69b7d6; } /* 白藍 */
+[data-project-color="deep-272"] { --project-bg: #d7dff9; --project-border: #9ba9d8; --project-text: #3c497d; --project-dot: #435189; } /* 紺桔梗 */
+[data-project-color="mid-272"] { --project-bg: #e1e9ff; --project-border: #aebcea; --project-text: #3d497b; --project-dot: #6e7db6; } /* 桔梗鼠 */
+[data-project-color="pale-272"] { --project-bg: #e9f2ff; --project-border: #c0cfff; --project-text: #3c4880; --project-dot: #95a7e9; } /* 紅掛空 */
+[data-project-color="deep-298"] { --project-bg: #e2dbf6; --project-border: #b0a2d2; --project-text: #534177; --project-dot: #5c4982; } /* 古代紫 */
+[data-project-color="mid-298"] { --project-bg: #ece5ff; --project-border: #c2b5e4; --project-text: #534275; --project-dot: #8774af; } /* 鳩羽 */
+[data-project-color="pale-298"] { --project-bg: #f5edff; --project-border: #d6c7fc; --project-text: #544079; --project-dot: #b29de1; } /* 藤鼠 */
+[data-project-color="deep-060"] { --project-bg: #e5ded9; --project-border: #b4a89f; --project-text: #5f4835; --project-dot: #605247; } /* 鈍色 */
+[data-project-color="mid-060"] { --project-bg: #efe8e3; --project-border: #c7bbb2; --project-text: #5f4835; --project-dot: #8c7d72; } /* 灰汁色 */
+[data-project-color="pale-060"] { --project-bg: #f8f1eb; --project-border: #dbcec4; --project-text: #5f4835; --project-dot: #b8a79a; } /* 白鼠 */
+[data-project-color="deep-076"] { --project-bg: #edddc7; --project-border: #c2a67e; --project-text: #66460e; --project-dot: #704e13; } /* 丁子茶 */
+[data-project-color="mid-076"] { --project-bg: #f6e7d2; --project-border: #d5b992; --project-text: #654714; --project-dot: #9c7a46; } /* 香色 */
+[data-project-color="pale-076"] { --project-bg: #fff0d9; --project-border: #ebcca0; --project-text: #674607; --project-dot: #cba369; } /* 赤白橡 */
+
+/* 夜更かし */
+:root[data-theme="yofukashi"] [data-project-color="deep-002"] { --project-bg: #4a2f36; --project-border: #8b5866; --project-text: #fac3d1; --project-dot: #b17082; }
+:root[data-theme="yofukashi"] [data-project-color="mid-002"] { --project-bg: #41282f; --project-border: #7a4b58; --project-text: #f9c4d1; --project-dot: #cf90a1; }
+:root[data-theme="yofukashi"] [data-project-color="pale-002"] { --project-bg: #3b1f27; --project-border: #6e3b4a; --project-text: #fcc2d1; --project-dot: #f5acc0; }
+:root[data-theme="yofukashi"] [data-project-color="deep-055"] { --project-bg: #4c311e; --project-border: #8e5b38; --project-text: #fdc7a4; --project-dot: #b47549; }
+:root[data-theme="yofukashi"] [data-project-color="mid-055"] { --project-bg: #432a18; --project-border: #7d4e2d; --project-text: #fbc8a7; --project-dot: #d3956a; }
+:root[data-theme="yofukashi"] [data-project-color="pale-055"] { --project-bg: #3c210d; --project-border: #713f18; --project-text: #ffc7a1; --project-dot: #f9b282; }
+:root[data-theme="yofukashi"] [data-project-color="deep-108"] { --project-bg: #3a3a1d; --project-border: #6d6c35; --project-text: #d8d8a2; --project-dot: #8b8a45; }
+:root[data-theme="yofukashi"] [data-project-color="mid-108"] { --project-bg: #323217; --project-border: #5f5e2a; --project-text: #d8d8a5; --project-dot: #aaa967; }
+:root[data-theme="yofukashi"] [data-project-color="pale-108"] { --project-bg: #2b2b0b; --project-border: #515012; --project-text: #d8d99f; --project-dot: #cac97e; }
+:root[data-theme="yofukashi"] [data-project-color="deep-158"] { --project-bg: #263e30; --project-border: #46755a; --project-text: #b3e1c5; --project-dot: #5b9574; }
+:root[data-theme="yofukashi"] [data-project-color="mid-158"] { --project-bg: #1f3629; --project-border: #3a664d; --project-text: #b5e1c6; --project-dot: #7cb393; }
+:root[data-theme="yofukashi"] [data-project-color="pale-158"] { --project-bg: #152f21; --project-border: #27593e; --project-text: #b1e2c4; --project-dot: #96d5b0; }
+:root[data-theme="yofukashi"] [data-project-color="deep-190"] { --project-bg: #1d3f3c; --project-border: #357571; --project-text: #a5e2dd; --project-dot: #449691; }
+:root[data-theme="yofukashi"] [data-project-color="mid-190"] { --project-bg: #173634; --project-border: #296663; --project-text: #a8e1dd; --project-dot: #69b4af; }
+:root[data-theme="yofukashi"] [data-project-color="pale-190"] { --project-bg: #092f2d; --project-border: #095955; --project-text: #a2e3de; --project-dot: #81d6d0; }
+:root[data-theme="yofukashi"] [data-project-color="deep-226"] { --project-bg: #213c47; --project-border: #3d7185; --project-text: #abddf2; --project-dot: #4f90a9; }
+:root[data-theme="yofukashi"] [data-project-color="mid-226"] { --project-bg: #1b343e; --project-border: #326275; --project-text: #adddf1; --project-dot: #72aec8; }
+:root[data-theme="yofukashi"] [data-project-color="pale-226"] { --project-bg: #102d38; --project-border: #1c5469; --project-text: #a9ddf4; --project-dot: #8acfec; }
+:root[data-theme="yofukashi"] [data-project-color="deep-272"] { --project-bg: #30374e; --project-border: #5b6692; --project-text: #c5d2ff; --project-dot: #7483b9; }
+:root[data-theme="yofukashi"] [data-project-color="mid-272"] { --project-bg: #292f45; --project-border: #4e5881; --project-text: #c6d3fe; --project-dot: #93a2d7; }
+:root[data-theme="yofukashi"] [data-project-color="pale-272"] { --project-bg: #21273f; --project-border: #3f4a75; --project-text: #c4d2ff; --project-dot: #b0c1fe; }
+:root[data-theme="yofukashi"] [data-project-color="deep-298"] { --project-bg: #3a334b; --project-border: #6e608c; --project-text: #d9ccfa; --project-dot: #8c7bb3; }
+:root[data-theme="yofukashi"] [data-project-color="mid-298"] { --project-bg: #332c42; --project-border: #5f537c; --project-text: #d9ccf9; --project-dot: #aa9ad1; }
+:root[data-theme="yofukashi"] [data-project-color="pale-298"] { --project-bg: #2b243c; --project-border: #524470; --project-text: #d9cbfc; --project-dot: #cbb8f7; }
+:root[data-theme="yofukashi"] [data-project-color="deep-060"] { --project-bg: #3d3732; --project-border: #72675e; --project-text: #ddd2c9; --project-dot: #918379; }
+:root[data-theme="yofukashi"] [data-project-color="mid-060"] { --project-bg: #352f2b; --project-border: #635951; --project-text: #ddd2c9; --project-dot: #afa297; }
+:root[data-theme="yofukashi"] [data-project-color="pale-060"] { --project-bg: #2e2823; --project-border: #564b42; --project-text: #ded2c8; --project-dot: #d0c1b5; }
+:root[data-theme="yofukashi"] [data-project-color="deep-076"] { --project-bg: #433521; --project-border: #7e643e; --project-text: #ebd0a9; --project-dot: #a18050; }
+:root[data-theme="yofukashi"] [data-project-color="mid-076"] { --project-bg: #3b2e1b; --project-border: #6e5632; --project-text: #ead0ab; --project-dot: #bf9f71; }
+:root[data-theme="yofukashi"] [data-project-color="pale-076"] { --project-bg: #342611; --project-border: #62481f; --project-text: #eccfa7; --project-dot: #e2be89; }
+
+/* テーマを選んでいないときは OS の設定に合わせる */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) [data-project-color="deep-002"] { --project-bg: #4a2f36; --project-border: #8b5866; --project-text: #fac3d1; --project-dot: #b17082; }
+  :root:not([data-theme]) [data-project-color="mid-002"] { --project-bg: #41282f; --project-border: #7a4b58; --project-text: #f9c4d1; --project-dot: #cf90a1; }
+  :root:not([data-theme]) [data-project-color="pale-002"] { --project-bg: #3b1f27; --project-border: #6e3b4a; --project-text: #fcc2d1; --project-dot: #f5acc0; }
+  :root:not([data-theme]) [data-project-color="deep-055"] { --project-bg: #4c311e; --project-border: #8e5b38; --project-text: #fdc7a4; --project-dot: #b47549; }
+  :root:not([data-theme]) [data-project-color="mid-055"] { --project-bg: #432a18; --project-border: #7d4e2d; --project-text: #fbc8a7; --project-dot: #d3956a; }
+  :root:not([data-theme]) [data-project-color="pale-055"] { --project-bg: #3c210d; --project-border: #713f18; --project-text: #ffc7a1; --project-dot: #f9b282; }
+  :root:not([data-theme]) [data-project-color="deep-108"] { --project-bg: #3a3a1d; --project-border: #6d6c35; --project-text: #d8d8a2; --project-dot: #8b8a45; }
+  :root:not([data-theme]) [data-project-color="mid-108"] { --project-bg: #323217; --project-border: #5f5e2a; --project-text: #d8d8a5; --project-dot: #aaa967; }
+  :root:not([data-theme]) [data-project-color="pale-108"] { --project-bg: #2b2b0b; --project-border: #515012; --project-text: #d8d99f; --project-dot: #cac97e; }
+  :root:not([data-theme]) [data-project-color="deep-158"] { --project-bg: #263e30; --project-border: #46755a; --project-text: #b3e1c5; --project-dot: #5b9574; }
+  :root:not([data-theme]) [data-project-color="mid-158"] { --project-bg: #1f3629; --project-border: #3a664d; --project-text: #b5e1c6; --project-dot: #7cb393; }
+  :root:not([data-theme]) [data-project-color="pale-158"] { --project-bg: #152f21; --project-border: #27593e; --project-text: #b1e2c4; --project-dot: #96d5b0; }
+  :root:not([data-theme]) [data-project-color="deep-190"] { --project-bg: #1d3f3c; --project-border: #357571; --project-text: #a5e2dd; --project-dot: #449691; }
+  :root:not([data-theme]) [data-project-color="mid-190"] { --project-bg: #173634; --project-border: #296663; --project-text: #a8e1dd; --project-dot: #69b4af; }
+  :root:not([data-theme]) [data-project-color="pale-190"] { --project-bg: #092f2d; --project-border: #095955; --project-text: #a2e3de; --project-dot: #81d6d0; }
+  :root:not([data-theme]) [data-project-color="deep-226"] { --project-bg: #213c47; --project-border: #3d7185; --project-text: #abddf2; --project-dot: #4f90a9; }
+  :root:not([data-theme]) [data-project-color="mid-226"] { --project-bg: #1b343e; --project-border: #326275; --project-text: #adddf1; --project-dot: #72aec8; }
+  :root:not([data-theme]) [data-project-color="pale-226"] { --project-bg: #102d38; --project-border: #1c5469; --project-text: #a9ddf4; --project-dot: #8acfec; }
+  :root:not([data-theme]) [data-project-color="deep-272"] { --project-bg: #30374e; --project-border: #5b6692; --project-text: #c5d2ff; --project-dot: #7483b9; }
+  :root:not([data-theme]) [data-project-color="mid-272"] { --project-bg: #292f45; --project-border: #4e5881; --project-text: #c6d3fe; --project-dot: #93a2d7; }
+  :root:not([data-theme]) [data-project-color="pale-272"] { --project-bg: #21273f; --project-border: #3f4a75; --project-text: #c4d2ff; --project-dot: #b0c1fe; }
+  :root:not([data-theme]) [data-project-color="deep-298"] { --project-bg: #3a334b; --project-border: #6e608c; --project-text: #d9ccfa; --project-dot: #8c7bb3; }
+  :root:not([data-theme]) [data-project-color="mid-298"] { --project-bg: #332c42; --project-border: #5f537c; --project-text: #d9ccf9; --project-dot: #aa9ad1; }
+  :root:not([data-theme]) [data-project-color="pale-298"] { --project-bg: #2b243c; --project-border: #524470; --project-text: #d9cbfc; --project-dot: #cbb8f7; }
+  :root:not([data-theme]) [data-project-color="deep-060"] { --project-bg: #3d3732; --project-border: #72675e; --project-text: #ddd2c9; --project-dot: #918379; }
+  :root:not([data-theme]) [data-project-color="mid-060"] { --project-bg: #352f2b; --project-border: #635951; --project-text: #ddd2c9; --project-dot: #afa297; }
+  :root:not([data-theme]) [data-project-color="pale-060"] { --project-bg: #2e2823; --project-border: #564b42; --project-text: #ded2c8; --project-dot: #d0c1b5; }
+  :root:not([data-theme]) [data-project-color="deep-076"] { --project-bg: #433521; --project-border: #7e643e; --project-text: #ebd0a9; --project-dot: #a18050; }
+  :root:not([data-theme]) [data-project-color="mid-076"] { --project-bg: #3b2e1b; --project-border: #6e5632; --project-text: #ead0ab; --project-dot: #bf9f71; }
+  :root:not([data-theme]) [data-project-color="pale-076"] { --project-bg: #342611; --project-border: #62481f; --project-text: #eccfa7; --project-dot: #e2be89; }
+}
+/* @end:project-colors */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+a { color: var(--color-accent-strong); }
+:root { --scrollbar-thumb: color-mix(in srgb, var(--color-muted) 45%, transparent); }
+* { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) transparent; }
+code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em; }
+.icon { flex: none; }
+
+/* 見本のページの上の、テーマを切り替える帯（アプリの部品ではない） */
+.theme-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px;
+  padding: 8px 16px; border-bottom: 1px dashed var(--color-border);
+  background: var(--color-base); font-size: 13px;
+}
+.theme-bar__label { color: var(--color-muted); margin-right: 4px; display: inline-flex; align-items: center; gap: 6px; }
+.theme-bar__back { margin-left: auto; font-size: 13px; }
+.theme-bar button {
+  font: inherit; font-size: 12px; min-height: 30px; padding: 2px 10px;
+  border: 1px solid var(--color-border); border-radius: 999px;
+  background: var(--color-base); color: var(--color-text); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.theme-bar button[aria-pressed="true"] { border-color: var(--color-accent); background: var(--color-surface); font-weight: 600; }
+.theme-bar__swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgb(0 0 0 / 0.2); }
+
+.doc { max-width: 76rem; margin: 0 auto; padding: 28px 32px 80px; }
+@media (max-width: 899px) { .doc { padding: 20px 16px 64px; } }
+.doc > h1 { font-size: 22px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px; }
+.lead { margin: 0 0 24px; color: var(--color-muted); font-size: 14px; }
+.doc h2.kit-title { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--color-border); }
+.doc h3.kit-sub { font-size: 14px; margin: 16px 0 8px; color: var(--color-muted); font-weight: 600; }
+.note { margin: 8px 0 0; font-size: 12px; color: var(--color-muted); }
+
+/* ===== 部品（各アプリの CSS Modules と同じ値） ===== */
+.button {
+  font: inherit; font-size: 14px; line-height: 1.4;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 40px; padding: 8px 16px; border-radius: 8px; border: 1px solid transparent;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.button:disabled { opacity: 0.55; cursor: not-allowed; }
+.primary { background: var(--color-accent-strong); color: var(--color-on-accent-strong); }
+.secondary { background: var(--color-base); color: var(--color-text); border-color: var(--color-accent); }
+.ghost { background: transparent; color: var(--color-accent-strong); }
+.ghost:hover:not(:disabled) { background: var(--color-surface); }
+.danger { background: var(--color-danger); color: var(--color-on-danger); }
+.small { min-height: 32px; padding: 4px 12px; font-size: 13px; }
+.block { width: 100%; }
+.spinner {
+  display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: spin 0.8s linear infinite; flex: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+
+.field { display: grid; gap: 4px; }
+.field__row { display: flex; align-items: stretch; gap: 8px; }
+.field__row > :last-child { flex-shrink: 0; }
+.field__label { font-size: 13px; }
+.input {
+  font: inherit; width: 100%; padding: 8px 10px; min-height: 40px;
+  border: 1px solid var(--color-border); border-radius: 8px;
+  background: var(--color-base); color: var(--color-text);
+}
+.input::placeholder { color: var(--color-muted); }
+.input:focus, .input.is-focused { outline: 2px solid var(--color-accent); outline-offset: 0; border-color: var(--color-accent); }
+.input.is-invalid { border-color: var(--color-danger); }
+.field__description { font-size: 12px; color: var(--color-muted); overflow-wrap: anywhere; }
+.field__error { font-size: 12px; color: var(--color-danger); }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
+
+.dialog-stage {
+  position: relative; display: grid; place-items: center; padding: 32px 16px;
+  border-radius: 12px; background: rgb(30 25 20 / 0.45);
+}
+.modal {
+  display: flex; flex-direction: column; width: min(440px, 100%);
+  border: 1px solid var(--color-border); border-radius: 14px;
+  background: var(--color-base); color: var(--color-text);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.25);
+}
+.modal--wide { width: min(880px, 100%); }
+.modal__body { padding: 18px 20px 16px; }
+.modal__heading { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 17px; }
+.modal__form { display: grid; gap: 12px; }
+.modal__text { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
+.modal__actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.modal__danger-action { margin-right: auto; color: var(--color-danger); }
+
+.section {
+  display: grid; gap: 8px; min-width: 0; padding: 14px 16px;
+  border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface);
+}
+.section__header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.section__heading { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; }
+.count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 6px;
+  border: 1px solid var(--color-accent); border-radius: 999px;
+  color: var(--color-accent-strong); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.section__updated { margin-left: auto; font-size: 12px; color: var(--color-muted); white-space: nowrap; }
+.section__note { margin: 0; font-size: 14px; color: var(--color-muted); }
+.section__body { display: grid; gap: 8px; min-width: 0; }
+
+.band {
+  display: flex; align-items: center; gap: 8px; margin: 0; padding: 6px 10px;
+  border: 1px solid var(--color-danger-border); border-left-width: 4px; border-radius: 8px;
+  background: var(--color-danger-bg); color: var(--color-danger); font-size: 13px;
+}
+.band--warning { border-color: var(--color-warning-border); background: var(--color-warning-bg); color: var(--color-warning); }
+.band--info { border-color: var(--color-info-border); background: var(--color-info-bg); color: var(--color-text); padding: 10px 14px; border-radius: 10px; font-size: 14px; align-items: flex-start; }
+.band--info .icon { color: var(--color-info); margin-top: 3px; }
+.band--success { border-color: var(--color-success-border); background: var(--color-success-bg); color: var(--color-success); }
+
+.rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; padding: 6px 10px;
+  border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-base); font-size: 14px;
+  position: relative;
+}
+.row--running { border-style: dashed; color: var(--color-muted); }
+.row--banded { padding-left: 16px; overflow: hidden; }
+.row__band { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--project-dot, var(--color-border)); }
+.row__key { flex: none; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row__main { display: grid; gap: 1px; flex: 1 1 12rem; min-width: 0; }
+.row__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; font-size: 12px; color: var(--color-muted); }
+.row__cell { flex: none; font-size: 13px; color: var(--color-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row__hours { flex: none; min-width: 3.4rem; text-align: right; font-variant-numeric: tabular-nums; }
+.row__actions { display: flex; flex: none; align-items: center; gap: 2px; margin-left: auto; }
+.due-today { color: var(--color-warning); font-weight: 600; }
+.overdue { color: var(--color-danger); font-weight: 600; }
+.menu-button {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; color: var(--color-muted); cursor: pointer;
+}
+.menu-button:hover { background: var(--color-surface); color: var(--color-text); }
+
+.tag { padding: 0 6px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); font-size: 11px; white-space: nowrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 3px; font-size: 12px; padding: 0 9px;
+  border-radius: 999px; border: 1px solid; line-height: 1.8; white-space: nowrap;
+}
+.badge--success { color: var(--color-success); background: var(--color-success-bg); border-color: var(--color-success-border); }
+.badge--warning { color: var(--color-warning); background: var(--color-warning-bg); border-color: var(--color-warning-border); }
+.badge--danger { color: var(--color-danger); background: var(--color-danger-bg); border-color: var(--color-danger-border); }
+.badge--info { color: var(--color-info); background: var(--color-info-bg); border-color: var(--color-info-border); }
+.badge--muted { color: var(--color-muted); background: var(--color-surface); border-color: var(--color-border); }
+.chips { display: flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; }
+.chip {
+  flex-shrink: 0; max-width: 10em; padding: 0 8px; border: 1px solid var(--color-border);
+  border-radius: 999px; font-size: 12px; line-height: 1.7; color: var(--color-text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chips__rest { flex-shrink: 0; font-size: 12px; color: var(--color-muted); }
+.project-badge {
+  display: inline-block; max-width: 14rem; padding: 0 7px;
+  border: 1px solid var(--project-border, var(--color-border)); border-radius: 6px;
+  background: var(--project-bg, transparent); color: var(--project-text, var(--color-muted));
+  font-size: 12px; line-height: 18px; vertical-align: middle;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: none;
+}
+.mark { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.mark--danger { color: var(--color-danger); }
+.mark--warning { color: var(--color-warning); }
+.mark--success { color: var(--color-success); }
+.mark--muted { color: var(--color-muted); }
+.project-badge .icon { vertical-align: -2px; margin-right: 4px; }
+.project-dot { display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; vertical-align: 1px; background: var(--project-dot); }
+
+.empty { display: grid; justify-items: center; gap: 6px; padding: 24px 16px; color: var(--color-muted); font-size: 14px; text-align: center; }
+.empty .icon { color: var(--color-accent); }
+
+.popover {
+  min-width: 220px; padding: 4px; background: var(--color-base);
+  border: 1px solid var(--color-border); border-radius: 10px; box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
+}
+.menu-item { font-size: 14px; padding: 8px 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px; color: var(--color-text); }
+.menu-item.is-focused { background: var(--color-surface); }
+.menu-item__check { margin-left: auto; color: var(--color-accent-strong); }
+
+/* ヘッダー */
+.app-header {
+  display: flex; align-items: center; gap: 8px; height: 56px; padding: 0 12px;
+  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+}
+.logo { display: inline-flex; align-items: center; gap: 0.3em; line-height: 1; color: var(--color-text); white-space: nowrap; font-size: 18px; text-decoration: none; min-height: 40px; }
+.logo-mark { width: 1.3em; height: 1.3em; flex: none; }
+.logo-type { font-family: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: 0.02em; font-variation-settings: "SOFT" 50; }
+.nav { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.nav-link, .icon-button {
+  font: inherit; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-width: 40px; min-height: 40px; padding: 6px 10px; border-radius: 8px; white-space: nowrap;
+}
+.nav-link { color: var(--color-muted); text-decoration: none; }
+.nav-link:hover { background: var(--color-base); color: var(--color-text); }
+.nav-link--active { color: var(--color-text); font-weight: 600; }
+.icon-button { border: 1px solid transparent; background: transparent; color: var(--color-text); cursor: pointer; }
+.icon-button:hover { background: var(--color-base); }
+.header-actions { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.running-timer {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 2px 10px;
+  border: 1px solid var(--color-accent); border-radius: 999px; color: var(--color-text);
+  font-size: 13px; font-variant-numeric: tabular-nums; text-decoration: none; white-space: nowrap;
+}
+.running-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--color-accent-strong); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* 見本では、画面の幅の代わりに枠の幅で崩す（コンテナクエリ）。アプリでは同じ値を @media で書く */
+.app { container-type: inline-size; container-name: app; }
+@container app (max-width: 599px) {
+  .button-text { display: none; }
+  .app-header { gap: 4px; padding: 0 8px; }
+  .header-actions, .nav { gap: 0; }
+  .icon-button, .nav-link { min-width: 36px; padding: 6px 8px; }
+  .running-timer { padding: 2px 8px; font-size: 12px; }
+  .row__main { flex-basis: calc(100% - 6rem); }
+  .row__actions { flex-basis: 100%; justify-content: flex-end; }
+}
+
+.frame { border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; background: var(--color-base); }
+.frame--wide { min-width: 0; }
+.frame--phone { width: 360px; max-width: 100%; }
+.app-main { max-width: 76rem; margin: 0 auto; padding: 28px 32px 40px; }
+.page { display: grid; gap: 24px; }
+.page > * { min-width: 0; }
+.columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.column { display: grid; gap: 16px; min-width: 0; }
+.total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; font-variant-numeric: tabular-nums; }
+.total__value { font-size: 22px; font-weight: 600; }
+.under { color: var(--color-muted); font-size: 13px; }
+.bar { height: 8px; border-radius: 999px; background: var(--color-border); overflow: hidden; }
+.bar__fill { height: 100%; border-radius: 999px; background: var(--color-accent-strong); }
+@container app (max-width: 899px) {
+  .columns { grid-template-columns: minmax(0, 1fr); }
+  .app-main { padding: 20px 16px 32px; }
+}
+
+</style>
+
+<script>
+  (() => {
+    const KEY = "souan.samples.theme";
+    const themes = ["system", "hakushi", "hanshi", "torinoko", "kinari", "washi", "koshi", "yofukashi"];
+    const read = () => {
+      const fromUrl = new URLSearchParams(location.search).get("theme");
+      if (themes.includes(fromUrl)) return fromUrl;
+      try {
+        const saved = localStorage.getItem(KEY);
+        return themes.includes(saved) ? saved : "system";
+      } catch {
+        return "system";
+      }
+    };
+    const apply = (choice) => {
+      if (choice === "system") delete document.documentElement.dataset.theme;
+      else document.documentElement.dataset.theme = choice;
+      document.querySelectorAll("[data-theme-choice]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.themeChoice === choice));
+      });
+      document.dispatchEvent(new CustomEvent("souan:theme"));
+    };
+    // 描く前に当てて、ちらつかないようにする
+    apply(read());
+    document.addEventListener("DOMContentLoaded", () => {
+      apply(read());
+      document.querySelectorAll("[data-theme-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const choice = button.dataset.themeChoice;
+          try { localStorage.setItem(KEY, choice); } catch { /* 保存できなくても今の画面には反映する */ }
+          apply(choice);
+        });
+      });
+    });
+  })();
+</script>
+
+</head>
+<body>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-timer" viewBox="0 0 24 24"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-git-pull-request" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" x2="6" y1="9" y2="21"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol><symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol></svg>
+<nav class="theme-bar" aria-label="テーマ"><span class="theme-bar__label"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg>テーマ</span><button type="button" data-theme-choice="system" aria-pressed="false">OS に合わせる</button><button type="button" data-theme-choice="hakushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>白紙</button><button type="button" data-theme-choice="hanshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #faf6ef;"></span>半紙</button><button type="button" data-theme-choice="torinoko" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f6f1e7;"></span>鳥の子</button><button type="button" data-theme-choice="kinari" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f1ebdf;"></span>生成り</button><button type="button" data-theme-choice="washi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #ece4d6;"></span>和紙</button><button type="button" data-theme-choice="koshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #e6ddcd;"></span>古紙</button><button type="button" data-theme-choice="yofukashi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #2b2621;"></span>夜更かし</button><a class="theme-bar__back" href="index.html">見本の目次へ</a></nav>
+
+<main class="doc">
+  <h1><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg>レイアウトの見本</h1>
+  <p class="lead">ヘッダー（56px）、本文（最大 76rem）、2 列 → 1 列（899px）、スマホ（599px 以下でアイコンだけ・行をカードに）。決まりは <code>docs/layout.md</code>。</p>
+  <h2 class="kit-title">PC の幅</h2>
+  <div class="frame frame--wide app"><header class="app-header">
+  <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+  <nav class="nav" aria-label="主なページ"><a href="#" class="nav-link nav-link--active" aria-current="page" aria-label="ダッシュボード"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg><span class="button-text">ダッシュボード</span></a><a href="#" class="nav-link" aria-label="タイマー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg><span class="button-text">タイマー</span></a><a href="#" class="nav-link" aria-label="日報"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="button-text">日報</span></a></nav>
+  <div class="header-actions"><a href="#" class="running-timer" title="実行中のタイマー"><span class="running-dot" aria-hidden="true"></span><span class="visually-hidden">実行中 </span>1:05:09</a>
+    <button type="button" class="icon-button" aria-label="テーマ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg><span class="button-text">テーマ</span></button>
+    <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+  </div>
+</header>
+<div class="app-main">
+  <div class="page">
+    <p class="band band--info"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-info"/></svg><span>見本のダッシュボードです。PC では 2 列、899px 以下では 1 列になります。</span></p>
+    <div class="columns">
+      <div class="column">
+        <section class="section" aria-label="残存タスク">
+          <div class="section__header"><h2 class="section__heading">残存タスク<span class="count">4</span></h2><span class="section__updated">3 分前に更新</span></div>
+          <div class="section__body"><ul class="rows">
+  <li class="row" aria-label="ログイン画面の不具合を直す">
+    <a class="row__key" href="#">#1234</a>
+    <span class="row__main"><span class="row__title">ログイン画面の不具合を直す</span><span class="row__meta"><span class="project-badge" data-project-color="deep-226" title="案件エー"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-code"/></svg>案件エー</span><span>進行中</span><span class="tag">開発</span></span></span>
+    <span class="row__cell due-today"><span class="mark mark--warning"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>今日まで</span></span>
+    <span class="row__hours">2.5h</span>
+    <span class="row__actions"><button type="button" class="button ghost small" aria-label="開始"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play"/></svg></button><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row" aria-label="一覧の並び順を名前順にできるようにする">
+    <a class="row__key" href="#">PROJ-45</a>
+    <span class="row__main"><span class="row__title">一覧の並び順を名前順にできるようにする（長い題名は 1 行で省略して、全文は title に入れる）</span><span class="row__meta"><span class="project-badge" data-project-color="mid-055" title="案件ビー"><span class="project-dot" aria-hidden="true"></span>案件ビー</span><span>未着手</span></span></span>
+    <span class="row__cell overdue"><span class="mark mark--danger"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>2026-10-20 超過</span></span>
+    <span class="row__hours">0.0h</span>
+    <span class="row__actions"><button type="button" class="button ghost small" aria-label="開始"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play"/></svg></button><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row" aria-label="検索の結果に件数を出す">
+    <a class="row__key" href="#">owner/repo#45</a>
+    <span class="row__main"><span class="row__title">検索の結果に件数を出す</span><span class="row__meta"><span class="project-badge" data-project-color="none" title="色なし">色なし</span><span>レビュー待ち</span></span></span>
+    <span class="row__cell">2026-10-30</span>
+    <span class="row__hours">1.0h</span>
+    <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row row--running" aria-label="実行中">
+    <span class="row__main"><span class="row__title">打ち合わせの準備</span><span class="row__meta"><span>チケットなし</span></span></span>
+    <span class="row__cell">14:20 – 実行中</span>
+    <span class="row__hours">0:42:10</span>
+    <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+</ul></div>
+        </section>
+        <section class="section" aria-label="レビュー待ち">
+          <div class="section__header"><h2 class="section__heading">レビュー待ち<span class="count">1</span></h2><span class="section__updated">3 分前に更新</span></div>
+          <ul class="rows"><li class="row"><span class="row__key"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-git-pull-request"/></svg></span><span class="row__main"><span class="row__title">検索の結果に件数を出す</span><span class="row__meta"><span>owner/repo#45</span><span>2026-10-22 18:04</span></span></span></li></ul>
+        </section>
+      </div>
+      <div class="column">
+        <section class="section" aria-label="今日">
+          <div class="section__header"><h2 class="section__heading">今日</h2></div>
+          <p class="total"><span class="total__value">5:42</span><span class="under">-2:18</span></p>
+        </section>
+        <section class="section" aria-label="今月">
+          <div class="section__header"><h2 class="section__heading">今月</h2></div>
+          <p class="total"><span class="total__value">96.5h</span><span class="under">予定 160h</span></p>
+          <div class="bar" role="img" aria-label="予定の 60%"><div class="bar__fill" style="width: 60%;"></div></div>
+        </section>
+        <section class="section" aria-label="同期">
+          <div class="section__header"><h2 class="section__heading">同期</h2><span class="section__updated">2026-10-23 09:12</span></div>
+          <p class="band" role="alert"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-alert"/></svg>更新に失敗（課題: 接続できませんでした）</p>
+          <p class="section__note">前回の内容を出しています</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div></div>
+  <h2 class="kit-title">スマホの幅（360px）</h2>
+  <p class="section__note">同じ中身を幅 360px の枠に入れたものです。横スクロールが出ないこと。</p>
+  <div class="frame frame--phone app"><header class="app-header">
+  <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+  <nav class="nav" aria-label="主なページ"><a href="#" class="nav-link nav-link--active" aria-current="page" aria-label="ダッシュボード"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg><span class="button-text">ダッシュボード</span></a><a href="#" class="nav-link" aria-label="タイマー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-timer"/></svg><span class="button-text">タイマー</span></a><a href="#" class="nav-link" aria-label="日報"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="button-text">日報</span></a></nav>
+  <div class="header-actions"><a href="#" class="running-timer" title="実行中のタイマー"><span class="running-dot" aria-hidden="true"></span><span class="visually-hidden">実行中 </span>1:05:09</a>
+    <button type="button" class="icon-button" aria-label="テーマ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg><span class="button-text">テーマ</span></button>
+    <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+  </div>
+</header>
+<div class="app-main">
+  <div class="page">
+    <p class="band band--info"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-info"/></svg><span>見本のダッシュボードです。PC では 2 列、899px 以下では 1 列になります。</span></p>
+    <div class="columns">
+      <div class="column">
+        <section class="section" aria-label="残存タスク">
+          <div class="section__header"><h2 class="section__heading">残存タスク<span class="count">4</span></h2><span class="section__updated">3 分前に更新</span></div>
+          <div class="section__body"><ul class="rows">
+  <li class="row" aria-label="ログイン画面の不具合を直す">
+    <a class="row__key" href="#">#1234</a>
+    <span class="row__main"><span class="row__title">ログイン画面の不具合を直す</span><span class="row__meta"><span class="project-badge" data-project-color="deep-226" title="案件エー"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-code"/></svg>案件エー</span><span>進行中</span><span class="tag">開発</span></span></span>
+    <span class="row__cell due-today"><span class="mark mark--warning"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>今日まで</span></span>
+    <span class="row__hours">2.5h</span>
+    <span class="row__actions"><button type="button" class="button ghost small" aria-label="開始"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play"/></svg></button><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row" aria-label="一覧の並び順を名前順にできるようにする">
+    <a class="row__key" href="#">PROJ-45</a>
+    <span class="row__main"><span class="row__title">一覧の並び順を名前順にできるようにする（長い題名は 1 行で省略して、全文は title に入れる）</span><span class="row__meta"><span class="project-badge" data-project-color="mid-055" title="案件ビー"><span class="project-dot" aria-hidden="true"></span>案件ビー</span><span>未着手</span></span></span>
+    <span class="row__cell overdue"><span class="mark mark--danger"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>2026-10-20 超過</span></span>
+    <span class="row__hours">0.0h</span>
+    <span class="row__actions"><button type="button" class="button ghost small" aria-label="開始"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play"/></svg></button><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row" aria-label="検索の結果に件数を出す">
+    <a class="row__key" href="#">owner/repo#45</a>
+    <span class="row__main"><span class="row__title">検索の結果に件数を出す</span><span class="row__meta"><span class="project-badge" data-project-color="none" title="色なし">色なし</span><span>レビュー待ち</span></span></span>
+    <span class="row__cell">2026-10-30</span>
+    <span class="row__hours">1.0h</span>
+    <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+  <li class="row row--running" aria-label="実行中">
+    <span class="row__main"><span class="row__title">打ち合わせの準備</span><span class="row__meta"><span>チケットなし</span></span></span>
+    <span class="row__cell">14:20 – 実行中</span>
+    <span class="row__hours">0:42:10</span>
+    <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+  </li>
+</ul></div>
+        </section>
+        <section class="section" aria-label="レビュー待ち">
+          <div class="section__header"><h2 class="section__heading">レビュー待ち<span class="count">1</span></h2><span class="section__updated">3 分前に更新</span></div>
+          <ul class="rows"><li class="row"><span class="row__key"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-git-pull-request"/></svg></span><span class="row__main"><span class="row__title">検索の結果に件数を出す</span><span class="row__meta"><span>owner/repo#45</span><span>2026-10-22 18:04</span></span></span></li></ul>
+        </section>
+      </div>
+      <div class="column">
+        <section class="section" aria-label="今日">
+          <div class="section__header"><h2 class="section__heading">今日</h2></div>
+          <p class="total"><span class="total__value">5:42</span><span class="under">-2:18</span></p>
+        </section>
+        <section class="section" aria-label="今月">
+          <div class="section__header"><h2 class="section__heading">今月</h2></div>
+          <p class="total"><span class="total__value">96.5h</span><span class="under">予定 160h</span></p>
+          <div class="bar" role="img" aria-label="予定の 60%"><div class="bar__fill" style="width: 60%;"></div></div>
+        </section>
+        <section class="section" aria-label="同期">
+          <div class="section__header"><h2 class="section__heading">同期</h2><span class="section__updated">2026-10-23 09:12</span></div>
+          <p class="band" role="alert"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-alert"/></svg>更新に失敗（課題: 接続できませんでした）</p>
+          <p class="section__note">前回の内容を出しています</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div></div>
+</main>
+
+
+</body>
+</html>
