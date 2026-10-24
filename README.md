@@ -10,6 +10,7 @@
 
 ```
 README.md            このファイル
+index.html           公開したページのトップ。見本の目次（samples/）へ移る
 THIRD_PARTY_LICENSES.md  第三者の素材（フォント・アイコン）とライセンスの一覧
 docs/
   principles.md      デザインの原則
