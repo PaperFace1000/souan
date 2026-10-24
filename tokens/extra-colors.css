@@ -1,99 +1,99 @@
-/* その他の配色（30 色）。要素に data-extra-color="<key>" を付けると --extra-bg / --extra-border / --extra-text / --extra-dot が決まる。
+/* その他の配色（30 色）。要素に data-extra-color="<key>" を付けると --extra-bg / --extra-border / --extra-text / --extra-dot / --extra-fill / --extra-on-fill が決まる。
    夜更かし（と、テーマを選ばずに OS がダーク）のときは dark の組に切り替わる。tokens/themes.css と一緒に読み込むこと */
 
-[data-extra-color="deep-002"] { --extra-bg: #f6d6de; --extra-border: #d199a7; --extra-text: #743649; --extra-dot: #7f3d51; } /* 小豆鼠 */
-[data-extra-color="mid-002"] { --extra-bg: #ffe0e7; --extra-border: #e3acba; --extra-text: #723849; --extra-dot: #ac697c; } /* 梅鼠 */
-[data-extra-color="pale-002"] { --extra-bg: #ffe8f0; --extra-border: #fbbdcd; --extra-text: #753549; --extra-dot: #df90a6; } /* 桜鼠 */
-[data-extra-color="deep-055"] { --extra-bg: #f8d9c4; --extra-border: #d49d78; --extra-text: #773a00; --extra-dot: #824102; } /* 樺茶 */
-[data-extra-color="mid-055"] { --extra-bg: #ffe3d0; --extra-border: #e6b18d; --extra-text: #753b07; --extra-dot: #b06e3e; } /* 胡桃 */
-[data-extra-color="pale-055"] { --extra-bg: #ffebd6; --extra-border: #fec29a; --extra-text: #793900; --extra-dot: #e39660; } /* 洗柿 */
-[data-extra-color="deep-108"] { --extra-bg: #e2e2c3; --extra-border: #afaf76; --extra-text: #535000; --extra-dot: #5b5900; } /* 鶯茶 */
-[data-extra-color="mid-108"] { --extra-bg: #ebeccf; --extra-border: #c2c28b; --extra-text: #525000; --extra-dot: #86843a; } /* 柳茶 */
-[data-extra-color="pale-108"] { --extra-bg: #f5f5d4; --extra-border: #d6d698; --extra-text: #535000; --extra-dot: #b1b05c; } /* 裏柳 */
-[data-extra-color="deep-158"] { --extra-bg: #cde7d7; --extra-border: #88b89b; --extra-text: #1a5b3b; --extra-dot: #1f6442; } /* 常磐 */
-[data-extra-color="mid-158"] { --extra-bg: #d8f1e1; --extra-border: #9ccbae; --extra-text: #1e5a3c; --extra-dot: #52906d; } /* 青竹 */
-[data-extra-color="pale-158"] { --extra-bg: #dffbe9; --extra-border: #abdfc0; --extra-text: #145b3a; --extra-dot: #76bd94; } /* 白緑 */
-[data-extra-color="deep-190"] { --extra-bg: #c6e8e5; --extra-border: #78b9b4; --extra-text: #005b57; --extra-dot: #006460; } /* 錆納戸 */
-[data-extra-color="mid-190"] { --extra-bg: #d1f1ee; --extra-border: #8ecbc7; --extra-text: #005a57; --extra-dot: #37908b; } /* 錆浅葱 */
-[data-extra-color="pale-190"] { --extra-bg: #d7fbf8; --extra-border: #9be0db; --extra-text: #005c58; --extra-dot: #5cbeb8; } /* 水浅葱 */
-[data-extra-color="deep-226"] { --extra-bg: #c9e5f1; --extra-border: #7fb4ca; --extra-text: #00556f; --extra-dot: #035e79; } /* 藍鼠 */
-[data-extra-color="mid-226"] { --extra-bg: #d4effa; --extra-border: #94c6dc; --extra-text: #0a556d; --extra-dot: #458aa5; } /* 湊鼠 */
-[data-extra-color="pale-226"] { --extra-bg: #daf8ff; --extra-border: #a2dbf3; --extra-text: #005670; --extra-dot: #69b7d6; } /* 白藍 */
-[data-extra-color="deep-272"] { --extra-bg: #d7dff9; --extra-border: #9ba9d8; --extra-text: #3c497d; --extra-dot: #435189; } /* 紺桔梗 */
-[data-extra-color="mid-272"] { --extra-bg: #e1e9ff; --extra-border: #aebcea; --extra-text: #3d497b; --extra-dot: #6e7db6; } /* 桔梗鼠 */
-[data-extra-color="pale-272"] { --extra-bg: #e9f2ff; --extra-border: #c0cfff; --extra-text: #3c4880; --extra-dot: #95a7e9; } /* 紅掛空 */
-[data-extra-color="deep-298"] { --extra-bg: #e2dbf6; --extra-border: #b0a2d2; --extra-text: #534177; --extra-dot: #5c4982; } /* 古代紫 */
-[data-extra-color="mid-298"] { --extra-bg: #ece5ff; --extra-border: #c2b5e4; --extra-text: #534275; --extra-dot: #8774af; } /* 鳩羽 */
-[data-extra-color="pale-298"] { --extra-bg: #f5edff; --extra-border: #d6c7fc; --extra-text: #544079; --extra-dot: #b29de1; } /* 藤鼠 */
-[data-extra-color="deep-060"] { --extra-bg: #e5ded9; --extra-border: #b4a89f; --extra-text: #5f4835; --extra-dot: #605247; } /* 鈍色 */
-[data-extra-color="mid-060"] { --extra-bg: #efe8e3; --extra-border: #c7bbb2; --extra-text: #5f4835; --extra-dot: #8c7d72; } /* 灰汁色 */
-[data-extra-color="pale-060"] { --extra-bg: #f8f1eb; --extra-border: #dbcec4; --extra-text: #5f4835; --extra-dot: #b8a79a; } /* 白鼠 */
-[data-extra-color="deep-076"] { --extra-bg: #edddc7; --extra-border: #c2a67e; --extra-text: #66460e; --extra-dot: #704e13; } /* 丁子茶 */
-[data-extra-color="mid-076"] { --extra-bg: #f6e7d2; --extra-border: #d5b992; --extra-text: #654714; --extra-dot: #9c7a46; } /* 香色 */
-[data-extra-color="pale-076"] { --extra-bg: #fff0d9; --extra-border: #ebcca0; --extra-text: #674607; --extra-dot: #cba369; } /* 赤白橡 */
+[data-extra-color="deep-002"] { --extra-bg: #f6d6de; --extra-border: #d199a7; --extra-text: #743649; --extra-dot: #7f3d51; --extra-fill: #7f3d51; --extra-on-fill: #fffcf7; } /* 小豆鼠 */
+[data-extra-color="mid-002"] { --extra-bg: #ffe0e7; --extra-border: #e3acba; --extra-text: #723849; --extra-dot: #ac697c; --extra-fill: #a46174; --extra-on-fill: #fffcf7; } /* 梅鼠 */
+[data-extra-color="pale-002"] { --extra-bg: #ffe8f0; --extra-border: #fbbdcd; --extra-text: #753549; --extra-dot: #df90a6; --extra-fill: #df90a6; --extra-on-fill: #2b2621; } /* 桜鼠 */
+[data-extra-color="deep-055"] { --extra-bg: #f8d9c4; --extra-border: #d49d78; --extra-text: #773a00; --extra-dot: #824102; --extra-fill: #824102; --extra-on-fill: #fffcf7; } /* 樺茶 */
+[data-extra-color="mid-055"] { --extra-bg: #ffe3d0; --extra-border: #e6b18d; --extra-text: #753b07; --extra-dot: #b06e3e; --extra-fill: #a76535; --extra-on-fill: #fffcf7; } /* 胡桃 */
+[data-extra-color="pale-055"] { --extra-bg: #ffebd6; --extra-border: #fec29a; --extra-text: #793900; --extra-dot: #e39660; --extra-fill: #e39660; --extra-on-fill: #2b2621; } /* 洗柿 */
+[data-extra-color="deep-108"] { --extra-bg: #e2e2c3; --extra-border: #afaf76; --extra-text: #535000; --extra-dot: #5b5900; --extra-fill: #5b5900; --extra-on-fill: #fffcf7; } /* 鶯茶 */
+[data-extra-color="mid-108"] { --extra-bg: #ebeccf; --extra-border: #c2c28b; --extra-text: #525000; --extra-dot: #86843a; --extra-fill: #7a782d; --extra-on-fill: #fffcf7; } /* 柳茶 */
+[data-extra-color="pale-108"] { --extra-bg: #f5f5d4; --extra-border: #d6d698; --extra-text: #535000; --extra-dot: #b1b05c; --extra-fill: #b1b05c; --extra-on-fill: #2b2621; } /* 裏柳 */
+[data-extra-color="deep-158"] { --extra-bg: #cde7d7; --extra-border: #88b89b; --extra-text: #1a5b3b; --extra-dot: #1f6442; --extra-fill: #1f6442; --extra-on-fill: #fffcf7; } /* 常磐 */
+[data-extra-color="mid-158"] { --extra-bg: #d8f1e1; --extra-border: #9ccbae; --extra-text: #1e5a3c; --extra-dot: #52906d; --extra-fill: #5b9a76; --extra-on-fill: #2b2621; } /* 青竹 */
+[data-extra-color="pale-158"] { --extra-bg: #dffbe9; --extra-border: #abdfc0; --extra-text: #145b3a; --extra-dot: #76bd94; --extra-fill: #76bd94; --extra-on-fill: #2b2621; } /* 白緑 */
+[data-extra-color="deep-190"] { --extra-bg: #c6e8e5; --extra-border: #78b9b4; --extra-text: #005b57; --extra-dot: #006460; --extra-fill: #006460; --extra-on-fill: #fffcf7; } /* 錆納戸 */
+[data-extra-color="mid-190"] { --extra-bg: #d1f1ee; --extra-border: #8ecbc7; --extra-text: #005a57; --extra-dot: #37908b; --extra-fill: #439b96; --extra-on-fill: #2b2621; } /* 錆浅葱 */
+[data-extra-color="pale-190"] { --extra-bg: #d7fbf8; --extra-border: #9be0db; --extra-text: #005c58; --extra-dot: #5cbeb8; --extra-fill: #5cbeb8; --extra-on-fill: #2b2621; } /* 水浅葱 */
+[data-extra-color="deep-226"] { --extra-bg: #c9e5f1; --extra-border: #7fb4ca; --extra-text: #00556f; --extra-dot: #035e79; --extra-fill: #035e79; --extra-on-fill: #fffcf7; } /* 藍鼠 */
+[data-extra-color="mid-226"] { --extra-bg: #d4effa; --extra-border: #94c6dc; --extra-text: #0a556d; --extra-dot: #458aa5; --extra-fill: #5196b1; --extra-on-fill: #2b2621; } /* 湊鼠 */
+[data-extra-color="pale-226"] { --extra-bg: #daf8ff; --extra-border: #a2dbf3; --extra-text: #005670; --extra-dot: #69b7d6; --extra-fill: #69b7d6; --extra-on-fill: #2b2621; } /* 白藍 */
+[data-extra-color="deep-272"] { --extra-bg: #d7dff9; --extra-border: #9ba9d8; --extra-text: #3c497d; --extra-dot: #435189; --extra-fill: #435189; --extra-on-fill: #fffcf7; } /* 紺桔梗 */
+[data-extra-color="mid-272"] { --extra-bg: #e1e9ff; --extra-border: #aebcea; --extra-text: #3d497b; --extra-dot: #6e7db6; --extra-fill: #6472aa; --extra-on-fill: #fffcf7; } /* 桔梗鼠 */
+[data-extra-color="pale-272"] { --extra-bg: #e9f2ff; --extra-border: #c0cfff; --extra-text: #3c4880; --extra-dot: #95a7e9; --extra-fill: #95a7e9; --extra-on-fill: #2b2621; } /* 紅掛空 */
+[data-extra-color="deep-298"] { --extra-bg: #e2dbf6; --extra-border: #b0a2d2; --extra-text: #534177; --extra-dot: #5c4982; --extra-fill: #5c4982; --extra-on-fill: #fffcf7; } /* 古代紫 */
+[data-extra-color="mid-298"] { --extra-bg: #ece5ff; --extra-border: #c2b5e4; --extra-text: #534275; --extra-dot: #8774af; --extra-fill: #7e6ba6; --extra-on-fill: #fffcf7; } /* 鳩羽 */
+[data-extra-color="pale-298"] { --extra-bg: #f5edff; --extra-border: #d6c7fc; --extra-text: #544079; --extra-dot: #b29de1; --extra-fill: #b29de1; --extra-on-fill: #2b2621; } /* 藤鼠 */
+[data-extra-color="deep-060"] { --extra-bg: #e5ded9; --extra-border: #b4a89f; --extra-text: #5f4835; --extra-dot: #605247; --extra-fill: #605247; --extra-on-fill: #fffcf7; } /* 鈍色 */
+[data-extra-color="mid-060"] { --extra-bg: #efe8e3; --extra-border: #c7bbb2; --extra-text: #5f4835; --extra-dot: #8c7d72; --extra-fill: #817268; --extra-on-fill: #fffcf7; } /* 灰汁色 */
+[data-extra-color="pale-060"] { --extra-bg: #f8f1eb; --extra-border: #dbcec4; --extra-text: #5f4835; --extra-dot: #b8a79a; --extra-fill: #b8a79a; --extra-on-fill: #2b2621; } /* 白鼠 */
+[data-extra-color="deep-076"] { --extra-bg: #edddc7; --extra-border: #c2a67e; --extra-text: #66460e; --extra-dot: #704e13; --extra-fill: #704e13; --extra-on-fill: #fffcf7; } /* 丁子茶 */
+[data-extra-color="mid-076"] { --extra-bg: #f6e7d2; --extra-border: #d5b992; --extra-text: #654714; --extra-dot: #9c7a46; --extra-fill: #916f3b; --extra-on-fill: #fffcf7; } /* 香色 */
+[data-extra-color="pale-076"] { --extra-bg: #fff0d9; --extra-border: #ebcca0; --extra-text: #674607; --extra-dot: #cba369; --extra-fill: #cba369; --extra-on-fill: #2b2621; } /* 赤白橡 */
 
 /* 夜更かし */
-:root[data-theme="yofukashi"] [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; }
-:root[data-theme="yofukashi"] [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; }
-:root[data-theme="yofukashi"] [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; }
-:root[data-theme="yofukashi"] [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; --extra-fill: #bd7b8d; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; --extra-fill: #cf90a1; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; --extra-fill: #f5acc0; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; --extra-fill: #be7f53; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; --extra-fill: #d3956a; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; --extra-fill: #f9b282; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; --extra-fill: #92914c; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; --extra-fill: #aaa967; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; --extra-fill: #cac97e; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; --extra-fill: #5f9978; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; --extra-fill: #7cb393; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; --extra-fill: #96d5b0; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; --extra-fill: #489a95; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; --extra-fill: #69b4af; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; --extra-fill: #81d6d0; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; --extra-fill: #5596af; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; --extra-fill: #72aec8; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; --extra-fill: #8acfec; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; --extra-fill: #7c8bc1; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; --extra-fill: #93a2d7; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; --extra-fill: #b0c1fe; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; --extra-fill: #9584bd; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; --extra-fill: #aa9ad1; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; --extra-fill: #cbb8f7; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; --extra-fill: #998b81; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; --extra-fill: #afa297; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; --extra-fill: #d0c1b5; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; --extra-fill: #a98857; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; --extra-fill: #bf9f71; --extra-on-fill: #2b2621; }
+:root[data-theme="yofukashi"] [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; --extra-fill: #e2be89; --extra-on-fill: #2b2621; }
 
 /* テーマを選んでいないときは OS の設定に合わせる */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; }
-  :root:not([data-theme]) [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; }
-  :root:not([data-theme]) [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; }
-  :root:not([data-theme]) [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; }
-  :root:not([data-theme]) [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; }
-  :root:not([data-theme]) [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; }
-  :root:not([data-theme]) [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; }
-  :root:not([data-theme]) [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; }
-  :root:not([data-theme]) [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; }
-  :root:not([data-theme]) [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; }
-  :root:not([data-theme]) [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; }
-  :root:not([data-theme]) [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; }
-  :root:not([data-theme]) [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; }
-  :root:not([data-theme]) [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; }
-  :root:not([data-theme]) [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; }
-  :root:not([data-theme]) [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; }
-  :root:not([data-theme]) [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; }
-  :root:not([data-theme]) [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; }
-  :root:not([data-theme]) [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; }
-  :root:not([data-theme]) [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; }
-  :root:not([data-theme]) [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; }
-  :root:not([data-theme]) [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; }
-  :root:not([data-theme]) [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; }
-  :root:not([data-theme]) [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; }
-  :root:not([data-theme]) [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; }
-  :root:not([data-theme]) [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; }
-  :root:not([data-theme]) [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; }
-  :root:not([data-theme]) [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; }
-  :root:not([data-theme]) [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; }
-  :root:not([data-theme]) [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; }
+  :root:not([data-theme]) [data-extra-color="deep-002"] { --extra-bg: #4a2f36; --extra-border: #8b5866; --extra-text: #fac3d1; --extra-dot: #b17082; --extra-fill: #bd7b8d; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-002"] { --extra-bg: #41282f; --extra-border: #7a4b58; --extra-text: #f9c4d1; --extra-dot: #cf90a1; --extra-fill: #cf90a1; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-002"] { --extra-bg: #3b1f27; --extra-border: #6e3b4a; --extra-text: #fcc2d1; --extra-dot: #f5acc0; --extra-fill: #f5acc0; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-055"] { --extra-bg: #4c311e; --extra-border: #8e5b38; --extra-text: #fdc7a4; --extra-dot: #b47549; --extra-fill: #be7f53; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-055"] { --extra-bg: #432a18; --extra-border: #7d4e2d; --extra-text: #fbc8a7; --extra-dot: #d3956a; --extra-fill: #d3956a; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-055"] { --extra-bg: #3c210d; --extra-border: #713f18; --extra-text: #ffc7a1; --extra-dot: #f9b282; --extra-fill: #f9b282; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-108"] { --extra-bg: #3a3a1d; --extra-border: #6d6c35; --extra-text: #d8d8a2; --extra-dot: #8b8a45; --extra-fill: #92914c; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-108"] { --extra-bg: #323217; --extra-border: #5f5e2a; --extra-text: #d8d8a5; --extra-dot: #aaa967; --extra-fill: #aaa967; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-108"] { --extra-bg: #2b2b0b; --extra-border: #515012; --extra-text: #d8d99f; --extra-dot: #cac97e; --extra-fill: #cac97e; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-158"] { --extra-bg: #263e30; --extra-border: #46755a; --extra-text: #b3e1c5; --extra-dot: #5b9574; --extra-fill: #5f9978; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-158"] { --extra-bg: #1f3629; --extra-border: #3a664d; --extra-text: #b5e1c6; --extra-dot: #7cb393; --extra-fill: #7cb393; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-158"] { --extra-bg: #152f21; --extra-border: #27593e; --extra-text: #b1e2c4; --extra-dot: #96d5b0; --extra-fill: #96d5b0; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-190"] { --extra-bg: #1d3f3c; --extra-border: #357571; --extra-text: #a5e2dd; --extra-dot: #449691; --extra-fill: #489a95; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-190"] { --extra-bg: #173634; --extra-border: #296663; --extra-text: #a8e1dd; --extra-dot: #69b4af; --extra-fill: #69b4af; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-190"] { --extra-bg: #092f2d; --extra-border: #095955; --extra-text: #a2e3de; --extra-dot: #81d6d0; --extra-fill: #81d6d0; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-226"] { --extra-bg: #213c47; --extra-border: #3d7185; --extra-text: #abddf2; --extra-dot: #4f90a9; --extra-fill: #5596af; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-226"] { --extra-bg: #1b343e; --extra-border: #326275; --extra-text: #adddf1; --extra-dot: #72aec8; --extra-fill: #72aec8; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-226"] { --extra-bg: #102d38; --extra-border: #1c5469; --extra-text: #a9ddf4; --extra-dot: #8acfec; --extra-fill: #8acfec; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-272"] { --extra-bg: #30374e; --extra-border: #5b6692; --extra-text: #c5d2ff; --extra-dot: #7483b9; --extra-fill: #7c8bc1; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-272"] { --extra-bg: #292f45; --extra-border: #4e5881; --extra-text: #c6d3fe; --extra-dot: #93a2d7; --extra-fill: #93a2d7; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-272"] { --extra-bg: #21273f; --extra-border: #3f4a75; --extra-text: #c4d2ff; --extra-dot: #b0c1fe; --extra-fill: #b0c1fe; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-298"] { --extra-bg: #3a334b; --extra-border: #6e608c; --extra-text: #d9ccfa; --extra-dot: #8c7bb3; --extra-fill: #9584bd; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-298"] { --extra-bg: #332c42; --extra-border: #5f537c; --extra-text: #d9ccf9; --extra-dot: #aa9ad1; --extra-fill: #aa9ad1; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-298"] { --extra-bg: #2b243c; --extra-border: #524470; --extra-text: #d9cbfc; --extra-dot: #cbb8f7; --extra-fill: #cbb8f7; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-060"] { --extra-bg: #3d3732; --extra-border: #72675e; --extra-text: #ddd2c9; --extra-dot: #918379; --extra-fill: #998b81; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-060"] { --extra-bg: #352f2b; --extra-border: #635951; --extra-text: #ddd2c9; --extra-dot: #afa297; --extra-fill: #afa297; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-060"] { --extra-bg: #2e2823; --extra-border: #564b42; --extra-text: #ded2c8; --extra-dot: #d0c1b5; --extra-fill: #d0c1b5; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="deep-076"] { --extra-bg: #433521; --extra-border: #7e643e; --extra-text: #ebd0a9; --extra-dot: #a18050; --extra-fill: #a98857; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="mid-076"] { --extra-bg: #3b2e1b; --extra-border: #6e5632; --extra-text: #ead0ab; --extra-dot: #bf9f71; --extra-fill: #bf9f71; --extra-on-fill: #2b2621; }
+  :root:not([data-theme]) [data-extra-color="pale-076"] { --extra-bg: #342611; --extra-border: #62481f; --extra-text: #eccfa7; --extra-dot: #e2be89; --extra-fill: #e2be89; --extra-on-fill: #2b2621; }
 }

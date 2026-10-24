@@ -103,20 +103,33 @@ React Aria の `Checkbox`・`RadioGroup` と `Radio` で作る（読み上げ・
 
 ### 🔴 状態の印
 
-期日超過・今日が期日・成功・失敗など、行や欄の状態は、Lucide のアイコンを役割の色で塗った、のっぺりとした印で出す。
+成功・失敗・未着手など、行や欄の状態は、Lucide のアイコンを役割の色で塗った、のっぺりとした印で出す。
 
 | 状態 | アイコン | 色 |
 |---|---|---|
-| 期日超過・失敗の手前 | `Circle`（`filled`、12px） | `danger` |
-| 今日が期日・注意 | `Circle`（`filled`、12px） | `warning` |
-| 期日がまだ先 | `Circle`（輪郭、12px） | `muted` |
 | 未着手・対象外 | `Circle`（`filled`、12px） | `muted` |
 | 成功・反映済み | `CircleCheck`（16px） | `success` |
 | 失敗 | `CircleX`（16px） | `danger` |
 
-- 期日の印は 3 段: 超過は塗りの `danger`、今日は塗りの `warning`、まだ先は `muted` の**輪郭の円**。まだ先を輪郭にするのは、同じ `muted` の塗りの円（未着手・対象外）と見分けるため
-- 色だけに頼らず、必ず文言を添える（「期日超過」「2026-10-20 超過」「2026-11-02 まで」など）。印は `aria-hidden`、文言を読み上げる
-- 印と文言の間は 5px、文言も同じ役割の色にする（分類の色の行のカードの中では文言を `text` にする。下の「分類の色の行のカード」）
+- 色だけに頼らず、必ず文言を添える。印は `aria-hidden`、文言を読み上げる
+- 印と文言の間は 5px、文言も同じ役割の色にする
+
+### 📆 期日の印
+
+期日は、意味の分かる Lucide のアイコンと日付の 2 段で出す（色の円は使わない。円の塗りと輪郭の違いは見分けにくいため）。
+
+| 状態 | アイコン（14px） | 色 | 1 段目 | 2 段目 |
+|---|---|---|---|---|
+| 期日超過 | `Flame` | `danger`（太さ 600） | `MM-DD` | （n 日超過） |
+| 今日が期日 | `TriangleAlert` | `warning`（太さ 600） | `MM-DD` | （今日） |
+| まだ先 | `CalendarClock` | `muted` | `MM-DD` | （あと n 日） |
+| 期日なし | なし | `muted` | 「—」 | なし |
+
+- 1 段目は「アイコン `MM-DD`」、2 段目は 12px で残りの日数。どの行も 2 段にして、期日の列の幅と行の高さをそろえる（日付は等幅の数字、`white-space: nowrap`）
+- 年が今年でないときだけ 1 段目を `YYYY-MM-DD` にする
+- 色だけに頼らず、2 段目の文言で状態を伝える。アイコンは `aria-hidden` にし、日付と残りの日数の文字をそのまま読ませる
+- 「—」は飾りなので `aria-hidden` にし、読み上げ用に「期日なし」を添える（`visually-hidden`）
+- 文字は `base`・`surface` の上に置く（役割の色の文字が 4.5 以上になる地）。分類の色で塗った地の上には置かない
 
 ## 🗃️ 欄（DashboardSection）
 
@@ -138,45 +151,59 @@ React Aria の `Checkbox`・`RadioGroup` と `Radio` で作る（読み上げ・
 - 題名は 1 行で省略。補足（分類・状態など）は 12px の薄い文字で 2 段目
 - 時刻・時間は等幅の数字、右寄せ
 - 下書きなど仮の状態の行は枠を破線にし、文字を薄くする
-- 期日が今日なら `warning`、過ぎていれば `danger` の文字で太さ 600
+- 期日は「期日の印」（上）の 2 段で出す
 - 同じものをまとめた行は、先頭に件数のバッジを出し、押すと下に個別の行を 24px 字下げで出す
 - **スマホの幅（599px 以下）では行をカードに崩す**: 1 段目にキーと題名、2 段目に期日や時刻（右寄せ）、3 段目に操作のボタン（右寄せ）。横にはみ出させない
 - 行の「…」のメニューは 32px 四方のボタンに `aria-label="その他の操作"`
 
-## 🧺 分類の色の行のカード
+## 🧺 分類の色のマスの行のカード
 
-一覧の行を、分類の色で塗ったカードにする。行ごとの分類をひと目で見分けたい一覧に使う。
+一覧の行（カード）の左に、分類のアイコンと番号を入れたマスを置き、そのマスだけを分類の濃い色で塗る。行ごとの分類をひと目で見分けたい一覧に使う。右の本文は塗らない（いつもの `base` の地のまま）ので、補足の `muted`・期日の役割の色の文字もそのまま読める。
 
-| 項目 | 値 |
-|---|---|
-| 背景 | 分類の色の `bg`（暗い見た目のときは `dark.bg`） |
-| 枠 | 分類の色の `border`（暗い見た目のときは `dark.border`） |
-| 色の無い行 | いつもの `surface` の背景と `border` の枠 |
-| 文字 | **すべて `text`**（題名・2 段目の補足・番号のリンク・期日の文言・メニューのボタン） |
-| 期日の印のアイコン | 役割の色のまま（文字ではないので 3 以上でよい。最小は `warning` の 4.02） |
+| 項目 | 色のある行 | 色の無い行 |
+|---|---|---|
+| 左のマスの塗り | 分類の色の `fill`（暗い見た目のときは `dark.fill`） | 塗らない。マスの右に `border` の線 1px |
+| マスの文字とアイコン | `onFill`（塗りとの比 4.5 以上） | `text` |
+| カードの枠 | `fill` と同じ色でカード全体を囲む | `muted` で囲む |
+| 右の本文 | 塗らない（`base`） | 塗らない（`base`） |
 
-- **補足の文字も `muted` にしない**。分類の色の `bg` の上では、`muted` が白紙・半紙・鳥の子・生成りの 4 つのテーマで多くの色が 4.5 を下回る（最小 3.96）。`danger`（4.40）・`warning`（4.02）・`accent-strong`（3.76）の文字も同じ。`text` は全テーマ・全色で 6.67 以上ある
-- 番号のリンクは `text` の色にし、下線でリンクと分かるようにする
-- 分類の名前も 2 段目に文字で書く（色だけに頼らない）。行の中に同じ色のバッジは置かない
+- マスは行の高さいっぱい（`align-self: stretch`）。行の余白を負の `margin` で打ち消して左端と上下に貼り付け、行の左の角に合わせて**左だけ**丸める（`border-radius: 9px 0 0 9px`。行の角 10px から枠の 1px を引く）
+- マスの中は「分類のアイコン（14px）＋番号」、13px・太さ 600・等幅の数字。番号を押すと詳細を開くときはボタンにし、番号に下線を付ける
+- **カードの枠はマスの部品が描く**。行に `position: relative` を付け、マスの中の飾りの要素（`aria-hidden`）を `position: absolute; inset: -1px; border: 1px solid; border-radius: 10px; pointer-events: none` で行の線の上に重ねる。マスそのものには `position` を付けない（付けると枠がマスの大きさになる）
+- 色の無い行の枠を `muted` にするのは、`border` の色では `base` の地との差が小さく、カードの境目が分からないため
+- 題名の下の分類のバッジは、マスの小さい版（同じ `fill`・`onFill` の塗り、アイコン 12px ＋分類の名前、角 6px、12px の文字）。色の無い分類は `border` の枠だけ
+- 分類の名前も文字で書く（色だけに頼らない）
 - 行の帯（`docs/color.md`）と同時には使わない
 
-**実装**: 分類の色のキーから CSS 変数を返す関数を 1 つ作り、行の `style` に渡す。CSS は変数が無ければいつもの色に戻す。
+**`fill` と `onFill`**: `tokens/extra-colors.json` の各色の `light`・`dark` に入っている。`fill` は `dot` を基本にし、白に近い文字（`#fffcf7`）と濃い文字（`#2b2621`）の比の高い方を `onFill` にする。どちらでも 4.5 に届かない色だけ、OKLCH の明るさを最小限に下げる（白い文字）か上げる（濃い文字）。30 色 × ライト・夜の 60 組すべてで 4.5 以上（`docs/color.md`）。
+
+**実装**: 分類の色のキーから塗りの値を返す関数を 1 つ作り、マスの `style` に渡す。
 
 ```ts
-// 30 色のプリセットのキーだけを受け付ける。null・空・知らないキーは {} を返す（行は surface に戻る）
-export function rowColorVars(key: string | null, dark: boolean): Record<string, string> {
+// 30 色のプリセットのキーだけを受け付ける。null・空・知らないキーは null を返す（塗らずに枠線だけ）
+export function cellColors(key: string | null, dark: boolean): { fill: string; onFill: string } | null {
   const color = EXTRA_COLORS.find((item) => item.key === key);
-  if (color === undefined) return {};
+  if (color === undefined) return null;
   const tone = dark ? color.dark : color.light;
-  return { "--row-bg": tone.bg, "--row-border": tone.border };
+  return { fill: tone.fill, onFill: tone.onFill };
 }
 ```
 
 ```css
-.row { background: var(--row-bg, var(--color-surface)); border-color: var(--row-border, var(--color-border)); }
+.row--keyed { border-color: var(--color-muted); }
+.key-cell {
+  display: inline-flex; align-items: center; gap: 4px; align-self: stretch;
+  margin: -6px 0 -6px -10px; padding: 6px 10px; border-radius: 9px 0 0 9px;
+  background: var(--cell-fill, transparent); color: var(--cell-on-fill, var(--color-text));
+  font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.key-cell--plain { border-right: 1px solid var(--color-border); }
+.key-cell__frame {
+  position: absolute; inset: -1px; border: 1px solid var(--cell-fill); border-radius: 10px; pointer-events: none;
+}
 ```
 
-- 関数は `tokens/extra-colors.json` の 30 色のキー以外を受け付けない。保存された値をそのまま `style` に入れると、7 テーマで比を確かめていない色や、CSS として解釈される文字列が入るため
+- 関数は `tokens/extra-colors.json` の 30 色のキー以外を受け付けない。保存された値をそのまま `style` に入れると、比を確かめていない色や、CSS として解釈される文字列が入るため
 - `dark` は `docs/color.md` の「今の見た目が暗いか」の判定で決め、`data-theme` の変化と `prefers-color-scheme` の変化の両方で塗り直す
 
 ## 🏷️ バッジ・チップ
@@ -188,6 +215,7 @@ export function rowColorVars(key: string | null, dark: boolean): Record<string, 
 | 小さなタグ（分類・ラベル） | `border` の枠、`base` か `surface` の背景、丸、11px |
 | タグのチップ | `border` の枠、丸、12px、最大 10em で省略。入りきらない分は「+N」 |
 | 色のバッジ | その他の配色の `bg`・`border`・`text`、角 6px、先頭に選んだアイコン（12px）、無ければ 7px の丸（`docs/color.md`） |
+| 塗りのバッジ | その他の配色の `fill`・`onFill`、角 6px、先頭にアイコン（12px）。分類の色のマスの行のカードの題名の下に置く |
 
 ## 🔔 メッセージの帯
 
