@@ -933,6 +933,16 @@ textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
 .step-picker__chevron { flex: none; color: var(--color-muted); }
 .step-picker__key { flex: none; font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .step-picker__dot { display: inline-block; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--extra-dot, var(--color-border)); }
+
+/* 文言が変わっても幅が変わらないボタン。すべての文言を同じマスに重ね、今の文言以外を隠す（幅は一番長い文言で決まる） */
+.steady-label { display: inline-grid; justify-items: center; }
+.steady-label > span { grid-area: 1 / 1; }
+.steady-label > span:not(.is-current) { visibility: hidden; }
+
+/* 行のピンの切り替え。オフは線だけ（muted）、オンは塗りつぶして accent-strong */
+.pin-toggle[aria-pressed="true"],
+.pin-toggle[aria-pressed="true"]:hover { color: var(--color-accent-strong); }
+.pin-toggle[aria-pressed="true"] .icon { fill: currentColor; }
 </style>
 
 <script>
@@ -1052,6 +1062,39 @@ SOFTWARE.
     <button type="button" class="button ghost small" aria-label="開始"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play"/></svg></button>
   </div>
   <p class="note">primary は 1 画面に 1 つ。文言は折り返さない（nowrap）。アイコンだけのボタンには aria-label。送信は Form と SubmitButton で、送信中はスピナーを出して押せなくする。</p>
+
+  <h2 class="kit-title">文言が変わっても幅が変わらないボタン</h2>
+  <div class="demo-row">
+    <button type="button" class="button secondary small" id="js-steady-start"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-play" class="js-steady-icon"/></svg><span class="steady-label"><span class="is-current">開始</span><span aria-hidden="true">実行中</span></span></button>
+    <button type="button" class="button ghost small" id="js-steady-stop" disabled><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-x"/></svg>止める</button>
+    <span class="field__description">押すと「実行中」に変わるが、右の「止める」は動かない</span>
+  </div>
+  <div class="demo-row">
+    <button type="button" class="button secondary small" disabled><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg><span class="steady-label"><span aria-hidden="true">開始</span><span class="is-current">実行中</span></span></button>
+    <button type="button" class="button ghost small"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-x"/></svg>止める</button>
+    <span class="field__description">実行中（押せない）の見た目。上の行と幅が同じ</span>
+  </div>
+  <p class="note">「開始」と「実行中」を同じマスに重ねて置き、今の文言以外を visibility: hidden にする。幅はいつも長い方の文言で決まるので、切り替わってもまわりの位置がずれない。アイコンも同じ大きさのものに替える。</p>
+
+  <h2 class="kit-title">行のピンの切り替え</h2>
+  <ul class="rows" id="js-pin-rows">
+    <li class="row" data-title="週末の買い出しリストを作る" aria-label="週末の買い出しリストを作る">
+      <span class="row__key">#31</span>
+      <span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>暮らし</span><span>進行中</span></span></span>
+      <span class="row__actions"><button type="button" class="menu-button pin-toggle" aria-pressed="true" aria-label="「週末の買い出しリストを作る」をよく使う項目から外す" title="「週末の買い出しリストを作る」をよく使う項目から外す"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></button></span>
+    </li>
+    <li class="row" data-title="読みかけの本の感想をまとめる" aria-label="読みかけの本の感想をまとめる">
+      <span class="row__key">#32</span>
+      <span class="row__main"><span class="row__title">読みかけの本の感想をまとめる</span><span class="row__meta"><span>読書</span><span>未着手</span></span></span>
+      <span class="row__actions"><button type="button" class="menu-button pin-toggle" aria-pressed="false" aria-label="「読みかけの本の感想をまとめる」をよく使う項目に追加" title="「読みかけの本の感想をまとめる」をよく使う項目に追加"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></button></span>
+    </li>
+    <li class="row" data-title="旅行の宿を比べる" aria-label="旅行の宿を比べる">
+      <span class="row__key">#33</span>
+      <span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>旅行</span><span>確認待ち</span></span></span>
+      <span class="row__actions"><button type="button" class="menu-button pin-toggle" aria-pressed="false" aria-label="「旅行の宿を比べる」をよく使う項目に追加" title="「旅行の宿を比べる」をよく使う項目に追加"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg></button></span>
+    </li>
+  </ul>
+  <p class="note">行の右端の Pin のボタン。オフは線だけ（muted）、オンは塗りつぶし（fill: currentColor）で accent-strong。aria-pressed と aria-label（「〜に追加」⇔「〜から外す」）を一緒に切り替える。見本は押して試せる。</p>
 
   <h2 class="kit-title">入力欄</h2>
   <div class="demo-grid">
@@ -1929,6 +1972,40 @@ SOFTWARE.
     });
     document.addEventListener("pointerdown", (event) => {
       if (!root.contains(event.target)) close(false);
+    });
+  })();
+</script>
+<script>
+  // 幅が変わらないボタンと、行のピンの切り替えの見本の動き（アプリでは React の部品が行う）
+  (() => {
+    const start = document.getElementById("js-steady-start");
+    const stop = document.getElementById("js-steady-stop");
+    if (start !== null && stop !== null) {
+      const setRunning = (running) => {
+        const [idle, busy] = start.querySelectorAll(".steady-label > span");
+        idle.classList.toggle("is-current", !running);
+        busy.classList.toggle("is-current", running);
+        idle.setAttribute("aria-hidden", String(running));
+        busy.setAttribute("aria-hidden", String(!running));
+        start.querySelector(".js-steady-icon").setAttribute("href", running ? "#i-clock" : "#i-play");
+        start.disabled = running;
+        stop.disabled = !running;
+        (running ? stop : start).focus();
+      };
+      start.addEventListener("click", () => setRunning(true));
+      stop.addEventListener("click", () => setRunning(false));
+    }
+    const pinRows = document.getElementById("js-pin-rows");
+    if (pinRows === null) return;
+    pinRows.addEventListener("click", (event) => {
+      const button = event.target.closest(".pin-toggle");
+      if (button === null) return;
+      const title = button.closest(".row").dataset.title;
+      const pinned = button.getAttribute("aria-pressed") !== "true";
+      const label = pinned ? `「${title}」をよく使う項目から外す` : `「${title}」をよく使う項目に追加`;
+      button.setAttribute("aria-pressed", String(pinned));
+      button.setAttribute("aria-label", label);
+      button.title = label;
     });
   })();
 </script>

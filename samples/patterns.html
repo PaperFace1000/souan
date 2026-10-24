@@ -1210,6 +1210,17 @@ a.card:hover { border-color: var(--color-accent); }
 .detail__plain { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; line-height: 1.7; }
 .detail__links { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
 @container app (max-width: 599px) { .detail-fields > div { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+
+/* 並べ替えのできるカードの一覧。カードは分類の色のマスの行のカード（.key-cell）で、右端に「上へ」「下へ」 */
+.pick-row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 10px;
+  position: relative; padding: 6px 10px; border: 1px solid var(--color-muted); border-radius: 10px;
+  background: var(--color-base); font-size: 14px;
+}
+.pick-row__order { display: flex; gap: 2px; }
+.empty__text { margin: 0; }
+/* 端のボタンは disabled ではなく aria-disabled にする（disabled にするとフォーカスが外れるため） */
+.pick-row__order .menu-button[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; background: transparent; color: var(--color-muted); }
 </style>
 
 <script>
@@ -1803,6 +1814,46 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
       </div>
     </div>
   </div>
+  <h2 class="kit-title">並べ替えのできるカードの一覧</h2>
+  <div class="demo-cols">
+    <section class="section" aria-labelledby="pick-heading">
+      <div class="section__header">
+        <h3 class="section__heading" id="pick-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>よく使う項目<span class="count">4</span></h3>
+        <div class="section__tools"><button type="button" class="button ghost small" title="一覧から選んで、よく使う項目に置く"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>追加</button></div>
+      </div>
+      <ul class="rows" id="js-pick-rows">
+      <li class="pick-row" data-extra-color="deep-226" data-title="朝の買い出し" aria-label="朝の買い出し">
+        <button type="button" class="key-cell" aria-label="#21 を開く"><span class="key-cell__frame" aria-hidden="true"></span><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-coffee"/></svg><span class="key-cell__label">#21</span></button>
+        <span class="row__main"><span class="row__title">朝の買い出し</span><span class="row__meta"><span class="fill-badge" title="暮らし"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-coffee"/></svg>暮らし</span><span>毎週土曜</span></span></span>
+        <span class="pick-row__order"><button type="button" class="menu-button" data-move="-1" aria-label="「朝の買い出し」を上へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button><button type="button" class="menu-button" data-move="1" aria-label="「朝の買い出し」を下へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></button></span>
+      </li>
+      <li class="pick-row" data-extra-color="mid-055" data-title="読書の記録をつける" aria-label="読書の記録をつける">
+        <button type="button" class="key-cell" aria-label="#22 を開く"><span class="key-cell__frame" aria-hidden="true"></span><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-book-open"/></svg><span class="key-cell__label">#22</span></button>
+        <span class="row__main"><span class="row__title">読書の記録をつける</span><span class="row__meta"><span class="fill-badge" title="読書"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-book-open"/></svg>読書</span><span>寝る前</span></span></span>
+        <span class="pick-row__order"><button type="button" class="menu-button" data-move="-1" aria-label="「読書の記録をつける」を上へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button><button type="button" class="menu-button" data-move="1" aria-label="「読書の記録をつける」を下へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></button></span>
+      </li>
+      <li class="pick-row" data-extra-color="pale-158" data-title="庭の水やり" aria-label="庭の水やり">
+        <button type="button" class="key-cell" aria-label="#23 を開く"><span class="key-cell__frame" aria-hidden="true"></span><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-leaf"/></svg><span class="key-cell__label">#23</span></button>
+        <span class="row__main"><span class="row__title">庭の水やり</span><span class="row__meta"><span class="fill-badge" title="庭"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-leaf"/></svg>庭</span><span>晴れた日の朝</span></span></span>
+        <span class="pick-row__order"><button type="button" class="menu-button" data-move="-1" aria-label="「庭の水やり」を上へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button><button type="button" class="menu-button" data-move="1" aria-label="「庭の水やり」を下へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></button></span>
+      </li>
+      <li class="pick-row" data-title="家計簿をつける" aria-label="家計簿をつける">
+        <button type="button" class="key-cell key-cell--plain" aria-label="#24 を開く"><span class="key-cell__frame" aria-hidden="true"></span><span class="key-cell__label">#24</span></button>
+        <span class="row__main"><span class="row__title">家計簿をつける</span><span class="row__meta"><span class="fill-badge" title="分類なし">分類なし</span><span>月末</span></span></span>
+        <span class="pick-row__order"><button type="button" class="menu-button" data-move="-1" aria-label="「家計簿をつける」を上へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-up"/></svg></button><button type="button" class="menu-button" data-move="1" aria-label="「家計簿をつける」を下へ"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></button></span>
+      </li>
+      </ul>
+      <p class="visually-hidden" aria-live="polite" id="js-pick-status"></p>
+    </section>
+    <section class="section" aria-labelledby="pick-empty-heading">
+      <div class="section__header">
+        <h3 class="section__heading" id="pick-empty-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-star"/></svg>よく使う項目<span class="count">0</span></h3>
+        <div class="section__tools"><button type="button" class="button ghost small" title="一覧から選んで、よく使う項目に置く"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>追加</button></div>
+      </div>
+      <div class="empty"><svg class="icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><p class="empty__text">よく使う項目はまだありません。「追加」か一覧の行のピンから置けます</p></div>
+    </section>
+  </div>
+  <p class="note">利用者が自分で選んだ項目を、決めた順に並べておく欄。カードは分類の色のマスの行のカード。「上へ」「下へ」は押したあともフォーカスが同じボタンに残るので、キーボードで続けて押して端まで動かせる。先頭の「上へ」と末尾の「下へ」は押せない（aria-disabled）。右は 1 件も無いときの表示。</p>
 </main>
 </div>
 
@@ -1992,7 +2043,7 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     });
   })();
 </script>
-<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol></svg>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol></svg>
 <script>
   // 割合のドーナツと除外の切り替えの見本の動き
   (() => {
@@ -2462,6 +2513,34 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     closeButton.addEventListener("click", closeDetail);
     // 外側のクリックでは閉じない。閉じるのはボタンか Esc
     document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !overlay.hidden) closeDetail(); });
+  })();
+</script>
+<script>
+  // 並べ替えのできるカードの一覧の見本の動き（アプリでは React の部品が行い、並び順を保存する）
+  (() => {
+    const list = document.getElementById("js-pick-rows");
+    const status = document.getElementById("js-pick-status");
+    if (list === null) return;
+    // 端のボタンを押せなくする。disabled にするとフォーカスが外れるので aria-disabled にする
+    const refresh = () => {
+      const rows = [...list.children];
+      rows.forEach((row, index) => {
+        row.querySelector('[data-move="-1"]').setAttribute("aria-disabled", String(index === 0));
+        row.querySelector('[data-move="1"]').setAttribute("aria-disabled", String(index === rows.length - 1));
+      });
+    };
+    list.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-move]");
+      if (button === null || button.getAttribute("aria-disabled") === "true") return;
+      const row = button.closest(".pick-row");
+      // 押した行ではなく隣の行の方を動かす。押した行を DOM から外すとフォーカスが外れるため
+      if (button.dataset.move === "-1") row.after(row.previousElementSibling);
+      else row.before(row.nextElementSibling);
+      refresh();
+      button.focus();
+      status.textContent = `「${row.dataset.title}」を ${[...list.children].indexOf(row) + 1} 番目に動かしました`;
+    });
+    refresh();
   })();
 </script>
 </body>
