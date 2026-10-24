@@ -136,7 +136,8 @@ React Aria の `Checkbox`・`RadioGroup` と `Radio` で作る（読み上げ・
 ダッシュボードなどで、内容ごとにまとめた 1 つの枠。
 
 - 枠 `border`、背景 `surface`、角 12px、余白 14px 16px、中の間 8px
-- 見出し（16px）の横に件数のバッジ（`accent` の枠・`accent-strong` の数字・12px・太さ 600・丸）
+- 見出し（16px）の先頭に、欄の中身を表す Lucide のアイコン（18px、`accent-strong`、`aria-hidden`、文字との間 8px）。同じ画面の欄は全部に付けるか、どれにも付けないかのどちらかにそろえる
+- 見出しの横に件数のバッジ（`accent` の枠・`accent-strong` の数字・12px・太さ 600・丸）
 - 右端に「3 分前に更新」（12px の薄い文字）
 - 読み込み中は中身の代わりに「読み込み中…」（14px の薄い文字）
 - **欄そのものの失敗**（取得できなかった）は、中身を出さずに失敗の帯だけを出す
@@ -203,6 +204,7 @@ export function cellColors(key: string | null, dark: boolean): { fill: string; o
 }
 ```
 
+- `tokens/extra-colors.css` を読み込んでいる画面では、関数の代わりに行へ `data-extra-color="<key>"` を付け、`--extra-fill`・`--extra-on-fill` で塗ってもよい（30 色に無いキーには何も当たらず、塗らない形に戻る。テーマの切り替えも CSS が追う）
 - 関数は `tokens/extra-colors.json` の 30 色のキー以外を受け付けない。保存された値をそのまま `style` に入れると、比を確かめていない色や、CSS として解釈される文字列が入るため
 - `dark` は `docs/color.md` の「今の見た目が暗いか」の判定で決め、`data-theme` の変化と `prefers-color-scheme` の変化の両方で塗り直す
 
