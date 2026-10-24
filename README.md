@@ -6,6 +6,14 @@
 
 名前は「草案」から。決まりは使いながら書き直していく下書きであり、各アプリで見つけた良いやり方をここへ戻して育てます。
 
+**見本**: <https://paperface1000.github.io/souan/>（配色・部品・画面の組み立て。ページの上のボタンで 7 テーマを切り替えられる）
+
+![配色の見本（白紙）](docs/images/palette-hakushi.png)
+
+| 白紙 | 夜更かし |
+|---|---|
+| ![部品の見本（白紙）](docs/images/ui-kit-hakushi.png) | ![部品の見本（夜更かし）](docs/images/ui-kit-yofukashi.png) |
+
 ## 🗂️ 構成
 
 ```
@@ -23,6 +31,7 @@ docs/
   accessibility.md   コントラスト、キーボード操作、aria、フォーカス
   coding.md          実装の決まり（CSS の書き方、lint、テーマの適用、localStorage）
   licenses.md        フォント・アイコンのライセンスで守ること
+  images/            README に載せる見本のスクリーンショット
 tokens/
   palette.json       7 テーマの色の値（正本）
   themes.css         そのまま読み込める CSS 変数
@@ -57,7 +66,7 @@ samples/             ブラウザで直接開ける見本（単一の HTML、外
 
 ### 👀 見本を見る
 
-`samples/index.html` をブラウザで開く。サーバーは要らない。ページの上のボタンで 7 テーマを切り替えられる。
+公開している見本（<https://paperface1000.github.io/souan/>）を開くか、手元で `samples/index.html` をブラウザで開く（サーバーは要らない）。ページの上のボタンで 7 テーマを切り替えられる。URL に `?theme=yofukashi` のように付けると、そのテーマで開く。
 
 ## 🙅 プルリクエストと Issue
 
