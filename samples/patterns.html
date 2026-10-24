@@ -1060,6 +1060,45 @@ a.card:hover { border-color: var(--color-accent); }
 .picker__meta { font-size: 12px; color: var(--color-muted); }
 .picker__detail { display: grid; gap: 8px; align-content: start; min-width: 0; }
 .picker__hint { margin: 0; font-size: 13px; color: var(--color-muted); }
+/* ===== patterns.html に足す CSS（style 要素の最後に置く） ===== */
+
+/* 割合のドーナツ */
+.donut-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 16px; align-items: start; }
+.donut-card { display: grid; gap: 12px; min-width: 0; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); }
+.donut-card__heading { margin: 0; font-size: 16px; }
+.donut-card__case { margin: 0; font-size: 12px; color: var(--color-muted); }
+.donut { position: relative; justify-self: center; width: 180px; height: 180px; }
+.donut__svg { display: block; width: 100%; height: 100%; }
+.donut__track { fill: none; stroke: var(--color-border); }
+.donut__arc { fill: none; transition: opacity 0.15s; }
+.donut__arc--none { stroke: var(--donut-none); }
+/* 色の無い分類・分類なし・その他: muted を base に半分まぜた淡い灰色（下地の輪の border より濃く、見分けられる） */
+.donut-card { --donut-none: color-mix(in srgb, var(--color-muted) 50%, var(--color-base)); }
+.donut.is-focusing .donut__arc:not(.is-current) { opacity: 0.25; }
+.donut__center {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0;
+  padding: 0 34px; color: var(--color-text); text-align: center; pointer-events: none; font-variant-numeric: tabular-nums;
+}
+.donut__main { font-size: 20px; font-weight: 600; line-height: 1.3; }
+.donut__sub { font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.donut-legend { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; font-size: 13px; }
+.donut-legend__row {
+  display: grid; grid-template-columns: 10px minmax(0, 1fr) auto 3.2em; align-items: center; gap: 8px;
+  min-height: 32px; padding: 4px 8px; border-radius: 6px; font-variant-numeric: tabular-nums; cursor: default; transition: opacity 0.15s;
+}
+.donut-legend__row:hover, .donut-legend__row.is-current { background: var(--color-base); }
+.donut-legend__row:focus-visible { outline-offset: -2px; }
+.donut-legend.is-focusing .donut-legend__row:not(.is-current) { opacity: 0.45; }
+.donut-legend__dot { width: 10px; height: 10px; border-radius: 50%; }
+.donut-legend__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.donut-legend__time, .donut-legend__share { text-align: right; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .donut__arc, .donut-legend__row { transition: none; } }
+
+/* 除外の切り替え */
+.exclude-toggle { margin-left: auto; }
+.row.row--excluded { border-style: dashed; color: var(--color-muted); }
+.row__excluded-by { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--color-muted); }
+.rows:not(.is-showing-excluded) > .row--excluded { display: none; }
 </style>
 
 <script>
@@ -1388,6 +1427,26 @@ SOFTWARE.
   </div>
   <p class="note">数字や項目を並べて比べる画面の表。13px、セルの余白 6px 8px、見出しの行は surface、数字は等幅で右寄せ。699px 以下は行ごとのカードに崩し、各セルの頭に data-label の項目名を出す。Markdown の本文の中の表は下の「本文」の表を使う。</p>
 
+  <h2 class="kit-title">割合のドーナツ</h2>
+  <div class="donut-grid">
+    <section class="donut-card" aria-labelledby="donut1-heading">
+      <h3 class="donut-card__heading" id="donut1-heading">今日の時間の使い方（目安 8:00）</h3>
+      <p class="donut-card__case">目安に満たない日: 足りない分は描かず、下地の輪だけを見せる</p>
+      <div class="js-donut" data-donut="under"></div>
+    </section>
+    <section class="donut-card" aria-labelledby="donut2-heading">
+      <h3 class="donut-card__heading" id="donut2-heading">今日の時間の使い方（目安 8:00）</h3>
+      <p class="donut-card__case">目安を超えた日: 合計を 1 周にする</p>
+      <div class="js-donut" data-donut="over"></div>
+    </section>
+    <section class="donut-card" aria-labelledby="donut3-heading">
+      <h3 class="donut-card__heading" id="donut3-heading">今日の時間の使い方（目安 8:00）</h3>
+      <p class="donut-card__case">分類が 7 件以上の日: 上位 5 件と「その他」</p>
+      <div class="js-donut" data-donut="many"></div>
+    </section>
+  </div>
+  <p class="note">1 周は「目安と合計の大きい方」。12 時から時計回りに、時間の多い順（「その他」と「分類なし」は最後）。弧の間は 2px 空ける。弧か凡例の行をなぞる（凡例はキーボードでフォーカスする）と、ほかを薄くして真ん中にその分類の時間と割合を出す。</p>
+
   <h2 class="kit-title">Markdown の本文</h2>
   <div class="demo-cols">
     <article class="prose" aria-label="本文の見本">
@@ -1537,6 +1596,52 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     </div></div>
   </div>
   <p class="note">左に選択肢（幅 180〜220px）、右に選んだものの中身。選んだ行は accent-strong の枠と surface の背景。640px 以下では縦に重ねる。何も選んでいないときは右に「版を選ぶと、今の文章との違いを表示します」と出し、戻すボタンを押せなくする。</p>
+  <h2 class="kit-title">除外の切り替え</h2>
+  <section class="section" aria-labelledby="exclude-heading">
+    <div class="section__header">
+      <h3 class="section__heading" id="exclude-heading">やること<span class="count">4</span></h3>
+      <button type="button" class="button ghost small toggle-button exclude-toggle" id="js-exclude-toggle" aria-controls="js-exclude-rows" title="フィルタで除外した行も、今だけ一覧に出す"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-funnel"/></svg><span class="js-exclude-label">フィルタで 3 件を除外</span></button>
+    </div>
+    <ul class="rows" id="js-exclude-rows">
+      <li class="row" aria-label="週末の買い出しリストを作る">
+        <span class="row__key">#12</span>
+        <span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>暮らし</span><span>進行中</span></span></span>
+        <span class="row__cell">2026-10-25</span>
+      </li>
+      <li class="row row--excluded" aria-label="いつか行きたい店を調べる（除外: 「いつか」を含む）">
+        <span class="row__key">#13</span>
+        <span class="row__main"><span class="row__title">いつか行きたい店を調べる</span><span class="row__meta"><span>暮らし</span><span class="row__excluded-by"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ban"/></svg>除外: 「いつか」を含む</span></span></span>
+        <span class="row__cell">期日なし</span>
+      </li>
+      <li class="row" aria-label="読みかけの本の感想をまとめる">
+        <span class="row__key">#14</span>
+        <span class="row__main"><span class="row__title">読みかけの本の感想をまとめる</span><span class="row__meta"><span>読書</span><span>未着手</span></span></span>
+        <span class="row__cell">2026-10-28</span>
+      </li>
+      <li class="row row--excluded" aria-label="いつか昔の写真を整理する（除外: 「いつか」を含む）">
+        <span class="row__key">#15</span>
+        <span class="row__main"><span class="row__title">いつか昔の写真を整理する</span><span class="row__meta"><span>暮らし</span><span class="row__excluded-by"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ban"/></svg>除外: 「いつか」を含む</span></span></span>
+        <span class="row__cell">期日なし</span>
+      </li>
+      <li class="row" aria-label="旅行の宿を比べる">
+        <span class="row__key">#16</span>
+        <span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>旅行</span><span>確認待ち</span></span></span>
+        <span class="row__cell">2026-10-30</span>
+      </li>
+      <li class="row row--excluded" aria-label="庭の道具の手入れ（済み）（除外: 「済み」を含む）">
+        <span class="row__key">#17</span>
+        <span class="row__main"><span class="row__title">庭の道具の手入れ（済み）</span><span class="row__meta"><span>庭</span><span class="row__excluded-by"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ban"/></svg>除外: 「済み」を含む</span></span></span>
+        <span class="row__cell">2026-10-18</span>
+      </li>
+      <li class="row" aria-label="常備菜の献立を決める">
+        <span class="row__key">#18</span>
+        <span class="row__main"><span class="row__title">常備菜の献立を決める</span><span class="row__meta"><span>料理</span><span>未着手</span></span></span>
+        <span class="row__cell">期日なし</span>
+      </li>
+    </ul>
+    <p class="visually-hidden" aria-live="polite" id="js-exclude-status"></p>
+  </section>
+  <p class="note">見出しの横の小さなボタンで、フィルタで除外した行を今だけ出す。出した行は枠を破線・文字を薄くし、どのフィルタで除外されたかを小さく添える。もう一度押すと戻る。覚えさせないので、再読み込みで除外した状態に戻る。</p>
 </main>
 </div>
 
@@ -1724,6 +1829,215 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
         timer = setTimeout(() => show("コピー", "#i-copy"), COPIED_MS);
       });
     });
+  })();
+</script>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol></svg>
+<script>
+  // 割合のドーナツと除外の切り替えの見本の動き
+  (() => {
+    // 値は tokens/extra-colors.json と同じにすること
+    const EXTRA_COLORS = /* @data:extra-colors */[{"key": "deep-002", "name": "小豆鼠", "tone": "deep", "H": 2, "light": {"bg": "#f6d6de", "border": "#d199a7", "text": "#743649", "dot": "#7f3d51"}, "dark": {"bg": "#4a2f36", "border": "#8b5866", "text": "#fac3d1", "dot": "#b17082"}}, {"key": "mid-002", "name": "梅鼠", "tone": "mid", "H": 2, "light": {"bg": "#ffe0e7", "border": "#e3acba", "text": "#723849", "dot": "#ac697c"}, "dark": {"bg": "#41282f", "border": "#7a4b58", "text": "#f9c4d1", "dot": "#cf90a1"}}, {"key": "pale-002", "name": "桜鼠", "tone": "pale", "H": 2, "light": {"bg": "#ffe8f0", "border": "#fbbdcd", "text": "#753549", "dot": "#df90a6"}, "dark": {"bg": "#3b1f27", "border": "#6e3b4a", "text": "#fcc2d1", "dot": "#f5acc0"}}, {"key": "deep-055", "name": "樺茶", "tone": "deep", "H": 55, "light": {"bg": "#f8d9c4", "border": "#d49d78", "text": "#773a00", "dot": "#824102"}, "dark": {"bg": "#4c311e", "border": "#8e5b38", "text": "#fdc7a4", "dot": "#b47549"}}, {"key": "mid-055", "name": "胡桃", "tone": "mid", "H": 55, "light": {"bg": "#ffe3d0", "border": "#e6b18d", "text": "#753b07", "dot": "#b06e3e"}, "dark": {"bg": "#432a18", "border": "#7d4e2d", "text": "#fbc8a7", "dot": "#d3956a"}}, {"key": "pale-055", "name": "洗柿", "tone": "pale", "H": 55, "light": {"bg": "#ffebd6", "border": "#fec29a", "text": "#793900", "dot": "#e39660"}, "dark": {"bg": "#3c210d", "border": "#713f18", "text": "#ffc7a1", "dot": "#f9b282"}}, {"key": "deep-108", "name": "鶯茶", "tone": "deep", "H": 108, "light": {"bg": "#e2e2c3", "border": "#afaf76", "text": "#535000", "dot": "#5b5900"}, "dark": {"bg": "#3a3a1d", "border": "#6d6c35", "text": "#d8d8a2", "dot": "#8b8a45"}}, {"key": "mid-108", "name": "柳茶", "tone": "mid", "H": 108, "light": {"bg": "#ebeccf", "border": "#c2c28b", "text": "#525000", "dot": "#86843a"}, "dark": {"bg": "#323217", "border": "#5f5e2a", "text": "#d8d8a5", "dot": "#aaa967"}}, {"key": "pale-108", "name": "裏柳", "tone": "pale", "H": 108, "light": {"bg": "#f5f5d4", "border": "#d6d698", "text": "#535000", "dot": "#b1b05c"}, "dark": {"bg": "#2b2b0b", "border": "#515012", "text": "#d8d99f", "dot": "#cac97e"}}, {"key": "deep-158", "name": "常磐", "tone": "deep", "H": 158, "light": {"bg": "#cde7d7", "border": "#88b89b", "text": "#1a5b3b", "dot": "#1f6442"}, "dark": {"bg": "#263e30", "border": "#46755a", "text": "#b3e1c5", "dot": "#5b9574"}}, {"key": "mid-158", "name": "青竹", "tone": "mid", "H": 158, "light": {"bg": "#d8f1e1", "border": "#9ccbae", "text": "#1e5a3c", "dot": "#52906d"}, "dark": {"bg": "#1f3629", "border": "#3a664d", "text": "#b5e1c6", "dot": "#7cb393"}}, {"key": "pale-158", "name": "白緑", "tone": "pale", "H": 158, "light": {"bg": "#dffbe9", "border": "#abdfc0", "text": "#145b3a", "dot": "#76bd94"}, "dark": {"bg": "#152f21", "border": "#27593e", "text": "#b1e2c4", "dot": "#96d5b0"}}, {"key": "deep-190", "name": "錆納戸", "tone": "deep", "H": 190, "light": {"bg": "#c6e8e5", "border": "#78b9b4", "text": "#005b57", "dot": "#006460"}, "dark": {"bg": "#1d3f3c", "border": "#357571", "text": "#a5e2dd", "dot": "#449691"}}, {"key": "mid-190", "name": "錆浅葱", "tone": "mid", "H": 190, "light": {"bg": "#d1f1ee", "border": "#8ecbc7", "text": "#005a57", "dot": "#37908b"}, "dark": {"bg": "#173634", "border": "#296663", "text": "#a8e1dd", "dot": "#69b4af"}}, {"key": "pale-190", "name": "水浅葱", "tone": "pale", "H": 190, "light": {"bg": "#d7fbf8", "border": "#9be0db", "text": "#005c58", "dot": "#5cbeb8"}, "dark": {"bg": "#092f2d", "border": "#095955", "text": "#a2e3de", "dot": "#81d6d0"}}, {"key": "deep-226", "name": "藍鼠", "tone": "deep", "H": 226, "light": {"bg": "#c9e5f1", "border": "#7fb4ca", "text": "#00556f", "dot": "#035e79"}, "dark": {"bg": "#213c47", "border": "#3d7185", "text": "#abddf2", "dot": "#4f90a9"}}, {"key": "mid-226", "name": "湊鼠", "tone": "mid", "H": 226, "light": {"bg": "#d4effa", "border": "#94c6dc", "text": "#0a556d", "dot": "#458aa5"}, "dark": {"bg": "#1b343e", "border": "#326275", "text": "#adddf1", "dot": "#72aec8"}}, {"key": "pale-226", "name": "白藍", "tone": "pale", "H": 226, "light": {"bg": "#daf8ff", "border": "#a2dbf3", "text": "#005670", "dot": "#69b7d6"}, "dark": {"bg": "#102d38", "border": "#1c5469", "text": "#a9ddf4", "dot": "#8acfec"}}, {"key": "deep-272", "name": "紺桔梗", "tone": "deep", "H": 272, "light": {"bg": "#d7dff9", "border": "#9ba9d8", "text": "#3c497d", "dot": "#435189"}, "dark": {"bg": "#30374e", "border": "#5b6692", "text": "#c5d2ff", "dot": "#7483b9"}}, {"key": "mid-272", "name": "桔梗鼠", "tone": "mid", "H": 272, "light": {"bg": "#e1e9ff", "border": "#aebcea", "text": "#3d497b", "dot": "#6e7db6"}, "dark": {"bg": "#292f45", "border": "#4e5881", "text": "#c6d3fe", "dot": "#93a2d7"}}, {"key": "pale-272", "name": "紅掛空", "tone": "pale", "H": 272, "light": {"bg": "#e9f2ff", "border": "#c0cfff", "text": "#3c4880", "dot": "#95a7e9"}, "dark": {"bg": "#21273f", "border": "#3f4a75", "text": "#c4d2ff", "dot": "#b0c1fe"}}, {"key": "deep-298", "name": "古代紫", "tone": "deep", "H": 298, "light": {"bg": "#e2dbf6", "border": "#b0a2d2", "text": "#534177", "dot": "#5c4982"}, "dark": {"bg": "#3a334b", "border": "#6e608c", "text": "#d9ccfa", "dot": "#8c7bb3"}}, {"key": "mid-298", "name": "鳩羽", "tone": "mid", "H": 298, "light": {"bg": "#ece5ff", "border": "#c2b5e4", "text": "#534275", "dot": "#8774af"}, "dark": {"bg": "#332c42", "border": "#5f537c", "text": "#d9ccf9", "dot": "#aa9ad1"}}, {"key": "pale-298", "name": "藤鼠", "tone": "pale", "H": 298, "light": {"bg": "#f5edff", "border": "#d6c7fc", "text": "#544079", "dot": "#b29de1"}, "dark": {"bg": "#2b243c", "border": "#524470", "text": "#d9cbfc", "dot": "#cbb8f7"}}, {"key": "deep-060", "name": "鈍色", "tone": "deep", "H": 60, "light": {"bg": "#e5ded9", "border": "#b4a89f", "text": "#5f4835", "dot": "#605247"}, "dark": {"bg": "#3d3732", "border": "#72675e", "text": "#ddd2c9", "dot": "#918379"}}, {"key": "mid-060", "name": "灰汁色", "tone": "mid", "H": 60, "light": {"bg": "#efe8e3", "border": "#c7bbb2", "text": "#5f4835", "dot": "#8c7d72"}, "dark": {"bg": "#352f2b", "border": "#635951", "text": "#ddd2c9", "dot": "#afa297"}}, {"key": "pale-060", "name": "白鼠", "tone": "pale", "H": 60, "light": {"bg": "#f8f1eb", "border": "#dbcec4", "text": "#5f4835", "dot": "#b8a79a"}, "dark": {"bg": "#2e2823", "border": "#564b42", "text": "#ded2c8", "dot": "#d0c1b5"}}, {"key": "deep-076", "name": "丁子茶", "tone": "deep", "H": 76, "light": {"bg": "#edddc7", "border": "#c2a67e", "text": "#66460e", "dot": "#704e13"}, "dark": {"bg": "#433521", "border": "#7e643e", "text": "#ebd0a9", "dot": "#a18050"}}, {"key": "mid-076", "name": "香色", "tone": "mid", "H": 76, "light": {"bg": "#f6e7d2", "border": "#d5b992", "text": "#654714", "dot": "#9c7a46"}, "dark": {"bg": "#3b2e1b", "border": "#6e5632", "text": "#ead0ab", "dot": "#bf9f71"}}, {"key": "pale-076", "name": "赤白橡", "tone": "pale", "H": 76, "light": {"bg": "#fff0d9", "border": "#ebcca0", "text": "#674607", "dot": "#cba369"}, "dark": {"bg": "#342611", "border": "#62481f", "text": "#eccfa7", "dot": "#e2be89"}}];
+
+    // 今の見た目が暗いか（docs/color.md）: 夜更かし、または data-theme が無くて OS がダーク
+    const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+    const isDark = () => {
+      const theme = document.documentElement.dataset.theme;
+      return theme === "yofukashi" || (theme === undefined && darkQuery.matches);
+    };
+    const watchTheme = (callback) => {
+      new MutationObserver(callback).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      darkQuery.addEventListener("change", callback);
+    };
+    // 分類の色のキーから印の色を返す。30 色に無いキーは null（淡い灰色で描く）
+    const dotColor = (key, dark) => {
+      const color = EXTRA_COLORS.find((item) => item.key === key);
+      if (color === undefined) return null;
+      return dark ? color.dark.dot : color.light.dot;
+    };
+
+    // ===== 割合のドーナツ =====
+    const BASE_MINUTES = 8 * 60; // 目安 8:00
+    const SIZE = 180;
+    const STROKE = 18;
+    const RADIUS = (SIZE - STROKE) / 2;
+    const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+    const GAP = 2; // 弧の間のすき間（px）
+    const MAX_ROWS = 7; // 7 件以上なら上位 5 件と「その他」にまとめる
+    const KEEP_ROWS = 5;
+    const OTHERS = "その他";
+    const UNCATEGORIZED = "分類なし";
+
+    const DATA = {
+      under: [
+        { name: "暮らし", color: "deep-226", minutes: 120 },
+        { name: "読書", color: "mid-055", minutes: 90 },
+        { name: "散歩", color: null, minutes: 60 },
+        { name: UNCATEGORIZED, color: null, minutes: 120 },
+      ],
+      over: [
+        { name: "暮らし", color: "deep-226", minutes: 180 },
+        { name: "料理", color: "deep-002", minutes: 120 },
+        { name: "旅行", color: "mid-272", minutes: 105 },
+        { name: "読書", color: "mid-055", minutes: 90 },
+        { name: "健康", color: "pale-190", minutes: 60 },
+      ],
+      many: [
+        { name: "暮らし", color: "deep-226", minutes: 150 },
+        { name: "読書", color: "mid-055", minutes: 80 },
+        { name: "庭", color: "deep-158", minutes: 60 },
+        { name: "料理", color: "deep-002", minutes: 45 },
+        { name: "旅行", color: "mid-272", minutes: 40 },
+        { name: "健康", color: "pale-190", minutes: 30 },
+        { name: "手芸", color: "mid-298", minutes: 20 },
+        { name: "散歩", color: null, minutes: 15 },
+        { name: UNCATEGORIZED, color: null, minutes: 20 },
+      ],
+    };
+
+    const formatTime = (minutes) => `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`;
+    const isLast = (entry) => entry.name === OTHERS || entry.name === UNCATEGORIZED;
+
+    // 時間の多い順。「その他」と「分類なし」は最後。7 件以上なら分類ありの上位 5 件を残し、残りと分類なしを「その他」にまとめる
+    const arrange = (entries) => {
+      const nonZero = entries.filter((entry) => entry.minutes > 0);
+      const sorted = [...nonZero].sort((a, b) => Number(isLast(a)) - Number(isLast(b)) || b.minutes - a.minutes);
+      if (sorted.length < MAX_ROWS) return sorted;
+      const named = sorted.filter((entry) => !isLast(entry));
+      const kept = named.slice(0, KEEP_ROWS);
+      const rest = nonZero.filter((entry) => !kept.includes(entry));
+      return [...kept, { name: OTHERS, color: null, minutes: rest.reduce((sum, entry) => sum + entry.minutes, 0), members: rest.map((entry) => entry.name) }];
+    };
+
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const svgEl = (tag, attrs) => {
+      const node = document.createElementNS(SVG_NS, tag);
+      Object.entries(attrs).forEach(([name, value]) => node.setAttribute(name, String(value)));
+      return node;
+    };
+    const el = (tag, className, text = "") => {
+      const node = document.createElement(tag);
+      node.className = className;
+      node.textContent = text;
+      return node;
+    };
+
+    const renderDonut = (host) => {
+      const entries = arrange(DATA[host.dataset.donut] ?? []);
+      const total = entries.reduce((sum, entry) => sum + entry.minutes, 0);
+      const full = Math.max(BASE_MINUTES, total); // 1 周は「目安と合計の大きい方」
+      const share = (minutes) => (total === 0 ? 0 : Math.round((minutes / total) * 100));
+      const over = total - BASE_MINUTES;
+      const summary = over > 0
+        ? `合計 ${formatTime(total)}、目安の ${formatTime(BASE_MINUTES)} を ${formatTime(over)} 超えた`
+        : `合計 ${formatTime(total)}、目安 ${formatTime(BASE_MINUTES)} まであと ${formatTime(-over)}`;
+      const defaultMain = formatTime(total);
+      const defaultSub = over > 0 ? `（+${formatTime(over)}）` : `/ ${formatTime(BASE_MINUTES)}`;
+
+      const wrap = el("div", "donut");
+      const svg = svgEl("svg", { class: "donut__svg", viewBox: `0 0 ${SIZE} ${SIZE}`, role: "img" });
+      svg.setAttribute("aria-label", `今日の時間の使い方。${summary}。${entries.map((entry) => `${entry.name} ${formatTime(entry.minutes)}（${share(entry.minutes)}%）`).join("、")}`);
+      const center = SIZE / 2;
+      svg.append(svgEl("circle", { class: "donut__track", cx: center, cy: center, r: RADIUS, "stroke-width": STROKE }));
+      const legend = el("ul", "donut-legend");
+      const arcs = [];
+      const rows = [];
+      let start = 0;
+      entries.forEach((entry, index) => {
+        const length = (entry.minutes / full) * CIRCUMFERENCE;
+        const drawn = Math.max(length - GAP, length / 2); // 短い弧も消さない（弧と凡例の数をそろえる）
+        const arc = svgEl("circle", {
+          class: `donut__arc${entry.color === null ? " donut__arc--none" : ""}`,
+          cx: center, cy: center, r: RADIUS, "stroke-width": STROKE,
+          "stroke-dasharray": `${drawn} ${CIRCUMFERENCE - drawn}`,
+          "stroke-dashoffset": -(start + (length - drawn) / 2),
+          transform: `rotate(-90 ${center} ${center})`, // 12 時から時計回り
+        });
+        arc.dataset.index = String(index);
+        svg.append(arc);
+        arcs.push(arc);
+        start += length;
+
+        const row = el("li", "donut-legend__row");
+        row.tabIndex = 0;
+        row.dataset.index = String(index);
+        if (entry.members !== undefined) row.title = entry.members.join("・");
+        const dot = el("span", "donut-legend__dot");
+        dot.setAttribute("aria-hidden", "true");
+        row.append(dot, el("span", "donut-legend__name", entry.name), el("span", "donut-legend__time", formatTime(entry.minutes)), el("span", "donut-legend__share", `${share(entry.minutes)}%`));
+        legend.append(row);
+        rows.push(row);
+      });
+
+      const centerBox = el("div", "donut__center");
+      centerBox.setAttribute("aria-hidden", "true"); // 読み上げには SVG の aria-label と凡例で伝える
+      const main = el("span", "donut__main", defaultMain);
+      const sub = el("span", "donut__sub", defaultSub);
+      centerBox.append(main, sub);
+      wrap.append(svg, centerBox);
+      host.replaceChildren(wrap, legend);
+
+      const paint = () => {
+        const dark = isDark();
+        entries.forEach((entry, index) => {
+          const color = dotColor(entry.color, dark);
+          arcs[index].style.stroke = color ?? "";
+          rows[index].querySelector(".donut-legend__dot").style.background = color ?? "var(--donut-none)";
+        });
+      };
+      paint();
+      watchTheme(paint);
+
+      // なぞる・フォーカスした分類だけを残し、真ん中にその分類を出す
+      const focusOn = (index) => {
+        const focusing = index !== null;
+        wrap.classList.toggle("is-focusing", focusing);
+        legend.classList.toggle("is-focusing", focusing);
+        arcs.forEach((arc, i) => arc.classList.toggle("is-current", i === index));
+        rows.forEach((row, i) => row.classList.toggle("is-current", i === index));
+        if (!focusing) {
+          main.textContent = defaultMain;
+          sub.textContent = defaultSub;
+          return;
+        }
+        const entry = entries[index];
+        main.textContent = formatTime(entry.minutes);
+        sub.textContent = `${entry.name}・${share(entry.minutes)}%`;
+      };
+      const indexOf = (target) => (target?.dataset.index === undefined ? null : Number(target.dataset.index));
+      svg.addEventListener("pointerover", (event) => {
+        if (event.target.classList.contains("donut__arc")) focusOn(indexOf(event.target));
+      });
+      svg.addEventListener("pointerleave", () => focusOn(indexOf(legend.querySelector(".donut-legend__row:focus"))));
+      rows.forEach((row) => {
+        row.addEventListener("pointerenter", () => focusOn(indexOf(row)));
+        row.addEventListener("pointerleave", () => focusOn(indexOf(legend.querySelector(".donut-legend__row:focus"))));
+        row.addEventListener("focus", () => focusOn(indexOf(row)));
+        row.addEventListener("blur", () => focusOn(null));
+      });
+    };
+    document.querySelectorAll(".js-donut").forEach(renderDonut);
+
+    // ===== 除外の切り替え（覚えさせない。再読み込みで除外した状態に戻る） =====
+    const toggle = document.getElementById("js-exclude-toggle");
+    const excludeRows = document.getElementById("js-exclude-rows");
+    const status = document.getElementById("js-exclude-status");
+    if (toggle !== null && excludeRows !== null && status !== null) {
+      const label = toggle.querySelector(".js-exclude-label");
+      const iconUse = toggle.querySelector("use");
+      const count = excludeRows.querySelectorAll(".row--excluded").length;
+      const render = (showing) => {
+        excludeRows.classList.toggle("is-showing-excluded", showing);
+        label.textContent = showing ? `除外した ${count} 件を隠す` : `フィルタで ${count} 件を除外`;
+        iconUse.setAttribute("href", showing ? "#i-eye-off" : "#i-funnel");
+        toggle.title = showing ? "フィルタで除外した行を、また一覧から外す" : "フィルタで除外した行も、今だけ一覧に出す";
+      };
+      render(false);
+      toggle.addEventListener("click", () => {
+        const showing = !excludeRows.classList.contains("is-showing-excluded");
+        render(showing);
+        status.textContent = showing ? `除外した ${count} 件を表示しています` : `除外した ${count} 件を隠しました`;
+      });
+    }
   })();
 </script>
 </body>

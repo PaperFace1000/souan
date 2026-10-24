@@ -867,6 +867,39 @@ textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
 
 /* 見本の並べ方: 高さのちがう見本を上端でそろえる（引き伸ばさない） */
 .demo-grid--start { align-items: start; }
+/* ===== ui-kit.html に足す CSS（.demo-grid--start の行の後。style 要素の最後に置く） ===== */
+
+/* 分類の色の行のカード。色は JS の rowColorVars() が行の style に --row-bg / --row-border で渡す。
+   色の無い行・知らないキーの行は変数が無いので surface と border に戻る */
+.row.row--tinted { background: var(--row-bg, var(--color-surface)); border-color: var(--row-border, var(--color-border)); }
+/* 分類の色の bg の上では muted・役割の色・accent-strong の文字が 4.5 に届かないテーマがあるため、文字はすべて text にする。
+   印のアイコン（文字ではない部分）は役割の色のままでよい（3 以上ある） */
+.row--tinted .row__meta,
+.row--tinted .row__cell,
+.row--tinted .row__key,
+.row--tinted .mark,
+.row--tinted .menu-button { color: var(--color-text); }
+.row--tinted .mark--danger .icon { color: var(--color-danger); }
+.row--tinted .mark--warning .icon { color: var(--color-warning); }
+.row--tinted .menu-button:hover { background: var(--color-base); }
+
+/* 段階的に絞る選択のポップオーバー。見た目は「探して選ぶ欄」の .picker-button / .popover / .search-panel / .menu-item を使う */
+.step-picker { position: relative; min-width: 0; }
+.step-picker__panel {
+  position: absolute; top: calc(100% + 4px); left: 0; z-index: 10;
+  width: min(28rem, 100%);
+}
+.step-picker__panel[hidden] { display: none; }
+.step-picker__pins { display: grid; gap: 2px; padding-bottom: 6px; border-bottom: 1px solid var(--color-border); }
+.step-picker__pins[hidden] { display: none; }
+.step-picker .menu-item { cursor: pointer; }
+.step-picker .menu-item.is-active { background: var(--color-surface); }
+.step-picker__pin-icon { color: var(--color-muted); }
+.step-picker__back { color: var(--color-muted); }
+.step-picker__count { flex: none; margin-left: auto; font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.step-picker__chevron { flex: none; color: var(--color-muted); }
+.step-picker__key { flex: none; font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.step-picker__dot { display: inline-block; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--extra-dot, var(--color-border)); }
 </style>
 
 <script>
@@ -1107,6 +1140,41 @@ SOFTWARE.
     </div>
   </div>
   <p class="note">欄そのものの失敗は中身を出さずに帯だけ。更新の失敗は中身を残したまま帯を足す。一覧が空のときは薄い文字で 1 文だけ。</p>
+  <h2 class="kit-title">分類の色の行のカード</h2>
+  <ul class="rows" id="js-tinted-rows">
+    <li class="row row--tinted" data-row-color="deep-226" aria-label="週末の買い出しリストを作る">
+      <a class="row__key" href="#">#12</a>
+      <span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>暮らし</span><span>進行中</span></span></span>
+      <span class="row__cell"><span class="mark mark--warning"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>今日まで</span></span>
+      <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+    </li>
+    <li class="row row--tinted" data-row-color="mid-055" aria-label="読みかけの本の感想をまとめる">
+      <a class="row__key" href="#">#13</a>
+      <span class="row__main"><span class="row__title">読みかけの本の感想をまとめる</span><span class="row__meta"><span>読書</span><span>未着手</span></span></span>
+      <span class="row__cell"><span class="mark mark--danger"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>2026-10-20 超過</span></span>
+      <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+    </li>
+    <li class="row row--tinted" data-row-color="pale-158" aria-label="庭のバラの植え替えをする">
+      <a class="row__key" href="#">#14</a>
+      <span class="row__main"><span class="row__title">庭のバラの植え替えをする</span><span class="row__meta"><span>庭</span><span>進行中</span></span></span>
+      <span class="row__cell"><span class="mark mark--muted"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>2026-11-02 まで</span></span>
+      <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+    </li>
+    <li class="row row--tinted" aria-label="年賀状の文面を考える">
+      <a class="row__key" href="#">#15</a>
+      <span class="row__main"><span class="row__title">年賀状の文面を考える</span><span class="row__meta"><span>分類なし</span><span>未着手</span></span></span>
+      <span class="row__cell">期日なし</span>
+      <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+    </li>
+    <li class="row row--tinted" data-row-color="red" aria-label="旅行の宿を比べる">
+      <a class="row__key" href="#">#16</a>
+      <span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>旅行</span><span>確認待ち</span></span></span>
+      <span class="row__cell">期日なし</span>
+      <span class="row__actions"><button type="button" class="menu-button" aria-label="その他の操作"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-ellipsis"/></svg></button></span>
+    </li>
+  </ul>
+  <p class="note">背景は分類の色の bg、枠は border（夜は dark の組）。文字はすべてテーマの文字の色のまま（2 段目・番号・期日も muted や役割の色にしない）。色の無い行と、30 色に無いキー（最後の行の red）は surface に戻る。</p>
+
 
   <h2 class="kit-title">メッセージの帯</h2>
   <div class="stack">
@@ -1120,11 +1188,13 @@ SOFTWARE.
   <div class="demo-row" style="gap: 8px 20px;">
     <span class="mark mark--danger"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>期日超過</span>
     <span class="mark mark--warning"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>今日が期日</span>
+    <span class="mark mark--muted"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>2026-11-02 まで</span>
     <span class="mark mark--success"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-check"/></svg>反映済み</span>
     <span class="mark mark--danger"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle-x"/></svg>失敗</span>
     <span class="mark mark--muted"><svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-circle"/></svg>未着手</span>
   </div>
-  <p class="note">絵文字は使わず、Lucide の塗りの円（Circle）や CircleCheck・CircleX を役割の色で塗る。色だけに頼らず文言を必ず添える。</p>
+  <p class="note">絵文字は使わず、Lucide の塗りの円（Circle）や CircleCheck・CircleX を役割の色で塗る。期日は 3 段で、超過は塗りの danger、今日は塗りの warning、まだ先は muted の輪郭の円（未着手・対象外の塗りの円と見分ける）。色だけに頼らず文言を必ず添える。</p>
+
 
   <h2 class="kit-title">バッジ・チップ</h2>
   <div class="demo-row">
@@ -1204,6 +1274,20 @@ SOFTWARE.
     </div>
   </div>
   <p class="note">押すボタンは入力欄・セレクトと同じ 40px。開くと上に絞り込みの欄（36px）、下に区分ごとの一覧。上下キーで行を動き、Enter で選び、Esc で閉じる。見本の絞り込みの欄は文字を入れると一覧を絞り込む。</p>
+  <h2 class="kit-title">段階的に絞る選択（押すと開く）</h2>
+  <div class="demo-grid demo-grid--start">
+    <div class="field step-picker" id="js-step-picker">
+      <span class="field__label" id="stp-label">やること</span>
+      <button type="button" class="picker-button picker-button--empty" id="js-step-button" aria-haspopup="dialog" aria-expanded="false" aria-controls="js-step-panel" aria-labelledby="stp-label js-step-value"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg><span class="js-step-badge"></span><span class="picker-button__value" id="js-step-value">選んでいません</span><svg class="icon picker-button__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-down"/></svg></button>
+      <div class="popover search-panel step-picker__panel" id="js-step-panel" role="dialog" aria-label="やることの選択" hidden>
+        <div class="step-picker__pins listbox" id="js-step-pins" role="listbox" tabindex="-1" aria-label="固定した項目"></div>
+        <div class="search-field"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-search"/></svg><input type="search" class="search-field__input" id="js-step-search" role="combobox" aria-expanded="true" aria-controls="js-step-pins js-step-list" aria-autocomplete="list" aria-label="すべてのやることから探す" placeholder="すべてから探す" autocomplete="off"></div>
+        <div class="listbox" id="js-step-list" role="listbox" tabindex="-1" aria-label="やること"></div>
+        <div aria-live="polite"><p class="search-panel__note" id="js-step-note" hidden></p></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">上から、固定した項目・検索欄・分類の一覧。分類を押すとその分類の項目だけになり、先頭の「分類の一覧」で戻る（検索欄が空のときの Backspace と ← でも戻る）。文字を入れると、分類に関係なくすべての項目から探す。上下キーで動き、Enter で選ぶ（分類の行では → でも開く）、Esc で閉じる。</p>
 
   <h2 class="kit-title">日付・時刻の入力</h2>
   <div class="demo-grid demo-grid--start">
@@ -1505,6 +1589,298 @@ SOFTWARE.
       notice.removeAttribute("role");
       noticeRegion.replaceChildren(notice);
       setTimeout(() => notice.remove(), AUTO_DISMISS_MS);
+    });
+  })();
+</script>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol></svg>
+<script>
+  // 分類の色の行のカードと、段階的に絞る選択の見本の動き（アプリでは React の部品が行う）
+  (() => {
+    // 値は tokens/extra-colors.json と同じにすること
+    const EXTRA_COLORS = /* @data:extra-colors */[{"key": "deep-002", "name": "小豆鼠", "tone": "deep", "H": 2, "light": {"bg": "#f6d6de", "border": "#d199a7", "text": "#743649", "dot": "#7f3d51"}, "dark": {"bg": "#4a2f36", "border": "#8b5866", "text": "#fac3d1", "dot": "#b17082"}}, {"key": "mid-002", "name": "梅鼠", "tone": "mid", "H": 2, "light": {"bg": "#ffe0e7", "border": "#e3acba", "text": "#723849", "dot": "#ac697c"}, "dark": {"bg": "#41282f", "border": "#7a4b58", "text": "#f9c4d1", "dot": "#cf90a1"}}, {"key": "pale-002", "name": "桜鼠", "tone": "pale", "H": 2, "light": {"bg": "#ffe8f0", "border": "#fbbdcd", "text": "#753549", "dot": "#df90a6"}, "dark": {"bg": "#3b1f27", "border": "#6e3b4a", "text": "#fcc2d1", "dot": "#f5acc0"}}, {"key": "deep-055", "name": "樺茶", "tone": "deep", "H": 55, "light": {"bg": "#f8d9c4", "border": "#d49d78", "text": "#773a00", "dot": "#824102"}, "dark": {"bg": "#4c311e", "border": "#8e5b38", "text": "#fdc7a4", "dot": "#b47549"}}, {"key": "mid-055", "name": "胡桃", "tone": "mid", "H": 55, "light": {"bg": "#ffe3d0", "border": "#e6b18d", "text": "#753b07", "dot": "#b06e3e"}, "dark": {"bg": "#432a18", "border": "#7d4e2d", "text": "#fbc8a7", "dot": "#d3956a"}}, {"key": "pale-055", "name": "洗柿", "tone": "pale", "H": 55, "light": {"bg": "#ffebd6", "border": "#fec29a", "text": "#793900", "dot": "#e39660"}, "dark": {"bg": "#3c210d", "border": "#713f18", "text": "#ffc7a1", "dot": "#f9b282"}}, {"key": "deep-108", "name": "鶯茶", "tone": "deep", "H": 108, "light": {"bg": "#e2e2c3", "border": "#afaf76", "text": "#535000", "dot": "#5b5900"}, "dark": {"bg": "#3a3a1d", "border": "#6d6c35", "text": "#d8d8a2", "dot": "#8b8a45"}}, {"key": "mid-108", "name": "柳茶", "tone": "mid", "H": 108, "light": {"bg": "#ebeccf", "border": "#c2c28b", "text": "#525000", "dot": "#86843a"}, "dark": {"bg": "#323217", "border": "#5f5e2a", "text": "#d8d8a5", "dot": "#aaa967"}}, {"key": "pale-108", "name": "裏柳", "tone": "pale", "H": 108, "light": {"bg": "#f5f5d4", "border": "#d6d698", "text": "#535000", "dot": "#b1b05c"}, "dark": {"bg": "#2b2b0b", "border": "#515012", "text": "#d8d99f", "dot": "#cac97e"}}, {"key": "deep-158", "name": "常磐", "tone": "deep", "H": 158, "light": {"bg": "#cde7d7", "border": "#88b89b", "text": "#1a5b3b", "dot": "#1f6442"}, "dark": {"bg": "#263e30", "border": "#46755a", "text": "#b3e1c5", "dot": "#5b9574"}}, {"key": "mid-158", "name": "青竹", "tone": "mid", "H": 158, "light": {"bg": "#d8f1e1", "border": "#9ccbae", "text": "#1e5a3c", "dot": "#52906d"}, "dark": {"bg": "#1f3629", "border": "#3a664d", "text": "#b5e1c6", "dot": "#7cb393"}}, {"key": "pale-158", "name": "白緑", "tone": "pale", "H": 158, "light": {"bg": "#dffbe9", "border": "#abdfc0", "text": "#145b3a", "dot": "#76bd94"}, "dark": {"bg": "#152f21", "border": "#27593e", "text": "#b1e2c4", "dot": "#96d5b0"}}, {"key": "deep-190", "name": "錆納戸", "tone": "deep", "H": 190, "light": {"bg": "#c6e8e5", "border": "#78b9b4", "text": "#005b57", "dot": "#006460"}, "dark": {"bg": "#1d3f3c", "border": "#357571", "text": "#a5e2dd", "dot": "#449691"}}, {"key": "mid-190", "name": "錆浅葱", "tone": "mid", "H": 190, "light": {"bg": "#d1f1ee", "border": "#8ecbc7", "text": "#005a57", "dot": "#37908b"}, "dark": {"bg": "#173634", "border": "#296663", "text": "#a8e1dd", "dot": "#69b4af"}}, {"key": "pale-190", "name": "水浅葱", "tone": "pale", "H": 190, "light": {"bg": "#d7fbf8", "border": "#9be0db", "text": "#005c58", "dot": "#5cbeb8"}, "dark": {"bg": "#092f2d", "border": "#095955", "text": "#a2e3de", "dot": "#81d6d0"}}, {"key": "deep-226", "name": "藍鼠", "tone": "deep", "H": 226, "light": {"bg": "#c9e5f1", "border": "#7fb4ca", "text": "#00556f", "dot": "#035e79"}, "dark": {"bg": "#213c47", "border": "#3d7185", "text": "#abddf2", "dot": "#4f90a9"}}, {"key": "mid-226", "name": "湊鼠", "tone": "mid", "H": 226, "light": {"bg": "#d4effa", "border": "#94c6dc", "text": "#0a556d", "dot": "#458aa5"}, "dark": {"bg": "#1b343e", "border": "#326275", "text": "#adddf1", "dot": "#72aec8"}}, {"key": "pale-226", "name": "白藍", "tone": "pale", "H": 226, "light": {"bg": "#daf8ff", "border": "#a2dbf3", "text": "#005670", "dot": "#69b7d6"}, "dark": {"bg": "#102d38", "border": "#1c5469", "text": "#a9ddf4", "dot": "#8acfec"}}, {"key": "deep-272", "name": "紺桔梗", "tone": "deep", "H": 272, "light": {"bg": "#d7dff9", "border": "#9ba9d8", "text": "#3c497d", "dot": "#435189"}, "dark": {"bg": "#30374e", "border": "#5b6692", "text": "#c5d2ff", "dot": "#7483b9"}}, {"key": "mid-272", "name": "桔梗鼠", "tone": "mid", "H": 272, "light": {"bg": "#e1e9ff", "border": "#aebcea", "text": "#3d497b", "dot": "#6e7db6"}, "dark": {"bg": "#292f45", "border": "#4e5881", "text": "#c6d3fe", "dot": "#93a2d7"}}, {"key": "pale-272", "name": "紅掛空", "tone": "pale", "H": 272, "light": {"bg": "#e9f2ff", "border": "#c0cfff", "text": "#3c4880", "dot": "#95a7e9"}, "dark": {"bg": "#21273f", "border": "#3f4a75", "text": "#c4d2ff", "dot": "#b0c1fe"}}, {"key": "deep-298", "name": "古代紫", "tone": "deep", "H": 298, "light": {"bg": "#e2dbf6", "border": "#b0a2d2", "text": "#534177", "dot": "#5c4982"}, "dark": {"bg": "#3a334b", "border": "#6e608c", "text": "#d9ccfa", "dot": "#8c7bb3"}}, {"key": "mid-298", "name": "鳩羽", "tone": "mid", "H": 298, "light": {"bg": "#ece5ff", "border": "#c2b5e4", "text": "#534275", "dot": "#8774af"}, "dark": {"bg": "#332c42", "border": "#5f537c", "text": "#d9ccf9", "dot": "#aa9ad1"}}, {"key": "pale-298", "name": "藤鼠", "tone": "pale", "H": 298, "light": {"bg": "#f5edff", "border": "#d6c7fc", "text": "#544079", "dot": "#b29de1"}, "dark": {"bg": "#2b243c", "border": "#524470", "text": "#d9cbfc", "dot": "#cbb8f7"}}, {"key": "deep-060", "name": "鈍色", "tone": "deep", "H": 60, "light": {"bg": "#e5ded9", "border": "#b4a89f", "text": "#5f4835", "dot": "#605247"}, "dark": {"bg": "#3d3732", "border": "#72675e", "text": "#ddd2c9", "dot": "#918379"}}, {"key": "mid-060", "name": "灰汁色", "tone": "mid", "H": 60, "light": {"bg": "#efe8e3", "border": "#c7bbb2", "text": "#5f4835", "dot": "#8c7d72"}, "dark": {"bg": "#352f2b", "border": "#635951", "text": "#ddd2c9", "dot": "#afa297"}}, {"key": "pale-060", "name": "白鼠", "tone": "pale", "H": 60, "light": {"bg": "#f8f1eb", "border": "#dbcec4", "text": "#5f4835", "dot": "#b8a79a"}, "dark": {"bg": "#2e2823", "border": "#564b42", "text": "#ded2c8", "dot": "#d0c1b5"}}, {"key": "deep-076", "name": "丁子茶", "tone": "deep", "H": 76, "light": {"bg": "#edddc7", "border": "#c2a67e", "text": "#66460e", "dot": "#704e13"}, "dark": {"bg": "#433521", "border": "#7e643e", "text": "#ebd0a9", "dot": "#a18050"}}, {"key": "mid-076", "name": "香色", "tone": "mid", "H": 76, "light": {"bg": "#f6e7d2", "border": "#d5b992", "text": "#654714", "dot": "#9c7a46"}, "dark": {"bg": "#3b2e1b", "border": "#6e5632", "text": "#ead0ab", "dot": "#bf9f71"}}, {"key": "pale-076", "name": "赤白橡", "tone": "pale", "H": 76, "light": {"bg": "#fff0d9", "border": "#ebcca0", "text": "#674607", "dot": "#cba369"}, "dark": {"bg": "#342611", "border": "#62481f", "text": "#eccfa7", "dot": "#e2be89"}}];
+
+    // 今の見た目が暗いか（docs/color.md）: 夜更かし、または data-theme が無くて OS がダーク
+    const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+    const isDark = () => {
+      const theme = document.documentElement.dataset.theme;
+      return theme === "yofukashi" || (theme === undefined && darkQuery.matches);
+    };
+    const watchTheme = (callback) => {
+      new MutationObserver(callback).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      darkQuery.addEventListener("change", callback);
+    };
+
+    // 分類の色のキーから、行に渡す CSS 変数を返す。30 色のキー以外（空・null・知らない値）は空を返し、行は surface に戻る
+    const rowColorVars = (key, dark) => {
+      const color = EXTRA_COLORS.find((item) => item.key === key);
+      if (color === undefined) return {};
+      const tone = dark ? color.dark : color.light;
+      return { "--row-bg": tone.bg, "--row-border": tone.border };
+    };
+    const paintRows = () => {
+      const dark = isDark();
+      document.querySelectorAll("#js-tinted-rows .row").forEach((row) => {
+        row.style.removeProperty("--row-bg");
+        row.style.removeProperty("--row-border");
+        Object.entries(rowColorVars(row.dataset.rowColor, dark)).forEach(([name, value]) => row.style.setProperty(name, value));
+      });
+    };
+    paintRows();
+    watchTheme(paintRows);
+
+    // ===== 段階的に絞る選択 =====
+    const root = document.getElementById("js-step-picker");
+    if (root === null) return;
+    const button = document.getElementById("js-step-button");
+    const panel = document.getElementById("js-step-panel");
+    const pins = document.getElementById("js-step-pins");
+    const input = document.getElementById("js-step-search");
+    const list = document.getElementById("js-step-list");
+    const note = document.getElementById("js-step-note");
+    const badgeSlot = button.querySelector(".js-step-badge");
+    const valueText = document.getElementById("js-step-value");
+
+    const CATEGORIES = [
+      { id: "life", name: "暮らし", color: "deep-226" },
+      { id: "read", name: "読書", color: "mid-055" },
+      { id: "garden", name: "庭", color: "deep-158" },
+      { id: "trip", name: "旅行", color: "mid-272" },
+      { id: "cook", name: "料理", color: "deep-002" },
+      { id: "health", name: "健康", color: "pale-190" },
+      { id: "none", name: "分類なし", color: null },
+    ];
+    const ITEMS = [
+      { key: "#12", title: "週末の買い出しリストを作る", category: "life" },
+      { key: "#13", title: "読みかけの本の感想をまとめる", category: "read" },
+      { key: "#14", title: "庭のバラの植え替えをする", category: "garden" },
+      { key: "#15", title: "旅行の宿を比べる", category: "trip" },
+      { key: "#16", title: "常備菜の献立を決める", category: "cook" },
+      { key: "#17", title: "朝の散歩の道を決める", category: "health" },
+      { key: "#18", title: "冬物の服を出す", category: "life" },
+      { key: "#19", title: "図書館の本を返す", category: "read" },
+      { key: "#20", title: "春に咲く球根を植える", category: "garden" },
+      { key: "#21", title: "乗り換えの時間を調べる", category: "trip" },
+      { key: "#22", title: "新しいパンの焼き方を試す", category: "cook" },
+      { key: "#23", title: "健康診断の予約を取る", category: "health" },
+      { key: "#24", title: "年賀状の文面を考える", category: "none" },
+      { key: "#25", title: "台所の棚を片づける", category: "life" },
+      { key: "#26", title: "次に読む本を選ぶ", category: "read" },
+    ];
+    const PINNED = ["#12", "#15"];
+    const RECENT = ["#13", "#14", "#16", "#17", "#22"]; // 最近使った 5 件
+    const NONE = "";
+
+    const state = { view: null, selected: null, activeId: null }; // view: null は分類の一覧、文字列は分類の id
+    const normalize = (text) => text.normalize("NFKC").toLowerCase().trim();
+    const categoryOf = (item) => CATEGORIES.find((category) => category.id === item.category);
+    const findItem = (key) => ITEMS.find((item) => item.key === key);
+    const icon = (name, size, className = "") => {
+      const ns = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(ns, "svg");
+      Object.entries({ class: `icon ${className}`.trim(), width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true", focusable: "false" })
+        .forEach(([name2, value]) => svg.setAttribute(name2, String(value)));
+      const use = document.createElementNS(ns, "use");
+      use.setAttribute("href", `#i-${name}`);
+      svg.append(use);
+      return svg;
+    };
+    const el = (tag, className, children = []) => {
+      const node = document.createElement(tag);
+      if (className !== "") node.className = className;
+      node.append(...children);
+      return node;
+    };
+    const categoryBadge = (category) => {
+      const badge = el("span", "extra-badge", [category.name]);
+      badge.dataset.extraColor = category.color ?? "none";
+      if (category.color !== null) {
+        const dot = el("span", "extra-dot");
+        dot.setAttribute("aria-hidden", "true");
+        badge.prepend(dot);
+      }
+      return badge;
+    };
+
+    let optionCount = 0;
+    const option = (kind, value, children, className = "") => {
+      const node = el("div", `menu-item ${className}`.trim(), children);
+      optionCount += 1;
+      node.id = `js-step-option-${optionCount}`;
+      node.setAttribute("role", "option");
+      node.dataset.kind = kind;
+      node.dataset.value = value;
+      return node;
+    };
+    const itemOption = (item, pinned = false) => {
+      const category = categoryOf(item);
+      const main = el("span", "menu-item__main", [
+        el("span", "menu-item__title", [item.title]),
+        el("span", "menu-item__meta", [categoryBadge(category), el("span", "", [item.key])]),
+      ]);
+      const children = pinned ? [icon("pin", 16, "step-picker__pin-icon"), main] : [main];
+      const selected = state.selected === item.key;
+      if (selected) children.push(icon("check", 16, "menu-item__check"));
+      const node = option("item", item.key, children);
+      node.setAttribute("aria-selected", String(selected));
+      return node;
+    };
+    const group = (label, options) => {
+      optionCount += 1;
+      const headerId = `js-step-group-${optionCount}`;
+      const header = el("div", "listbox__header", [label]);
+      header.id = headerId;
+      header.setAttribute("role", "presentation");
+      const node = el("div", "", [header, ...options]);
+      node.setAttribute("role", "group");
+      node.setAttribute("aria-labelledby", headerId);
+      return node;
+    };
+
+    const render = () => {
+      const query = normalize(input.value);
+      const searching = query !== "";
+      pins.hidden = searching;
+      pins.replaceChildren(...PINNED.map((key) => itemOption(findItem(key), true)));
+      let content = [];
+      if (searching) {
+        const hits = ITEMS.filter((item) => normalize(`${item.title} ${item.key} ${categoryOf(item).name}`).includes(query));
+        content = hits.length > 0 ? [group("すべてから探した結果", hits.map((item) => itemOption(item)))] : [];
+        note.textContent = hits.length > 0 ? `${hits.length} 件` : "見つかりません";
+        note.hidden = false;
+      } else if (state.view === null) {
+        const none = option("none", NONE, [el("span", "menu-item__main", [el("span", "menu-item__title", ["なし（選ばない）"])])], "menu-item--none");
+        none.setAttribute("aria-selected", String(state.selected === null));
+        if (state.selected === null) none.append(icon("check", 16, "menu-item__check"));
+        const categories = CATEGORIES.map((category) => {
+          const count = ITEMS.filter((item) => item.category === category.id).length;
+          const dot = el("span", "step-picker__dot");
+          dot.setAttribute("aria-hidden", "true");
+          if (category.color !== null) dot.dataset.extraColor = category.color;
+          return option("category", category.id, [dot, el("span", "menu-item__main", [el("span", "menu-item__title", [category.name])]), el("span", "step-picker__count", [`${count} 件`]), icon("chevron-right", 16, "step-picker__chevron")]);
+        });
+        content = [none, group("最近使った", RECENT.map((key) => itemOption(findItem(key)))), group("分類", categories)];
+        note.hidden = true;
+      } else {
+        const category = CATEGORIES.find((item) => item.id === state.view);
+        const back = option("back", "", [icon("arrow-left", 16), el("span", "menu-item__main", [el("span", "menu-item__title", ["分類の一覧"])])], "step-picker__back");
+        content = [back, group(category.name, ITEMS.filter((item) => item.category === category.id).map((item) => itemOption(item)))];
+        note.hidden = true;
+      }
+      list.replaceChildren(...content);
+    };
+
+    const options = () => [...panel.querySelectorAll('[role="option"]')].filter((node) => node.closest("[hidden]") === null);
+    const setActive = (node) => {
+      options().forEach((other) => other.classList.toggle("is-active", other === node));
+      state.activeId = node?.id ?? null;
+      if (node === null || node === undefined) {
+        input.removeAttribute("aria-activedescendant");
+        return;
+      }
+      input.setAttribute("aria-activedescendant", node.id);
+      node.scrollIntoView({ block: "nearest" });
+    };
+    // 分類を移ったときなどに、最初に指す行を決める（固定した項目より下の一覧を先にする）
+    const activateFirst = (match = () => false) => {
+      const inList = options().filter((node) => list.contains(node));
+      setActive(inList.find(match) ?? inList.find((node) => node.dataset.kind === "item") ?? inList[0] ?? null);
+    };
+
+    const showView = (view, focusCategory = null) => {
+      state.view = view;
+      render();
+      if (focusCategory !== null) activateFirst((node) => node.dataset.kind === "category" && node.dataset.value === focusCategory);
+      else activateFirst();
+    };
+    const select = (key) => {
+      state.selected = key;
+      badgeSlot.replaceChildren();
+      if (key === null) {
+        valueText.textContent = "選んでいません";
+        button.classList.add("picker-button--empty");
+      } else {
+        const item = findItem(key);
+        badgeSlot.replaceChildren(categoryBadge(categoryOf(item)));
+        valueText.textContent = item.title;
+        button.classList.remove("picker-button--empty");
+      }
+      close(true);
+    };
+    const activate = (node) => {
+      if (node === null || node === undefined) return;
+      const { kind, value } = node.dataset;
+      if (kind === "item") select(value);
+      if (kind === "none") select(null);
+      if (kind === "category") showView(value);
+      if (kind === "back") showView(null, state.view);
+    };
+
+    const open = () => {
+      state.view = null;
+      input.value = "";
+      render();
+      panel.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      input.focus();
+      activateFirst((node) => node.getAttribute("aria-selected") === "true" && node.dataset.kind === "item");
+    };
+    function close(returnFocus) {
+      if (panel.hidden) return;
+      panel.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      input.value = "";
+      setActive(null);
+      if (returnFocus) button.focus();
+    }
+
+    button.addEventListener("click", () => (panel.hidden ? open() : close(true)));
+    input.addEventListener("input", () => {
+      render();
+      activateFirst();
+    });
+    input.addEventListener("keydown", (event) => {
+      if (event.isComposing) return; // 日本語の変換中のキーは変換の操作として扱う
+      const all = options();
+      const index = all.findIndex((node) => node.id === state.activeId);
+      const active = all[index];
+      const emptyQuery = input.value === "";
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const step = event.key === "ArrowDown" ? 1 : -1;
+        setActive(all[Math.min(Math.max(index + step, 0), all.length - 1)] ?? null);
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        activate(active);
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        close(true);
+      } else if ((event.key === "Backspace" || event.key === "ArrowLeft") && emptyQuery && state.view !== null) {
+        event.preventDefault();
+        showView(null, state.view);
+      } else if (event.key === "ArrowRight" && emptyQuery && active?.dataset.kind === "category") {
+        event.preventDefault();
+        activate(active);
+      }
+    });
+    panel.addEventListener("pointermove", (event) => {
+      const node = event.target.closest('[role="option"]');
+      if (node !== null && node.id !== state.activeId) setActive(node);
+    });
+    // 押した行を選ぶ。入力欄からフォーカスを外さない
+    panel.addEventListener("mousedown", (event) => {
+      if (event.target !== input) event.preventDefault();
+    });
+    panel.addEventListener("click", (event) => {
+      const node = event.target.closest('[role="option"]');
+      if (node === null) return;
+      activate(node);
+      if (!panel.hidden) input.focus();
+    });
+    root.addEventListener("focusout", (event) => {
+      if (event.relatedTarget === null || !root.contains(event.relatedTarget)) close(false);
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!root.contains(event.target)) close(false);
     });
   })();
 </script>

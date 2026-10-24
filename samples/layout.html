@@ -686,6 +686,42 @@ textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
   .app-main { padding: 20px 16px 32px; }
 }
 
+/* ===== layout.html に足す CSS（style 要素の最後に置く） ===== */
+
+/* 置かれた枠の幅で形を変える部品。入れ物は部品ごとに持つ（.app のように見本全体の入れ物ではない） */
+.fit-card { container-type: inline-size; container-name: fit-card; min-width: 0; }
+.fit-card__body {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(9rem, 14rem) auto; align-items: center; gap: 8px 16px;
+  padding: 10px 12px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-base); font-size: 14px;
+}
+.fit-card__main { display: grid; gap: 2px; min-width: 0; }
+.fit-card__title { display: flex; align-items: center; gap: 6px; min-width: 0; font-weight: 600; }
+.fit-card__title-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fit-card__meta { font-size: 12px; color: var(--color-muted); }
+.fit-card__progress { display: grid; gap: 4px; min-width: 0; }
+.fit-card__count { font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+/* 枠が 480px 未満なら 2 段: 1 段目に名前、2 段目に進み具合とボタン */
+@container fit-card (max-width: 479px) {
+  .fit-card__body { grid-template-columns: minmax(0, 1fr) auto; }
+  .fit-card__main { grid-column: 1 / -1; }
+}
+.fit-demo { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.fit-demo__slot { display: grid; gap: 8px; min-width: 0; padding: 12px; border: 1px dashed var(--color-border); border-radius: 12px; }
+.fit-demo__label { margin: 0; font-size: 12px; color: var(--color-muted); }
+/* 見本の並べ方（部品ではない）。layout.html の .doc は .app の外なので画面の幅で崩す */
+@media (max-width: 899px) { .fit-demo { grid-template-columns: minmax(0, 1fr); } }
+
+/* 横幅いっぱいの画面（一覧をたくさん並べる画面だけ）。本文の幅の上限（76rem）を外す */
+.app-main.app-main--full { max-width: none; padding: 24px 24px 40px; }
+.columns.columns--wide { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+@container app (max-width: 899px) {
+  .app-main.app-main--full { padding: 20px 16px 32px; }
+  /* 1 列: 列の枠を外して部品を 1 本に並べ、右の列の先頭の部品を全体の先頭に出す。
+     2 列のときの align-items: start が残ると、縦の flex では部品が中身の幅に縮むので stretch に戻す */
+  .columns.columns--wide { display: flex; flex-direction: column; align-items: stretch; }
+  .columns--wide > .column { display: contents; }
+  .columns--wide .column__lead { order: -1; }
+}
 </style>
 
 <script>
@@ -919,6 +955,126 @@ SOFTWARE.
     </div>
   </div>
 </div></div>
+  <h2 class="kit-title">置かれた枠の幅で形を変える部品</h2>
+  <p class="section__note">同じ部品を、広い列・狭い列・スマホの幅の枠に置いたものです。画面の幅ではなく、部品の枠の幅が 480px 未満になると 2 段に崩れます。</p>
+  <div class="fit-demo">
+    <div class="fit-demo__slot"><p class="fit-demo__label">広い列</p>
+      <div class="fit-card"><div class="fit-card__body">
+        <div class="fit-card__main"><span class="fit-card__title"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg><span class="fit-card__title-text">冬の旅行の準備</span></span><span class="fit-card__meta">残り 3 件・次の期日 2026-11-02</span></div>
+        <div class="fit-card__progress"><div class="bar" role="img" aria-label="8 件のうち 5 件が済み"><div class="bar__fill" style="width: 62.5%;"></div></div><span class="fit-card__count">5 / 8 件</span></div>
+        <a class="button secondary small" href="#">開く</a>
+      </div></div>
+</div>
+    <div class="fit-demo__slot"><p class="fit-demo__label">狭い列</p>
+      <div class="fit-card"><div class="fit-card__body">
+        <div class="fit-card__main"><span class="fit-card__title"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg><span class="fit-card__title-text">冬の旅行の準備</span></span><span class="fit-card__meta">残り 3 件・次の期日 2026-11-02</span></div>
+        <div class="fit-card__progress"><div class="bar" role="img" aria-label="8 件のうち 5 件が済み"><div class="bar__fill" style="width: 62.5%;"></div></div><span class="fit-card__count">5 / 8 件</span></div>
+        <a class="button secondary small" href="#">開く</a>
+      </div></div>
+</div>
+  </div>
+  <p class="section__note">スマホの幅（360px）の枠の中:</p>
+  <div class="frame frame--phone app"><div class="app-main">
+      <div class="fit-card"><div class="fit-card__body">
+        <div class="fit-card__main"><span class="fit-card__title"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg><span class="fit-card__title-text">冬の旅行の準備</span></span><span class="fit-card__meta">残り 3 件・次の期日 2026-11-02</span></div>
+        <div class="fit-card__progress"><div class="bar" role="img" aria-label="8 件のうち 5 件が済み"><div class="bar__fill" style="width: 62.5%;"></div></div><span class="fit-card__count">5 / 8 件</span></div>
+        <a class="button secondary small" href="#">開く</a>
+      </div></div>
+</div></div>
+
+  <h2 class="kit-title">横幅いっぱいの画面</h2>
+  <p class="section__note">一覧をたくさん並べる画面だけ、本文の幅の上限（76rem）を外し、左右の余白を 24px（899px 以下は 16px）にします。列は項目の多い左を広く（3 : 2）。1 列になると、右の列の先頭の「今日の要約」が全体の先頭に来ます。</p>
+  <div class="frame frame--wide app"><header class="app-header">
+  <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+  <nav class="nav" aria-label="主なページ"><a href="#" class="nav-link nav-link--active" aria-current="page" aria-label="ダッシュボード"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg><span class="button-text">ダッシュボード</span></a><a href="#" class="nav-link" aria-label="一覧"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg><span class="button-text">一覧</span></a><a href="#" class="nav-link" aria-label="メモ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="button-text">メモ</span></a></nav>
+  <div class="header-actions"><button type="button" class="icon-button" aria-label="テーマ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg><span class="button-text">テーマ</span></button>
+    <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+  </div>
+</header>
+<div class="app-main app-main--full">
+  <div class="columns columns--wide">
+    <div class="column">
+      <section class="section" aria-label="やること">
+        <div class="section__header"><h3 class="section__heading">やること<span class="count">6</span></h3><span class="section__updated">3 分前に更新</span></div>
+        <ul class="rows">
+          <li class="row"><span class="row__key">#12</span><span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>暮らし</span><span>進行中</span></span></span><span class="row__cell">2026-10-25</span></li>
+          <li class="row"><span class="row__key">#13</span><span class="row__main"><span class="row__title">読みかけの本の感想をまとめる</span><span class="row__meta"><span>読書</span><span>未着手</span></span></span><span class="row__cell">2026-10-28</span></li>
+          <li class="row"><span class="row__key">#14</span><span class="row__main"><span class="row__title">庭のバラの植え替えをする</span><span class="row__meta"><span>庭</span><span>進行中</span></span></span><span class="row__cell">2026-10-30</span></li>
+          <li class="row"><span class="row__key">#15</span><span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>旅行</span><span>確認待ち</span></span></span><span class="row__cell">2026-11-02</span></li>
+          <li class="row"><span class="row__key">#16</span><span class="row__main"><span class="row__title">常備菜の献立を決める</span><span class="row__meta"><span>料理</span><span>未着手</span></span></span><span class="row__cell">期日なし</span></li>
+          <li class="row"><span class="row__key">#17</span><span class="row__main"><span class="row__title">健康診断の予約を取る</span><span class="row__meta"><span>健康</span><span>未着手</span></span></span><span class="row__cell">期日なし</span></li>
+        </ul>
+      </section>
+      <section class="section" aria-label="済んだもの">
+        <div class="section__header"><h3 class="section__heading">済んだもの<span class="count">2</span></h3></div>
+        <ul class="rows">
+          <li class="row"><span class="row__key">#18</span><span class="row__main"><span class="row__title">冬物の服を出す</span><span class="row__meta"><span>暮らし</span><span>2026-10-22</span></span></span></li>
+          <li class="row"><span class="row__key">#19</span><span class="row__main"><span class="row__title">図書館の本を返す</span><span class="row__meta"><span>読書</span><span>2026-10-21</span></span></span></li>
+        </ul>
+      </section>
+    </div>
+    <div class="column">
+      <section class="section column__lead" aria-label="今日の要約">
+        <div class="section__header"><h3 class="section__heading">今日の要約</h3></div>
+        <p class="total"><span class="total__value">6 件</span><span class="under">期日が近いもの 2 件</span></p>
+      </section>
+      <section class="section" aria-label="最近使った">
+        <div class="section__header"><h3 class="section__heading">最近使った</h3></div>
+        <ul class="rows">
+          <li class="row"><span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>#15</span><span>2026-10-23 21:05</span></span></span></li>
+          <li class="row"><span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>#12</span><span>2026-10-23 18:40</span></span></span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+</div>
+  <p class="section__note">スマホの幅（360px）:</p>
+  <div class="frame frame--phone app"><header class="app-header">
+  <a href="#" class="logo" aria-label="souan ホーム"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span></a>
+  <nav class="nav" aria-label="主なページ"><a href="#" class="nav-link nav-link--active" aria-current="page" aria-label="ダッシュボード"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg><span class="button-text">ダッシュボード</span></a><a href="#" class="nav-link" aria-label="一覧"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg><span class="button-text">一覧</span></a><a href="#" class="nav-link" aria-label="メモ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span class="button-text">メモ</span></a></nav>
+  <div class="header-actions"><button type="button" class="icon-button" aria-label="テーマ"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg><span class="button-text">テーマ</span></button>
+    <button type="button" class="icon-button" aria-label="ユーザーのメニュー"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg><span class="button-text">ユーザー</span></button>
+  </div>
+</header>
+<div class="app-main app-main--full">
+  <div class="columns columns--wide">
+    <div class="column">
+      <section class="section" aria-label="やること">
+        <div class="section__header"><h3 class="section__heading">やること<span class="count">6</span></h3><span class="section__updated">3 分前に更新</span></div>
+        <ul class="rows">
+          <li class="row"><span class="row__key">#12</span><span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>暮らし</span><span>進行中</span></span></span><span class="row__cell">2026-10-25</span></li>
+          <li class="row"><span class="row__key">#13</span><span class="row__main"><span class="row__title">読みかけの本の感想をまとめる</span><span class="row__meta"><span>読書</span><span>未着手</span></span></span><span class="row__cell">2026-10-28</span></li>
+          <li class="row"><span class="row__key">#14</span><span class="row__main"><span class="row__title">庭のバラの植え替えをする</span><span class="row__meta"><span>庭</span><span>進行中</span></span></span><span class="row__cell">2026-10-30</span></li>
+          <li class="row"><span class="row__key">#15</span><span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>旅行</span><span>確認待ち</span></span></span><span class="row__cell">2026-11-02</span></li>
+          <li class="row"><span class="row__key">#16</span><span class="row__main"><span class="row__title">常備菜の献立を決める</span><span class="row__meta"><span>料理</span><span>未着手</span></span></span><span class="row__cell">期日なし</span></li>
+          <li class="row"><span class="row__key">#17</span><span class="row__main"><span class="row__title">健康診断の予約を取る</span><span class="row__meta"><span>健康</span><span>未着手</span></span></span><span class="row__cell">期日なし</span></li>
+        </ul>
+      </section>
+      <section class="section" aria-label="済んだもの">
+        <div class="section__header"><h3 class="section__heading">済んだもの<span class="count">2</span></h3></div>
+        <ul class="rows">
+          <li class="row"><span class="row__key">#18</span><span class="row__main"><span class="row__title">冬物の服を出す</span><span class="row__meta"><span>暮らし</span><span>2026-10-22</span></span></span></li>
+          <li class="row"><span class="row__key">#19</span><span class="row__main"><span class="row__title">図書館の本を返す</span><span class="row__meta"><span>読書</span><span>2026-10-21</span></span></span></li>
+        </ul>
+      </section>
+    </div>
+    <div class="column">
+      <section class="section column__lead" aria-label="今日の要約">
+        <div class="section__header"><h3 class="section__heading">今日の要約</h3></div>
+        <p class="total"><span class="total__value">6 件</span><span class="under">期日が近いもの 2 件</span></p>
+      </section>
+      <section class="section" aria-label="最近使った">
+        <div class="section__header"><h3 class="section__heading">最近使った</h3></div>
+        <ul class="rows">
+          <li class="row"><span class="row__main"><span class="row__title">旅行の宿を比べる</span><span class="row__meta"><span>#15</span><span>2026-10-23 21:05</span></span></span></li>
+          <li class="row"><span class="row__main"><span class="row__title">週末の買い出しリストを作る</span><span class="row__meta"><span>#12</span><span>2026-10-23 18:40</span></span></span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</div>
+</div>
 </main>
 
 
