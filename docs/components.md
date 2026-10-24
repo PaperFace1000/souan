@@ -72,6 +72,45 @@ React Aria の `Checkbox`・`RadioGroup` と `Radio` で作る（読み上げ・
 - 切り替えても意味のない狭い画面（899px 以下など）では出さない
 - オンとオフの設定を保存する欄（設定の画面など）には使わず、チェックボックスにする
 
+## 📏 文言が変わっても幅が変わらないボタン
+
+「開始」⇔「実行中」のように、状態で文言が変わるボタンは、どの文言のときも同じ幅にする。幅が変わると、隣のボタンや行の中の文字が押すたびに左右へずれ、押そうとした所に別のものが来る。見本は `samples/ui-kit.html` の「文言が変わっても幅が変わらないボタン」。
+
+- ボタンの中に**すべての文言を同じマスに重ねて置き**、今の文言以外を `visibility: hidden` にする。幅は一番長い文言で決まる。`min-width` の固定値は、文字の大きさや字体が変わると合わなくなるので使わない
+- 隠した文言は `visibility: hidden` で読み上げからも外れる。念のため `aria-hidden="true"` も付ける
+- アイコンも替えるときは同じ大きさのものにする（スピナーにするときは、アイコンと同じ大きさの箱に入れる）
+- 押せない状態（「実行中」）は Button の決まりどおり `disabled`。文言は「〜中」にして、押せない理由が分かるようにする
+- 文言の長さが大きく違う（倍以上）ときは、短い方が間延びして見える。文言の長さを近づけるか、アイコンだけのボタン＋`aria-label` にする
+
+```css
+.steady-label { display: inline-grid; justify-items: center; }
+.steady-label > span { grid-area: 1 / 1; }
+.steady-label > span:not(.is-current) { visibility: hidden; }
+```
+
+```tsx
+<span className={styles.steadyLabel}>
+  <span className={running ? undefined : styles.isCurrent} aria-hidden={running}>開始</span>
+  <span className={running ? styles.isCurrent : undefined} aria-hidden={!running}>実行中</span>
+</span>
+```
+
+## 📌 行のピンの切り替え
+
+一覧の行を「よく使う項目」などに加える・外すボタン。行の右端（操作のボタンの並び）に置く。見本は `samples/ui-kit.html` の「行のピンの切り替え」。
+
+| 状態 | 見た目 | `aria-pressed` | `aria-label`（`title` も同じ） |
+|---|---|---|---|
+| オフ | `Pin` の線だけ、`muted` | `false` | 「（題名）をよく使う項目に追加」 |
+| オン | `Pin` を塗りつぶす（`fill: currentColor`）、`accent-strong` | `true` | 「（題名）をよく使う項目から外す」 |
+
+- ボタンは行の「…」と同じ 32px 四方、アイコン 18px。なぞると `surface`（オンのときは色を `accent-strong` のまま）
+- 線と塗りの形の違いだけにせず、色も変える（形だけの違いは見落としやすい）
+- `aria-label` は押すとどうなるかを書き、`aria-pressed` と一緒に切り替える。題名を入れて、どの行のボタンか分かるようにする
+- 押したらすぐ見た目を変え、保存は裏で行う。失敗したら元に戻してトーストで知らせる
+- サーバーには「切り替える」ではなく「加える」「外す」の状態を送る。連打で同じ要求が 2 回届いても結果が変わらない（冪等）
+- 加えた先の一覧（`docs/patterns.md` の「並べ替えのできるカードの一覧」）と同じ画面にあるときは、どちらで変えても両方に反映する
+
 ## 🪟 ModalDialog
 
 画面の上に重ねるダイアログ。React Aria の `ModalOverlay` / `Modal` / `Dialog` で作る。
