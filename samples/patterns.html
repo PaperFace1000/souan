@@ -1099,6 +1099,117 @@ a.card:hover { border-color: var(--color-accent); }
 .row.row--excluded { border-style: dashed; color: var(--color-muted); }
 .row__excluded-by { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--color-muted); }
 .rows:not(.is-showing-excluded) > .row--excluded { display: none; }
+
+/* ===== 列をそろえる一覧・目標に対する横棒・見出しから開くフィルタ・詳細のダイアログ ===== */
+.section__heading > .icon { color: var(--color-accent-strong); }
+.section__excluded { font-size: 12px; color: var(--color-muted); }
+.section__tools { position: relative; display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+/* 分類の色のマスの行のカード（docs/components.md）。マスの色は JS が行の style に --extra-fill / --extra-on-fill で渡す */
+.key-cell {
+  display: inline-flex; align-items: center; gap: 4px; align-self: stretch;
+  margin: -6px 0 -6px -10px; padding: 6px 10px; border: 0; border-radius: 9px 0 0 9px;
+  background: var(--extra-fill, transparent); color: var(--extra-on-fill, var(--color-text));
+  font: inherit; font-size: 13px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap;
+  text-align: left; cursor: pointer;
+}
+.key-cell--plain { border-right: 1px solid var(--color-border); }
+.key-cell__label { text-decoration: underline; text-underline-offset: 0.2em; }
+.key-cell:hover .key-cell__label { text-decoration-thickness: 2px; }
+.key-cell:focus-visible { outline: 2px solid var(--color-accent-strong); outline-offset: -2px; }
+.key-cell__frame { position: absolute; inset: -1px; border: 1px solid var(--extra-fill); border-radius: 10px; pointer-events: none; }
+.key-cell--plain .key-cell__frame { display: none; }
+.fill-badge {
+  display: inline-flex; align-items: center; gap: 4px; max-width: 14rem; padding: 0 7px;
+  border: 1px solid var(--extra-fill, var(--color-border)); border-radius: 6px;
+  background: var(--extra-fill, transparent); color: var(--extra-on-fill, var(--color-muted));
+  font-size: 12px; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.due {
+  display: inline-grid; justify-items: start; min-width: 6.6em;
+  font-size: 13px; line-height: 1.35; color: var(--color-muted);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.due__date { display: inline-flex; align-items: center; gap: 4px; }
+.due__note { font-size: 12px; }
+.due--overdue { color: var(--color-danger); font-weight: 600; }
+.due--today { color: var(--color-warning); font-weight: 600; }
+
+/* 列をそろえる一覧。一覧が列を決め、各行は subgrid でその列を共有する */
+.grid-list {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  row-gap: 4px; margin: 0; padding: 0; list-style: none;
+}
+.grid-row {
+  display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; column-gap: 10px;
+  position: relative; padding: 6px 10px; border: 1px solid var(--color-muted); border-radius: 10px;
+  background: var(--color-base); font-size: 14px;
+}
+.grid-row__title {
+  display: block; max-width: 100%; padding: 0; border: 0; background: none; color: inherit;
+  font: inherit; text-align: left; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.grid-row__title:hover { text-decoration: underline; }
+.grid-row > .row__actions { justify-self: stretch; justify-content: flex-end; margin-left: 0; }
+@container app (max-width: 599px) {
+  .grid-list { grid-template-columns: minmax(0, 1fr); }
+  .grid-row { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-rows: auto auto; row-gap: 2px; }
+  .grid-row > .key-cell { grid-row: 1 / -1; }
+  .grid-row > .row__main { grid-column: 2 / -1; }
+  .grid-row > .due { grid-column: 2; grid-row: 2; }
+  .grid-row > .row__hours { grid-column: 3; grid-row: 2; }
+  .grid-row > .row__actions { grid-column: 4; grid-row: 2; }
+}
+
+/* 見出しから開くフィルタのポップオーバー */
+.filter-popover {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 20;
+  width: min(22rem, calc(100vw - 32px)); padding: 8px; display: grid; gap: 6px;
+}
+.filter-popover[hidden] { display: none; }
+.filter-popover__title { margin: 0 2px; font-size: 13px; font-weight: 600; color: var(--color-muted); }
+.filter-list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.filter-item { display: flex; align-items: center; gap: 4px; padding: 2px 2px 2px 8px; border-radius: 6px; }
+.filter-item:hover { background: var(--color-surface); }
+.filter-item .check { flex: 1 1 auto; min-height: 32px; font-size: 13px; }
+.filter-add { display: flex; gap: 6px; padding-top: 6px; border-top: 1px solid var(--color-border); }
+.filter-add .input { min-height: 36px; padding: 6px 10px; font-size: 13px; }
+.filter-add .button { min-height: 36px; }
+.filter-count {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px;
+  border: 1px solid var(--color-accent); border-radius: 999px; color: var(--color-accent-strong);
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+
+/* 目標に対する横棒 */
+.goals { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.goal { display: grid; gap: 4px; }
+.goal__line { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.goal__rest { font-size: 12px; color: var(--color-muted); }
+.goal__over { font-size: 12px; color: var(--color-danger); font-weight: 600; }
+.goal-bar { --bar-color: var(--extra-dot, color-mix(in srgb, var(--color-muted) 50%, var(--color-base))); position: relative; display: flex; height: 8px; border-radius: 999px; background: var(--color-border); overflow: hidden; }
+.goal-bar__fill { height: 100%; background: var(--bar-color); }
+.goal-bar__over { height: 100%; background: repeating-linear-gradient(135deg, var(--bar-color) 0 3px, transparent 3px 6px); }
+.goal-bar__target { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--color-text); }
+
+/* 詳細のダイアログ（画面に重ねる。外側のクリックでは閉じない） */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px;
+  background: rgb(30 25 20 / 0.45);
+}
+.modal-overlay[hidden] { display: none; }
+.modal-overlay > .modal { max-height: calc(100dvh - 32px); overflow: auto; }
+.detail__head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: -4px 0 12px; font-size: 13px; color: var(--color-muted); }
+.detail__heading { align-items: flex-start; overflow-wrap: anywhere; }
+.detail__heading > .icon { margin-top: 4px; }
+.detail-fields { display: grid; gap: 6px; margin: 0 0 12px; font-size: 14px; }
+.detail-fields > div { display: grid; grid-template-columns: minmax(6em, max-content) minmax(0, 1fr); gap: 12px; }
+.detail-fields dt { font-size: 13px; font-weight: 600; color: var(--color-muted); }
+.detail-fields dd { margin: 0; overflow-wrap: anywhere; }
+.detail__body { margin: 0 0 12px; padding: 10px 14px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); }
+.detail__plain { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; line-height: 1.7; }
+.detail__links { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+@container app (max-width: 599px) { .detail-fields > div { grid-template-columns: minmax(0, 1fr); gap: 0; } }
 </style>
 
 <script>
@@ -1187,7 +1298,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </script>
 <!-- @end:license -->
-<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-move-horizontal" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/></symbol><symbol id="i-fold-horizontal" viewBox="0 0 24 24"><path d="M2 12h6"/><path d="M22 12h-6"/><path d="M12 2v2"/><path d="M12 8v2"/><path d="M12 14v2"/><path d="M12 20v2"/><path d="m19 9-3 3 3 3"/><path d="m5 15 3-3-3-3"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.929 4.929 19.07 19.071"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-folder-open" viewBox="0 0 24 24"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"/><rect x="3" y="7" width="18" height="4" rx="1"/></symbol><symbol id="i-grip-vertical" viewBox="0 0 24 24"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-log-in" viewBox="0 0 24 24"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol><symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol><symbol id="i-shapes" viewBox="0 0 24 24"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></symbol><symbol id="i-shopping-cart" viewBox="0 0 24 24"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol><symbol id="i-tags" viewBox="0 0 24 24"><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol><symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol></svg>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-move-horizontal" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/></symbol><symbol id="i-fold-horizontal" viewBox="0 0 24 24"><path d="M2 12h6"/><path d="M22 12h-6"/><path d="M12 2v2"/><path d="M12 8v2"/><path d="M12 14v2"/><path d="M12 20v2"/><path d="m19 9-3 3 3 3"/><path d="m5 15 3-3-3-3"/></symbol><symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.929 4.929 19.07 19.071"/></symbol><symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol><symbol id="i-folder-open" viewBox="0 0 24 24"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5"/><rect x="3" y="7" width="18" height="4" rx="1"/></symbol><symbol id="i-grip-vertical" viewBox="0 0 24 24"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-log-in" viewBox="0 0 24 24"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol><symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol><symbol id="i-shapes" viewBox="0 0 24 24"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></symbol><symbol id="i-shopping-cart" viewBox="0 0 24 24"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol><symbol id="i-tags" viewBox="0 0 24 24"><path d="M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z"/><path d="M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193"/><circle cx="10.5" cy="6.5" r=".5" fill="currentColor"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol><symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></symbol><symbol id="i-calendar-clock" viewBox="0 0 24 24"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v3"/><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338"/><path d="M3 9h5.859"/><path d="M8 2v3"/><circle cx="16" cy="16" r="6"/></symbol><symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="i-list-todo" viewBox="0 0 24 24"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></symbol></svg>
 <nav class="theme-bar" aria-label="テーマ"><span class="theme-bar__label"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg>テーマ</span><button type="button" data-theme-choice="system" aria-pressed="false">OS に合わせる</button><button type="button" data-theme-choice="hakushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>白紙</button><button type="button" data-theme-choice="hanshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #faf6ef;"></span>半紙</button><button type="button" data-theme-choice="torinoko" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f6f1e7;"></span>鳥の子</button><button type="button" data-theme-choice="kinari" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f1ebdf;"></span>生成り</button><button type="button" data-theme-choice="washi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #ece4d6;"></span>和紙</button><button type="button" data-theme-choice="koshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #e6ddcd;"></span>古紙</button><button type="button" data-theme-choice="yofukashi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #2b2621;"></span>夜更かし</button><a class="theme-bar__back" href="index.html">見本の目次へ</a></nav>
 
 <div class="app">
@@ -1642,6 +1753,56 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     <p class="visually-hidden" aria-live="polite" id="js-exclude-status"></p>
   </section>
   <p class="note">見出しの横の小さなボタンで、フィルタで除外した行を今だけ出す。出した行は枠を破線・文字を薄くし、どのフィルタで除外されたかを小さく添える。もう一度押すと戻る。覚えさせないので、再読み込みで除外した状態に戻る。</p>
+
+  <h2 class="kit-title">列をそろえる一覧と、見出しから開くフィルタ</h2>
+  <section class="section" aria-labelledby="todo-heading">
+    <div class="section__header">
+      <h3 class="section__heading" id="todo-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-todo"/></svg>やること<span class="count" id="js-todo-count">0</span></h3>
+      <span class="section__excluded" id="js-todo-excluded"></span>
+      <div class="section__tools">
+        <button type="button" class="button ghost small toggle-button" id="js-filter-button" aria-expanded="false" aria-controls="js-filter-popover" aria-haspopup="dialog"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-sliders-horizontal"/></svg>フィルタ<span class="filter-count" id="js-filter-count"></span></button>
+        <div class="popover filter-popover" id="js-filter-popover" role="dialog" aria-label="フィルタ" hidden>
+          <p class="filter-popover__title">題名に含むものを除外</p>
+          <ul class="filter-list" id="js-filter-list"></ul>
+          <form class="filter-add" id="js-filter-add">
+            <label class="visually-hidden" for="js-filter-input">除外する言葉</label>
+            <input class="input" id="js-filter-input" placeholder="除外する言葉（例: いつか）" autocomplete="off">
+            <button type="submit" class="button secondary small"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg>追加</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <ul class="grid-list" id="js-todo-list"></ul>
+    <p class="visually-hidden" aria-live="polite" id="js-todo-status"></p>
+  </section>
+  <p class="note">各列（番号／題名と分類／期日／時間／操作）の幅を、行の間で共有する（一覧が列を決め、行は subgrid）。599px 以下ではカードに崩す。見出しの「フィルタ」で、除外の有効・削除・追加をその場で行い、一覧がすぐ変わる。番号か題名を押すと詳細のダイアログを開く。</p>
+
+  <h2 class="kit-title">目標に対する横棒</h2>
+  <section class="section" aria-labelledby="goal-heading">
+    <div class="section__header"><h3 class="section__heading" id="goal-heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-target"/></svg>今月の時間</h3></div>
+    <ul class="goals" id="js-goals"></ul>
+  </section>
+  <p class="note">「合計 / 目標（残り）」と横棒。目標を超えた分は同じ色の縞にし、目標の位置に縦線、「（0:30 超過）」と文字でも出す。棒の色は分類の dot。目標の無い分類は合計だけ。</p>
+
+  <h2 class="kit-title">詳細のダイアログ</h2>
+  <div class="demo-row"><button type="button" class="button secondary" data-open-detail="#25"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-external-link"/></svg>「#25 旅行の宿を比べる」の詳細を開く</button></div>
+  <p class="note">wide（880px）。題名の全文・分類のバッジ・項目の欄（定義リスト）・本文（Markdown を描く。描けなければテキストのままで、http・https のリンクだけ押せる）・外部で開くボタン・関連する外部のリンク（https で期待するホストのものだけ）。外側のクリックでは閉じない（閉じるのはボタンか Esc）。</p>
+
+  <div class="modal-overlay" id="js-detail" hidden>
+    <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="js-detail-title">
+      <div class="modal__body">
+        <h2 class="modal__heading detail__heading"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-file-text"/></svg><span id="js-detail-title"></span></h2>
+        <div class="detail__head" id="js-detail-head"></div>
+        <dl class="detail-fields" id="js-detail-fields"></dl>
+        <div class="detail__body" id="js-detail-body"></div>
+        <div class="detail__links" id="js-detail-links"></div>
+        <div class="modal__actions">
+          <a class="button secondary" id="js-detail-open" href="#" target="_blank" rel="noopener noreferrer"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-external-link"/></svg>外部で開く</a>
+          <button type="button" class="button primary" id="js-detail-close">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 </div>
 
@@ -2038,6 +2199,269 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
         status.textContent = showing ? `除外した ${count} 件を表示しています` : `除外した ${count} 件を隠しました`;
       });
     }
+  })();
+</script>
+
+<script>
+  // 列をそろえる一覧・見出しから開くフィルタ・目標に対する横棒・詳細のダイアログの見本の動き（アプリでは React の部品が行う）
+  (() => {
+    // 色は extra-colors.css に任せる（data-extra-color を付けると --extra-* が決まり、テーマの切り替えにも CSS が追う）。
+    // 30 色に無いキーには何も当たらないので、塗れたかどうかは計算した値で確かめる
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const icon = (name, size) => {
+      const node = document.createElementNS(SVG_NS, "svg");
+      Object.entries({ class: "icon", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 1.5, "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true", focusable: "false" })
+        .forEach(([k, v]) => node.setAttribute(k, String(v)));
+      const use = document.createElementNS(SVG_NS, "use");
+      use.setAttribute("href", `#i-${name}`);
+      node.append(use);
+      return node;
+    };
+    const el = (tag, className = "", children = []) => {
+      const node = document.createElement(tag);
+      if (className !== "") node.className = className;
+      node.append(...children);
+      return node;
+    };
+    const paintCell = (node, colorKey) => {
+      if (colorKey === null) delete node.dataset.extraColor;
+      else node.dataset.extraColor = colorKey;
+      return getComputedStyle(node).getPropertyValue("--extra-fill").trim() !== "";
+    };
+
+    const ITEMS = [
+      { key: "#21", title: "週末の買い出しリストを作る", category: "暮らし", color: "deep-226", icon: "coffee", state: "進行中", due: ["today", "10-24", "（今日）"], time: "2:30" },
+      { key: "#22", title: "読みかけの本の感想をまとめて、気になった言葉を書き出す", category: "読書", color: "mid-055", icon: "book-open", state: "未着手", due: ["overdue", "10-20", "（4 日超過）"], time: "0:45" },
+      { key: "#23", title: "いつか行きたい店を調べる", category: "暮らし", color: "deep-226", icon: "coffee", state: "未着手", due: null, time: "0:00" },
+      { key: "#24", title: "庭のバラの植え替えをする", category: "庭", color: "pale-158", icon: "leaf", state: "進行中", due: ["later", "11-02", "（あと 9 日）"], time: "1:15" },
+      { key: "#25", title: "旅行の宿を比べる（駅から歩ける・朝食つき・二泊で予算内のところを三つまで）", category: "旅行", color: "mid-272", icon: "plane", state: "確認待ち", due: ["later", "11-12", "（あと 19 日）"], time: "12:05" },
+      { key: "#26", title: "年賀状の文面を考える", category: "分類なし", color: null, icon: null, state: "未着手", due: null, time: "0:20" },
+      { key: "#27", title: "庭の道具の手入れ（済み）", category: "庭", color: "pale-158", icon: "leaf", state: "完了", due: ["overdue", "10-18", "（6 日超過）"], time: "0:40" },
+    ];
+    const DETAILS = {
+      "#25": {
+        fields: [["状態", "確認待ち"], ["期日", "2026-11-12（あと 19 日）"], ["担当", "自分"], ["時間", "12:05"], ["更新", "2026-10-23 21:40"]],
+        // Markdown を描けないときの見本: テキストのまま出し、http・https の URL だけをリンクにする
+        text: "候補は三つまでに絞る。\n- 駅前の宿: https://example.com/plans/45\n- 川沿いの宿（古い案内）: http://example.com/old/12\n- 比べた表: https://example.org/sheet/7\n\njavascript:alert(1) のような文字はリンクにしない。",
+        url: "https://example.com/items/25",
+      },
+    };
+    const RELATED_HOSTS = ["example.com"]; // 関連する外部のリンクにしてよいホスト（完全に一致するものだけ）
+
+    const due = (value) => {
+      if (value === null) {
+        const dash = el("span", "due__date", ["—"]);
+        dash.setAttribute("aria-hidden", "true");
+        return el("span", "due due--none", [dash, el("span", "visually-hidden", ["期日なし"])]);
+      }
+      const [kind, date, note] = value;
+      const name = { overdue: "flame", today: "triangle-alert", later: "calendar-clock" }[kind];
+      return el("span", `due due--${kind}`, [el("span", "due__date", [icon(name, 14), date]), el("span", "due__note", [note])]);
+    };
+
+    // ===== フィルタ =====
+    let filters = [
+      { id: 1, text: "いつか", enabled: true },
+      { id: 2, text: "済み", enabled: true },
+      { id: 3, text: "年賀状", enabled: false },
+    ];
+    let nextId = 4;
+    const excludedBy = (item) => filters.find((filter) => filter.enabled && item.title.includes(filter.text));
+
+    const list = document.getElementById("js-todo-list");
+    const count = document.getElementById("js-todo-count");
+    const excludedText = document.getElementById("js-todo-excluded");
+    const status = document.getElementById("js-todo-status");
+    const filterButton = document.getElementById("js-filter-button");
+    const filterCount = document.getElementById("js-filter-count");
+    const popover = document.getElementById("js-filter-popover");
+    const filterList = document.getElementById("js-filter-list");
+    const addForm = document.getElementById("js-filter-add");
+    const addInput = document.getElementById("js-filter-input");
+    if (list === null) return;
+
+    const renderList = () => {
+      const shown = ITEMS.filter((item) => excludedBy(item) === undefined);
+      const excluded = ITEMS.length - shown.length;
+      count.textContent = String(shown.length);
+      excludedText.textContent = excluded > 0 ? `フィルタで ${excluded} 件を除外` : "";
+      const enabled = filters.filter((filter) => filter.enabled).length;
+      filterCount.textContent = String(enabled);
+      filterCount.hidden = enabled === 0;
+      list.replaceChildren(...shown.map((item) => {
+        const row = el("li", "grid-row");
+        row.setAttribute("aria-label", item.title);
+        const frame = el("span", "key-cell__frame");
+        frame.setAttribute("aria-hidden", "true");
+        const cell = el("button", "key-cell", [frame, ...(item.icon ? [icon(item.icon, 14)] : []), el("span", "key-cell__label", [item.key])]);
+        cell.type = "button";
+        cell.setAttribute("aria-label", `${item.key} の詳細を開く`);
+        cell.dataset.openDetail = item.key;
+        if (item.color !== null) row.dataset.extraColor = item.color;
+        const title = el("button", "grid-row__title", [item.title]);
+        title.type = "button";
+        title.title = item.title;
+        title.dataset.openDetail = item.key;
+        const badge = el("span", "fill-badge", [...(item.icon ? [icon(item.icon, 12)] : []), item.category]);
+        const main = el("span", "row__main", [title, el("span", "row__meta", [badge, el("span", "", [item.state])])]);
+        const menu = el("button", "menu-button", [icon("ellipsis", 18)]);
+        menu.type = "button";
+        menu.setAttribute("aria-label", "その他の操作");
+        row.append(cell, main, due(item.due), el("span", "row__hours", [item.time]), el("span", "row__actions", [menu]));
+        return row;
+      }));
+      // 塗れたか（30 色のキーか）は、一覧に入れてから確かめる
+      list.querySelectorAll(".grid-row").forEach((row) => {
+        row.querySelector(".key-cell").classList.toggle("key-cell--plain", getComputedStyle(row).getPropertyValue("--extra-fill").trim() === "");
+      });
+    };
+
+    const renderFilters = () => {
+      filterList.replaceChildren(...filters.map((filter) => {
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.className = "visually-hidden";
+        input.checked = filter.enabled;
+        input.addEventListener("change", () => update(filters.map((f) => (f.id === filter.id ? { ...f, enabled: input.checked } : f))));
+        const box = el("span", "check__box");
+        box.setAttribute("aria-hidden", "true");
+        const label = el("label", "check", [input, box, el("span", "check__label", [`題名に「${filter.text}」を含む`])]);
+        const remove = el("button", "menu-button", [icon("trash-2", 16)]);
+        remove.type = "button";
+        remove.setAttribute("aria-label", `「${filter.text}」のフィルタを削除`);
+        remove.addEventListener("click", () => update(filters.filter((f) => f.id !== filter.id)));
+        return el("li", "filter-item", [label, remove]);
+      }));
+    };
+    // フィルタを変えたら、すぐ一覧と件数に反映する（保存のボタンを置かない）
+    const update = (next) => {
+      filters = next;
+      renderFilters();
+      renderList();
+      status.textContent = `${list.children.length} 件を表示しています`;
+    };
+    addForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const text = addInput.value.trim();
+      if (text === "" || filters.some((filter) => filter.text === text)) return;
+      addInput.value = "";
+      update([...filters, { id: nextId++, text, enabled: true }]);
+    });
+    const setOpen = (open) => {
+      popover.hidden = !open;
+      filterButton.setAttribute("aria-expanded", String(open));
+      if (open) popover.querySelector("input")?.focus();
+    };
+    filterButton.addEventListener("click", () => setOpen(popover.hidden));
+    document.addEventListener("pointerdown", (event) => {
+      if (!popover.hidden && !popover.contains(event.target) && !filterButton.contains(event.target)) setOpen(false);
+    });
+    popover.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      filterButton.focus();
+    });
+    renderFilters();
+    renderList();
+
+    // ===== 目標に対する横棒 =====
+    const GOALS = [
+      { category: "暮らし", color: "deep-226", icon: "coffee", total: 750, goal: 1200 },
+      { category: "旅行", color: "mid-272", icon: "plane", total: 630, goal: 600 },
+      { category: "読書", color: "mid-055", icon: "book-open", total: 195, goal: null },
+      { category: "分類なし", color: null, icon: null, total: 80, goal: null },
+    ];
+    const fmt = (minutes) => `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`;
+    const goals = document.getElementById("js-goals");
+    const renderGoals = () => {
+      goals.replaceChildren(...GOALS.map((g) => {
+        const badge = el("span", "fill-badge", [...(g.icon ? [icon(g.icon, 12)] : []), g.category]);
+        if (g.color !== null) badge.dataset.extraColor = g.color;
+        const line = el("div", "goal__line", [badge]);
+        const item = el("li", "goal", [line]);
+        if (g.goal === null) {
+          line.append(el("span", "", [`合計 ${fmt(g.total)}`]));
+          return item;
+        }
+        line.append(el("span", "", [`合計 ${fmt(g.total)} / 目標 ${fmt(g.goal)}`]));
+        const over = g.total - g.goal;
+        line.append(over > 0 ? el("span", "goal__over", [`（${fmt(over)} 超過）`]) : el("span", "goal__rest", [`（残り ${fmt(-over)}）`]));
+        const bar = el("div", "goal-bar");
+        bar.setAttribute("aria-hidden", "true");
+        if (g.color !== null) bar.dataset.extraColor = g.color;
+        const full = Math.max(g.total, g.goal);
+        const fill = el("span", "goal-bar__fill");
+        fill.style.width = `${(Math.min(g.total, g.goal) / full) * 100}%`;
+        bar.append(fill);
+        if (over > 0) {
+          const stripe = el("span", "goal-bar__over");
+          stripe.style.width = `${(over / full) * 100}%`;
+          const target = el("span", "goal-bar__target");
+          target.style.left = `${(g.goal / full) * 100}%`;
+          bar.append(stripe, target);
+        }
+        item.append(bar);
+        return item;
+      }));
+    };
+    renderGoals();
+
+    // ===== 詳細のダイアログ =====
+    const overlay = document.getElementById("js-detail");
+    const closeButton = document.getElementById("js-detail-close");
+    let opener = null;
+    // テキストのまま出し、http・https で始まる URL だけをリンクにする（ほかは文字のまま）
+    const linkify = (text) => {
+      const out = [];
+      let last = 0;
+      for (const match of text.matchAll(/https?:\/\/[^\s<>()（）]+/g)) {
+        out.push(text.slice(last, match.index));
+        const a = el("a", "", [match[0]]);
+        a.href = match[0];
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        out.push(a);
+        last = match.index + match[0].length;
+      }
+      out.push(text.slice(last));
+      return out;
+    };
+    const relatedLinks = (text) => [...text.matchAll(/https?:\/\/[^\s<>()（）]+/g)]
+      .map((match) => { try { return new URL(match[0]); } catch { return null; } })
+      .filter((url) => url !== null && url.protocol === "https:" && RELATED_HOSTS.includes(url.hostname));
+    const openDetail = (key, from) => {
+      const item = ITEMS.find((it) => it.key === key);
+      if (item === undefined) return;
+      const detail = DETAILS[key] ?? { fields: [["状態", item.state]], text: "（本文はありません）", url: "https://example.com/" };
+      document.getElementById("js-detail-title").textContent = `${item.key} ${item.title}`;
+      const badge = el("span", "fill-badge", [...(item.icon ? [icon(item.icon, 12)] : []), item.category]);
+      if (item.color !== null) badge.dataset.extraColor = item.color;
+      document.getElementById("js-detail-head").replaceChildren(badge, el("span", "", [item.state]));
+      document.getElementById("js-detail-fields").replaceChildren(...detail.fields.map(([name, value]) => el("div", "", [el("dt", "", [name]), el("dd", "", [value])])));
+      document.getElementById("js-detail-body").replaceChildren(el("p", "detail__plain", linkify(detail.text)));
+      document.getElementById("js-detail-links").replaceChildren(...relatedLinks(detail.text).map((url) => {
+        const a = el("a", "button ghost small", [icon("link", 16), `${url.hostname}${url.pathname}`]);
+        a.href = url.href;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        return a;
+      }));
+      document.getElementById("js-detail-open").href = detail.url;
+      opener = from;
+      overlay.hidden = false;
+      closeButton.focus();
+    };
+    const closeDetail = () => {
+      overlay.hidden = true;
+      opener?.focus();
+    };
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-open-detail]");
+      if (trigger !== null) openDetail(trigger.dataset.openDetail, trigger);
+    });
+    closeButton.addEventListener("click", closeDetail);
+    // 外側のクリックでは閉じない。閉じるのはボタンか Esc
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !overlay.hidden) closeDetail(); });
   })();
 </script>
 </body>
