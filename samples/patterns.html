@@ -1221,6 +1221,42 @@ a.card:hover { border-color: var(--color-accent); }
 .empty__text { margin: 0; }
 /* 端のボタンは disabled ではなく aria-disabled にする（disabled にするとフォーカスが外れるため） */
 .pick-row__order .menu-button[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; background: transparent; color: var(--color-muted); }
+/* 月のカレンダー。見本では枠の幅で崩す（アプリでは @media (max-width: 599px)） */
+.month-cal { container-type: inline-size; container-name: month-cal; display: grid; gap: 12px; min-width: 0; }
+.month-cal__header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.month-cal__title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; font-size: 18px; font-variant-numeric: tabular-nums; }
+.month-cal__wareki { font-size: 14px; font-weight: normal; color: var(--color-muted); }
+.month-cal__nav { display: flex; align-items: center; gap: 4px; }
+.month-cal__table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 2px; }
+.month-cal__table th { padding: 4px 0; font-size: 12px; font-weight: normal; color: var(--color-muted); }
+.month-cal__day { height: 4.25rem; padding: 4px 6px; border-radius: 8px; background: var(--color-surface); vertical-align: top; overflow: hidden; }
+.month-cal__num { display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px; border-radius: 999px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.month-cal__day[aria-current="date"] .month-cal__num { box-shadow: inset 0 0 0 2px var(--color-accent-strong); font-weight: bold; }
+.month-cal__day.is-holiday { background: var(--color-danger-bg); }
+.month-cal__name { display: block; margin-top: 2px; font-size: 11px; line-height: 1.3; overflow-wrap: anywhere; }
+.month-cal .is-sunday { color: var(--color-danger); }
+.month-cal .is-saturday { color: var(--color-info); }
+.month-cal__day.is-other-month { opacity: 0.45; }
+.month-cal__subheading { margin: 8px 0; font-size: 16px; }
+.holiday-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 4px 16px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.holiday-list > li { display: flex; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--color-border); }
+.holiday-list > li[aria-current="date"] { font-weight: bold; }
+.holiday-list__date { flex: none; color: var(--color-danger); font-variant-numeric: tabular-nums; }
+.holiday-list > li.is-past { color: var(--color-muted); }
+.holiday-list > li.is-past .holiday-list__date { opacity: 0.7; }
+.month-cal__note { margin: 0; font-size: 13px; color: var(--color-muted); }
+@container month-cal (max-width: 599px) {
+  .month-cal__day { height: 2.75rem; padding: 2px; text-align: center; }
+  .month-cal__name { display: none; }
+}
+
+/* 値の一覧とコピー。コピーのボタンはコードブロックのものと同じ作り */
+.value-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+.value-list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.value-list__row { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 4px 4px 4px 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-surface); }
+.value-list__value { flex: 1 1 auto; min-width: 0; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13.5px; overflow-wrap: anywhere; }
+.copy-button { display: inline-flex; align-items: center; gap: 4px; flex: none; height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: var(--color-muted); font: inherit; font-size: 12px; white-space: nowrap; cursor: pointer; }
+.copy-button:hover { background: var(--color-base); color: var(--color-text); }
 </style>
 
 <script>
@@ -1854,6 +1890,38 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     </section>
   </div>
   <p class="note">利用者が自分で選んだ項目を、決めた順に並べておく欄。カードは分類の色のマスの行のカード。「上へ」「下へ」は押したあともフォーカスが同じボタンに残るので、キーボードで続けて押して端まで動かせる。先頭の「上へ」と末尾の「下へ」は押せない（aria-disabled）。右は 1 件も無いときの表示。</p>
+  <h2 class="kit-title">月のカレンダー</h2>
+  <div class="month-cal" id="js-month-cal">
+    <div class="month-cal__header">
+      <h3 class="month-cal__title" aria-live="polite"><span id="js-cal-title"></span><span class="month-cal__wareki" id="js-cal-wareki"></span></h3>
+      <div class="month-cal__nav">
+        <button type="button" class="button ghost small" data-cal-move="-1" aria-label="前の月"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-left"/></svg></button>
+        <button type="button" class="button secondary small" data-cal-move="0">今月</button>
+        <button type="button" class="button ghost small" data-cal-move="1" aria-label="次の月"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-chevron-right"/></svg></button>
+      </div>
+    </div>
+    <table class="month-cal__table" id="js-cal-table">
+      <thead><tr><th scope="col" class="is-sunday">日</th><th scope="col">月</th><th scope="col">火</th><th scope="col">水</th><th scope="col">木</th><th scope="col">金</th><th scope="col" class="is-saturday">土</th></tr></thead>
+      <tbody id="js-cal-body"></tbody>
+    </table>
+    <section aria-labelledby="js-holidays-heading">
+      <h3 class="month-cal__subheading" id="js-holidays-heading"></h3>
+      <ul class="holiday-list" id="js-holiday-list"></ul>
+    </section>
+  </div>
+  <p class="note">日曜から始まる表。日曜と祝日は danger、土曜は info の文字。祝日のマスは danger-bg で、名前を 11px で出す。今日の数字は accent-strong の輪（aria-current="date"）、前後の月の日は opacity 0.45。見出しの横に和暦の年（元号が変わる月は「平成31年／令和元年」）。599px 以下では祝日の名前を隠し、色と下の一覧で伝える。見本では今日を 2026-05-14 とし、祝日は 2026 年の分だけを持つ（ほかの年へ移ると一覧の代わりに断り書きを出す）。</p>
+
+  <h2 class="kit-title">値の一覧とコピー</h2>
+  <div class="value-actions">
+    <button type="button" class="button primary" id="js-value-generate"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-refresh-cw"/></svg>作る</button>
+    <button type="button" class="copy-button js-copy-value" id="js-value-copy-all" data-copy=""><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">すべてコピー</span></button>
+  </div>
+  <ol class="value-list" id="js-value-list" aria-label="作った値">
+      <li class="value-list__row"><code class="value-list__value">3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04</code><button type="button" class="copy-button js-copy-value" aria-label="3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04 をコピー" data-copy="3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+      <li class="value-list__row"><code class="value-list__value">a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374</code><button type="button" class="copy-button js-copy-value" aria-label="a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374 をコピー" data-copy="a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+      <li class="value-list__row"><code class="value-list__value">0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8</code><button type="button" class="copy-button js-copy-value" aria-label="0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8 をコピー" data-copy="0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+  </ol>
+  <p class="note">値は等幅 13.5px、行は surface の背景に border の枠・角 8px。右のコピーのボタンはコードブロックのものと同じで、押すと 1.5 秒だけ「コピーしました」に変わる（aria-live で読み上げる）。行のボタンの aria-label は「（値） をコピー」。「すべてコピー」は値を改行でつないでコピーする。</p>
 </main>
 </div>
 
@@ -2043,7 +2111,7 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     });
   })();
 </script>
-<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol></svg>
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol><symbol id="i-funnel" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol><symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol></svg>
 <script>
   // 割合のドーナツと除外の切り替えの見本の動き
   (() => {
@@ -2541,6 +2609,165 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
       status.textContent = `「${row.dataset.title}」を ${[...list.children].indexOf(row) + 1} 番目に動かしました`;
     });
     refresh();
+  })();
+</script>
+<script>
+  // 月のカレンダーの見本の動き。祝日は 2026 年の分だけを持つ（アプリでは祝日のデータから引く）
+  (() => {
+    const root = document.getElementById("js-month-cal");
+    if (root === null) return;
+    const TODAY = "2026-05-14";
+    const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+    const HOLIDAYS = {
+      "2026-01-01": "元日", "2026-01-12": "成人の日", "2026-02-11": "建国記念の日", "2026-02-23": "天皇誕生日",
+      "2026-03-20": "春分の日", "2026-04-29": "昭和の日", "2026-05-03": "憲法記念日", "2026-05-04": "みどりの日",
+      "2026-05-05": "こどもの日", "2026-05-06": "振替休日", "2026-07-20": "海の日", "2026-08-11": "山の日",
+      "2026-09-21": "敬老の日", "2026-09-22": "国民の休日", "2026-09-23": "秋分の日", "2026-10-12": "スポーツの日",
+      "2026-11-03": "文化の日", "2026-11-23": "勤労感謝の日",
+    };
+    const pad = (n) => String(n).padStart(2, "0");
+    const iso = (y, m, d) => `${y}-${pad(m)}-${pad(d)}`;
+    const utc = (y, m, d) => new Date(Date.UTC(y, m - 1, d));
+    const isoOf = (date) => iso(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate());
+    // 和暦の年（「令和8年」）。年が 1 なら「元年」にする
+    const japaneseYear = (date) => {
+      const parts = new Intl.DateTimeFormat("ja-JP-u-ca-japanese", { era: "long", year: "numeric", timeZone: "UTC" }).formatToParts(date);
+      const era = parts.find((p) => p.type === "era")?.value ?? "";
+      const year = parts.find((p) => p.type === "year")?.value ?? "";
+      return `${era}${year === "1" ? "元" : year}年`;
+    };
+    // 初日と末日で元号が違えば両方を並べる（「平成31年／令和元年」）
+    const japaneseRange = (first, last) => {
+      const a = japaneseYear(first);
+      const b = japaneseYear(last);
+      return a === b ? a : `${a}／${b}`;
+    };
+    const [todayY, todayM] = TODAY.split("-").map(Number);
+    let shown = { year: todayY, month: todayM };
+
+    const render = () => {
+      const { year, month } = shown;
+      const daysInMonth = utc(year, month + 1, 0).getUTCDate();
+      document.getElementById("js-cal-title").textContent = `${year} 年 ${month} 月`;
+      document.getElementById("js-cal-wareki").textContent = japaneseRange(utc(year, month, 1), utc(year, month, daysInMonth));
+      document.getElementById("js-cal-table").setAttribute("aria-label", `${year} 年 ${month} 月`);
+      // 月の初日を含む週の日曜から、末日を含む週の土曜まで
+      const start = utc(year, month, 1 - utc(year, month, 1).getUTCDay());
+      const end = utc(year, month, daysInMonth + 6 - utc(year, month, daysInMonth).getUTCDay());
+      const body = document.getElementById("js-cal-body");
+      body.replaceChildren();
+      let tr = null;
+      for (let d = start; d <= end; d = utc(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate() + 1)) {
+        const weekday = d.getUTCDay();
+        if (weekday === 0) tr = body.insertRow();
+        const date = isoOf(d);
+        const holiday = HOLIDAYS[date] ?? null;
+        const td = tr.insertCell();
+        td.className = "month-cal__day";
+        if (holiday !== null || weekday === 0) td.classList.add("is-sunday");
+        else if (weekday === 6) td.classList.add("is-saturday");
+        if (holiday !== null) { td.classList.add("is-holiday"); td.title = holiday; }
+        if (d.getUTCMonth() + 1 !== month) td.classList.add("is-other-month");
+        if (date === TODAY) td.setAttribute("aria-current", "date");
+        const num = document.createElement("span");
+        num.className = "month-cal__num";
+        num.textContent = String(d.getUTCDate());
+        td.append(num);
+        if (holiday !== null) {
+          const name = document.createElement("span");
+          name.className = "month-cal__name";
+          name.textContent = holiday;
+          td.append(name);
+        }
+      }
+      document.getElementById("js-holidays-heading").textContent = `${year} 年（${japaneseRange(utc(year, 1, 1), utc(year, 12, 31))}）の祝日`;
+      const list = document.getElementById("js-holiday-list");
+      list.replaceChildren();
+      const entries = Object.entries(HOLIDAYS).filter(([date]) => date.startsWith(`${year}-`));
+      if (entries.length === 0) {
+        const p = document.createElement("li");
+        p.className = "month-cal__note";
+        p.textContent = "見本の祝日のデータは 2026 年の分だけです";
+        list.append(p);
+        return;
+      }
+      entries.forEach(([date, name]) => {
+        const li = document.createElement("li");
+        if (date < TODAY) li.className = "is-past";
+        if (date === TODAY) li.setAttribute("aria-current", "date");
+        const [y, m, d] = date.split("-").map(Number);
+        const dateEl = document.createElement("span");
+        dateEl.className = "holiday-list__date";
+        dateEl.textContent = `${pad(m)}/${pad(d)}（${WEEKDAYS[utc(y, m, d).getUTCDay()]}）`;
+        const nameEl = document.createElement("span");
+        nameEl.textContent = name;
+        li.append(dateEl, nameEl);
+        list.append(li);
+      });
+    };
+    root.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-cal-move]");
+      if (button === null) return;
+      const step = Number(button.dataset.calMove);
+      if (step === 0) { shown = { year: todayY, month: todayM }; }
+      else {
+        const next = utc(shown.year, shown.month + step, 1);
+        shown = { year: next.getUTCFullYear(), month: next.getUTCMonth() + 1 };
+      }
+      render();
+    });
+    render();
+  })();
+</script>
+<script>
+  // 値の一覧とコピーの見本の動き。コピーのボタンはコードブロックのものと同じく、結果を 1.5 秒だけ出して元に戻す
+  (() => {
+    const list = document.getElementById("js-value-list");
+    const copyAll = document.getElementById("js-value-copy-all");
+    if (list === null) return;
+    const COPIED_MS = 1500;
+    const timers = new WeakMap();
+    const values = () => [...list.querySelectorAll(".value-list__value")].map((el) => el.textContent);
+    const syncCopyAll = () => {
+      copyAll.dataset.copy = values().join("\n");
+      copyAll.hidden = values().length < 2;
+    };
+    document.addEventListener("click", async (event) => {
+      const button = event.target.closest(".js-copy-value");
+      if (button === null) return;
+      const label = button.querySelector("[aria-live]");
+      const icon = button.querySelector("use");
+      const idle = button === copyAll ? "すべてコピー" : "コピー";
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        label.textContent = "コピーしました";
+        icon.setAttribute("href", "#i-check");
+      } catch {
+        label.textContent = "コピーできませんでした";
+        icon.setAttribute("href", "#i-circle-alert");
+      }
+      clearTimeout(timers.get(button));
+      timers.set(button, setTimeout(() => {
+        label.textContent = idle;
+        icon.setAttribute("href", "#i-copy");
+      }, COPIED_MS));
+    });
+    // 「作る」で値を作り直す（見本では UUID v4）。同じ値が並ぶこともあるので、行は位置で区別する
+    const template = list.firstElementChild.cloneNode(true);
+    document.getElementById("js-value-generate").addEventListener("click", () => {
+      const rows = [...list.children].map(() => {
+        const value = crypto.randomUUID();
+        const row = template.cloneNode(true);
+        row.querySelector(".value-list__value").textContent = value;
+        const button = row.querySelector(".js-copy-value");
+        button.dataset.copy = value;
+        button.setAttribute("aria-label", `${value} をコピー`);
+        return row;
+      });
+      list.replaceChildren(...rows);
+      syncCopyAll();
+    });
+    syncCopyAll();
   })();
 </script>
 </body>
