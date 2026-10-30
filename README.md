@@ -6,7 +6,7 @@
 
 名前は「草案」から。決まりは使いながら書き直していく下書きであり、各アプリで見つけた良いやり方をここへ戻して育てます。
 
-**見本**: <https://paperface1000.github.io/souan/>（配色・部品・画面の組み立て。ページの上のボタンで 7 テーマを切り替えられる）
+**見本**: <https://paperface1000.github.io/souan/>（配色・部品・画面の組み立て。ページの上のボタンで 14 テーマを切り替えられる）
 
 ![配色の見本（白紙）](docs/images/palette-hakushi.png)
 
@@ -22,7 +22,7 @@ index.html           公開したページのトップ。見本の目次（sampl
 THIRD_PARTY_LICENSES.md  第三者の素材（フォント・アイコン）とライセンスの一覧
 docs/
   principles.md      デザインの原則
-  color.md           配色（7 テーマ、役割の色、コントラスト、その他の配色 30 色）
+  color.md           配色（14 テーマ、役割の色、コントラスト、その他の配色 30 色）
   typography.md      フォント、文字の大きさ・行間、日時の表記
   components.md      部品の決まり（ボタン、フォーム、入力欄、チェックボックス・ラジオボタン、セレクト、タグ、ダイアログ、トースト、アイコン、欄、一覧の行、バッジ、空の表示）
   patterns.md        画面の組み立て（タブ、サイドバー、ツリー、目次、検索、カード、ログイン）と中身の見せ方（表、本文、コード、差分、並べ替え）
@@ -33,14 +33,14 @@ docs/
   licenses.md        フォント・アイコンのライセンスで守ること
   images/            README に載せる見本のスクリーンショット
 tokens/
-  palette.json       7 テーマの色の値（正本）
+  palette.json       14 テーマの色の値（正本）
   themes.css         そのまま読み込める CSS 変数
   extra-colors.json  その他の配色 30 色（分類やタグを色で見分ける）
   extra-colors.css   data-extra-color 属性で色を出す CSS
   icons.json         バッジに選べる Lucide のアイコン 86 個
 samples/             ブラウザで直接開ける見本（単一の HTML、外部の読み込みなし）
   index.html         目次
-  palette.html       7 テーマの色とコントラスト比
+  palette.html       14 テーマの色とコントラスト比
   extra-colors.html  30 色の見本（ライトと夜）
   ui-kit.html        部品の見本
   patterns.html      画面の組み立てと中身の見せ方の見本
@@ -66,7 +66,7 @@ samples/             ブラウザで直接開ける見本（単一の HTML、外
 
 ### 👀 見本を見る
 
-公開している見本（<https://paperface1000.github.io/souan/>）を開くか、手元で `samples/index.html` をブラウザで開く（サーバーは要らない）。ページの上のボタンで 7 テーマを切り替えられる。URL に `?theme=yofukashi` のように付けると、そのテーマで開く。
+公開している見本（<https://paperface1000.github.io/souan/>）を開くか、手元で `samples/index.html` をブラウザで開く（サーバーは要らない）。ページの上のボタンで 14 テーマを切り替えられる。URL に `?theme=yofukashi` のように付けると、そのテーマで開く。
 
 ## 🙅 プルリクエストと Issue
 

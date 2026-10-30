@@ -390,7 +390,7 @@ export function cellColors(key: string | null, dark: boolean): { fill: string; o
 - **ポップオーバー**: メニューと同じ見た目で、余白 8px、中の間 6px
 - **マス**: 32px 四方、角 6px、枠は透明。選んでいるものは `aria-pressed="true"` で、枠を `accent` にして右下（1px 内側）にチェック 12px（`accent-strong`）を重ねる。なぞったとき・キーボードで来たときも枠を `accent`
 - マスの名前（色の名前・アイコンの名前）は `aria-label` と `title` に入れる
-- **色の見本**: 20px 四方、角 5px、`data-extra-color` で `--extra-bg` の背景と `--extra-border` の枠、中央に `--extra-dot` の 8px の丸。夜更かしでは自動で dark の組になる
+- **色の見本**: 20px 四方、角 5px、`data-extra-color` で `--extra-bg` の背景と `--extra-border` の枠、中央に `--extra-dot` の 8px の丸。暗いテーマでは自動で dark の組になる
 - **色なし**: 枠 `border` に 45 度の細い斜線（`border` の色）。マスの並びの上に横長の行（「色なし」の文字 13px）で置く
 - **色の並び**: 色相ごとに濃・中・淡の 3 列 × 10 行（`tokens/extra-colors.json` の並びのまま）。マスの間は縦 4px・横 6px。高さ `min(24rem, 60vh)` まで
 - **アイコンの並び**: 幅 `min(19rem, calc(100vw - 48px))`、32px のマスを詰めて並べ（間 4px）、高さ `min(16rem, 45vh)` まで。上に絞り込みの欄（探して選ぶ欄と同じ作り。名前と key のどちらでも、全角・半角と大文字・小文字の違いを無視して絞り込む）、その下に「なし」（`Ban` のアイコン）の横長の行。1 つも合わなければ「見つかりません」
