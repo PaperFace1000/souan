@@ -1917,11 +1917,11 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     <button type="button" class="copy-button js-copy-value" id="js-value-copy-all" data-copy=""><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">すべてコピー</span></button>
   </div>
   <ol class="value-list" id="js-value-list" aria-label="作った値">
-      <li class="value-list__row"><code class="value-list__value">3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04</code><button type="button" class="copy-button js-copy-value" aria-label="3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04 をコピー" data-copy="3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
-      <li class="value-list__row"><code class="value-list__value">a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374</code><button type="button" class="copy-button js-copy-value" aria-label="a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374 をコピー" data-copy="a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
-      <li class="value-list__row"><code class="value-list__value">0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8</code><button type="button" class="copy-button js-copy-value" aria-label="0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8 をコピー" data-copy="0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+      <li class="value-list__row"><code class="value-list__value">3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04</code><button type="button" class="copy-button js-copy-value" aria-label="1 行目をコピー" data-copy="3f6c2a1e-8b4d-4c7a-9e2f-5d1b7a3c9e04"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+      <li class="value-list__row"><code class="value-list__value">a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374</code><button type="button" class="copy-button js-copy-value" aria-label="2 行目をコピー" data-copy="a92d47b5-1c3e-4f86-b0d9-6e2a8c5f1374"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
+      <li class="value-list__row"><code class="value-list__value">0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8</code><button type="button" class="copy-button js-copy-value" aria-label="3 行目をコピー" data-copy="0e5b8d3c-7a2f-4d19-8c6e-b4f1a9d2e7c8"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span aria-live="polite">コピー</span></button></li>
   </ol>
-  <p class="note">値は等幅 13.5px、行は surface の背景に border の枠・角 8px。右のコピーのボタンはコードブロックのものと同じで、押すと 1.5 秒だけ「コピーしました」に変わる（aria-live で読み上げる）。行のボタンの aria-label は「（値） をコピー」。「すべてコピー」は値を改行でつないでコピーする。</p>
+  <p class="note">値は等幅 13.5px、行は surface の背景に border の枠・角 8px。右のコピーのボタンはコードブロックのものと同じで、押すと 1.5 秒だけ「コピーしました」に変わる（aria-live で読み上げる）。行のボタンの aria-label は「n 行目をコピー」。「すべてコピー」は値を改行でつないでコピーする。</p>
 </main>
 </div>
 
@@ -2755,13 +2755,13 @@ skip_when_rain <span class="sk-punctuation">=</span> <span class="sk-constant">t
     // 「作る」で値を作り直す（見本では UUID v4）。同じ値が並ぶこともあるので、行は位置で区別する
     const template = list.firstElementChild.cloneNode(true);
     document.getElementById("js-value-generate").addEventListener("click", () => {
-      const rows = [...list.children].map(() => {
+      const rows = [...list.children].map((_, index) => {
         const value = crypto.randomUUID();
         const row = template.cloneNode(true);
         row.querySelector(".value-list__value").textContent = value;
         const button = row.querySelector(".js-copy-value");
         button.dataset.copy = value;
-        button.setAttribute("aria-label", `${value} をコピー`);
+        button.setAttribute("aria-label", `${index + 1} 行目をコピー`);
         return row;
       });
       list.replaceChildren(...rows);
