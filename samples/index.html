@@ -7,7 +7,7 @@
 <style>
 /* tokens/themes.css と同じ値（souan の値を変えたらここも同じにすること） */
 /* @tokens:themes */
-/* souan の 7 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
+/* souan の 14 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
    値を変えるときは tokens/palette.json と samples/*.html のインラインの値も同じにすること */
 
 /* 白紙（既定） */
@@ -257,6 +257,88 @@
   --shiki-token-changed: #73541c;
 }
 
+/* 墨 */
+:root[data-theme="sumi"] {
+  color-scheme: light;
+  --color-accent: #5f776f;
+  --color-accent-strong: #3a524a;
+  --color-on-accent-strong: #fffcf7;
+  --color-base: #fffcf7;
+  --color-surface: #f3eee5;
+  --color-border: #c8beaf;
+  --color-text: #2b241d;
+  --color-muted: #5a4e41;
+  --color-success: #3a5a2f;
+  --color-success-bg: #e6eedc;
+  --color-success-border: #93ad85;
+  --color-warning: #6a4d0d;
+  --color-warning-bg: #f5e9c8;
+  --color-warning-border: #c4a050;
+  --color-danger: #8a3125;
+  --color-danger-bg: #f6dcd4;
+  --color-danger-border: #c98678;
+  --color-info: #2f4f6b;
+  --color-info-bg: #dde7f0;
+  --color-info-border: #86a0b8;
+  --color-on-danger: #fffcf7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #2b241d;
+  --shiki-background: #f3eee5;
+  --shiki-token-constant: #6a4d0d;
+  --shiki-token-string: #3a5a2f;
+  --shiki-token-comment: #5a4e41;
+  --shiki-token-keyword: #6a3460;
+  --shiki-token-parameter: #2b241d;
+  --shiki-token-function: #2f4f6b;
+  --shiki-token-string-expression: #3a5a2f;
+  --shiki-token-punctuation: #5a4e41;
+  --shiki-token-link: #2f4f6b;
+  --shiki-token-inserted: #3a5a2f;
+  --shiki-token-deleted: #8a3125;
+  --shiki-token-changed: #6a4d0d;
+}
+
+/* 色紙 */
+:root[data-theme="irogami"] {
+  color-scheme: light;
+  --color-accent: #3d8a76;
+  --color-accent-strong: #1d6654;
+  --color-on-accent-strong: #fffdf8;
+  --color-base: #fffdf8;
+  --color-surface: #f6f1e8;
+  --color-border: #d3c9ba;
+  --color-text: #2e261e;
+  --color-muted: #5d5143;
+  --color-success: #2d6a27;
+  --color-success-bg: #e2f0da;
+  --color-success-border: #86bd7c;
+  --color-warning: #7f5300;
+  --color-warning-bg: #fbeac0;
+  --color-warning-border: #dcac45;
+  --color-danger: #a82d1d;
+  --color-danger-bg: #fbdfd8;
+  --color-danger-border: #e48b7a;
+  --color-info: #1d5b94;
+  --color-info-bg: #dbe9f6;
+  --color-info-border: #7eaad6;
+  --color-on-danger: #fffdf8;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #2e261e;
+  --shiki-background: #f6f1e8;
+  --shiki-token-constant: #7f5300;
+  --shiki-token-string: #2d6a27;
+  --shiki-token-comment: #5d5143;
+  --shiki-token-keyword: #862c78;
+  --shiki-token-parameter: #2e261e;
+  --shiki-token-function: #1d5b94;
+  --shiki-token-string-expression: #2d6a27;
+  --shiki-token-punctuation: #5d5143;
+  --shiki-token-link: #1d5b94;
+  --shiki-token-inserted: #2d6a27;
+  --shiki-token-deleted: #a82d1d;
+  --shiki-token-changed: #7f5300;
+}
+
 /* 夜更かし */
 :root[data-theme="yofukashi"] {
   color-scheme: dark;
@@ -296,6 +378,211 @@
   --shiki-token-inserted: #a8c29a;
   --shiki-token-deleted: #e49c90;
   --shiki-token-changed: #d8b869;
+}
+
+/* 漆 */
+:root[data-theme="urushi"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #17130f;
+  --color-base: #17130f;
+  --color-surface: #231e19;
+  --color-border: #51473c;
+  --color-text: #f7f1e7;
+  --color-muted: #cbbfae;
+  --color-success: #b6daa4;
+  --color-success-bg: #1f2c1a;
+  --color-success-border: #4f7043;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2f2612;
+  --color-warning-border: #7a6224;
+  --color-danger: #f4a798;
+  --color-danger-bg: #3b1b17;
+  --color-danger-border: #8a4a40;
+  --color-info: #abcdec;
+  --color-info-bg: #192735;
+  --color-info-border: #4a6a8a;
+  --color-on-danger: #17130f;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f7f1e7;
+  --shiki-background: #231e19;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #cbbfae;
+  --shiki-token-keyword: #e2b4d6;
+  --shiki-token-parameter: #f7f1e7;
+  --shiki-token-function: #abcdec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #cbbfae;
+  --shiki-token-link: #abcdec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f4a798;
+  --shiki-token-changed: #f1cf75;
+}
+
+/* 藍 */
+:root[data-theme="ai"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #111722;
+  --color-base: #111722;
+  --color-surface: #1a2230;
+  --color-border: #3d4a5e;
+  --color-text: #f2efe8;
+  --color-muted: #bcc3cf;
+  --color-success: #b3d9a6;
+  --color-success-bg: #18291f;
+  --color-success-border: #456c4f;
+  --color-warning: #f0cf7a;
+  --color-warning-bg: #2a2618;
+  --color-warning-border: #76632c;
+  --color-danger: #f5a99c;
+  --color-danger-bg: #33191d;
+  --color-danger-border: #874a4b;
+  --color-info: #a9cdf0;
+  --color-info-bg: #16263b;
+  --color-info-border: #46699a;
+  --color-on-danger: #111722;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f2efe8;
+  --shiki-background: #1a2230;
+  --shiki-token-constant: #f0cf7a;
+  --shiki-token-string: #b3d9a6;
+  --shiki-token-comment: #bcc3cf;
+  --shiki-token-keyword: #dcb6e0;
+  --shiki-token-parameter: #f2efe8;
+  --shiki-token-function: #a9cdf0;
+  --shiki-token-string-expression: #b3d9a6;
+  --shiki-token-punctuation: #bcc3cf;
+  --shiki-token-link: #a9cdf0;
+  --shiki-token-inserted: #b3d9a6;
+  --shiki-token-deleted: #f5a99c;
+  --shiki-token-changed: #f0cf7a;
+}
+
+/* 深緑 */
+:root[data-theme="fukamidori"] {
+  color-scheme: dark;
+  --color-accent: #93b5a8;
+  --color-accent-strong: #bbd8cc;
+  --color-on-accent-strong: #101914;
+  --color-base: #101914;
+  --color-surface: #18231d;
+  --color-border: #3b4d42;
+  --color-text: #f1f0e6;
+  --color-muted: #bfc8bd;
+  --color-success: #b8dca2;
+  --color-success-bg: #1a2c18;
+  --color-success-border: #4b7243;
+  --color-warning: #f0cf73;
+  --color-warning-bg: #29270f;
+  --color-warning-border: #756424;
+  --color-danger: #f5a898;
+  --color-danger-bg: #331b16;
+  --color-danger-border: #874b40;
+  --color-info: #a8cdea;
+  --color-info-bg: #14252e;
+  --color-info-border: #456a80;
+  --color-on-danger: #101914;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f1f0e6;
+  --shiki-background: #18231d;
+  --shiki-token-constant: #f0cf73;
+  --shiki-token-string: #b8dca2;
+  --shiki-token-comment: #bfc8bd;
+  --shiki-token-keyword: #e0b4d4;
+  --shiki-token-parameter: #f1f0e6;
+  --shiki-token-function: #a8cdea;
+  --shiki-token-string-expression: #b8dca2;
+  --shiki-token-punctuation: #bfc8bd;
+  --shiki-token-link: #a8cdea;
+  --shiki-token-inserted: #b8dca2;
+  --shiki-token-deleted: #f5a898;
+  --shiki-token-changed: #f0cf73;
+}
+
+/* 消し炭 */
+:root[data-theme="keshizumi"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #171717;
+  --color-base: #171717;
+  --color-surface: #222221;
+  --color-border: #4a4946;
+  --color-text: #f5f3ee;
+  --color-muted: #c4c1ba;
+  --color-success: #b6daa4;
+  --color-success-bg: #1e2a1a;
+  --color-success-border: #4d6c43;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2c2614;
+  --color-warning-border: #776226;
+  --color-danger: #f4a798;
+  --color-danger-bg: #361c19;
+  --color-danger-border: #874b42;
+  --color-info: #abcdec;
+  --color-info-bg: #18242f;
+  --color-info-border: #486886;
+  --color-on-danger: #171717;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f5f3ee;
+  --shiki-background: #222221;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #c4c1ba;
+  --shiki-token-keyword: #e2b4d6;
+  --shiki-token-parameter: #f5f3ee;
+  --shiki-token-function: #abcdec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #c4c1ba;
+  --shiki-token-link: #abcdec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f4a798;
+  --shiki-token-changed: #f1cf75;
+}
+
+/* 葡萄 */
+:root[data-theme="budou"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #1b1219;
+  --color-base: #1b1219;
+  --color-surface: #261b24;
+  --color-border: #54434f;
+  --color-text: #f6efea;
+  --color-muted: #cdbec8;
+  --color-success: #b6daa4;
+  --color-success-bg: #1f2a1b;
+  --color-success-border: #4f6d45;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2f2514;
+  --color-warning-border: #7a6127;
+  --color-danger: #f6a99b;
+  --color-danger-bg: #3a1a1c;
+  --color-danger-border: #8c4a4a;
+  --color-info: #b0cbec;
+  --color-info-bg: #1d2234;
+  --color-info-border: #4e6489;
+  --color-on-danger: #1b1219;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f6efea;
+  --shiki-background: #261b24;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #cdbec8;
+  --shiki-token-keyword: #ecbbe0;
+  --shiki-token-parameter: #f6efea;
+  --shiki-token-function: #b0cbec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #cdbec8;
+  --shiki-token-link: #b0cbec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f6a99b;
+  --shiki-token-changed: #f1cf75;
 }
 
 /* テーマを選んでいないときは OS の設定に合わせる */
@@ -374,7 +661,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.9em;
   display: inline-flex; align-items: center; gap: 6px;
 }
 .theme-bar button[aria-pressed="true"] { border-color: var(--color-accent); background: var(--color-surface); font-weight: 600; }
-.theme-bar__swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgb(0 0 0 / 0.2); }
+.theme-bar__swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--color-muted); }
 
 .doc { max-width: 76rem; margin: 0 auto; padding: 28px 32px 80px; }
 @media (max-width: 899px) { .doc { padding: 20px 16px 64px; } }
@@ -579,7 +866,7 @@ textarea.input { min-height: 96px; resize: vertical; line-height: 1.7; }
 <script>
   (() => {
     const KEY = "souan.samples.theme";
-    const themes = ["system", "hakushi", "hanshi", "torinoko", "kinari", "washi", "koshi", "yofukashi"];
+    const themes = ["system", "hakushi", "hanshi", "torinoko", "kinari", "washi", "koshi", "sumi", "irogami", "yofukashi", "urushi", "ai", "fukamidori", "keshizumi", "budou"];
     const read = () => {
       const fromUrl = new URLSearchParams(location.search).get("theme");
       if (themes.includes(fromUrl)) return fromUrl;
@@ -663,13 +950,13 @@ SOFTWARE.
 </script>
 <!-- @end:license -->
 <svg width="0" height="0" style="position: absolute;" aria-hidden="true"><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol><symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol><symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-refresh-cw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol><symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol><symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol><symbol id="i-coffee" viewBox="0 0 24 24"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol><symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol><symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol></svg>
-<nav class="theme-bar" aria-label="テーマ"><span class="theme-bar__label"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg>テーマ</span><button type="button" data-theme-choice="system" aria-pressed="false">OS に合わせる</button><button type="button" data-theme-choice="hakushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>白紙</button><button type="button" data-theme-choice="hanshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #faf6ef;"></span>半紙</button><button type="button" data-theme-choice="torinoko" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f6f1e7;"></span>鳥の子</button><button type="button" data-theme-choice="kinari" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f1ebdf;"></span>生成り</button><button type="button" data-theme-choice="washi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #ece4d6;"></span>和紙</button><button type="button" data-theme-choice="koshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #e6ddcd;"></span>古紙</button><button type="button" data-theme-choice="yofukashi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #2b2621;"></span>夜更かし</button></nav>
+<nav class="theme-bar" aria-label="テーマ"><span class="theme-bar__label"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg>テーマ</span><button type="button" data-theme-choice="system" aria-pressed="false">OS に合わせる</button><button type="button" data-theme-choice="hakushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>白紙</button><button type="button" data-theme-choice="hanshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #faf6ef;"></span>半紙</button><button type="button" data-theme-choice="torinoko" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f6f1e7;"></span>鳥の子</button><button type="button" data-theme-choice="kinari" aria-pressed="false"><span class="theme-bar__swatch" style="background: #f1ebdf;"></span>生成り</button><button type="button" data-theme-choice="washi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #ece4d6;"></span>和紙</button><button type="button" data-theme-choice="koshi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #e6ddcd;"></span>古紙</button><button type="button" data-theme-choice="sumi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffcf7;"></span>墨</button><button type="button" data-theme-choice="irogami" aria-pressed="false"><span class="theme-bar__swatch" style="background: #fffdf8;"></span>色紙</button><button type="button" data-theme-choice="yofukashi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #2b2621;"></span>夜更かし</button><button type="button" data-theme-choice="urushi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #17130f;"></span>漆</button><button type="button" data-theme-choice="ai" aria-pressed="false"><span class="theme-bar__swatch" style="background: #111722;"></span>藍</button><button type="button" data-theme-choice="fukamidori" aria-pressed="false"><span class="theme-bar__swatch" style="background: #101914;"></span>深緑</button><button type="button" data-theme-choice="keshizumi" aria-pressed="false"><span class="theme-bar__swatch" style="background: #171717;"></span>消し炭</button><button type="button" data-theme-choice="budou" aria-pressed="false"><span class="theme-bar__swatch" style="background: #1b1219;"></span>葡萄</button></nav>
 
 <main class="doc">
   <h1><svg class="logo-mark" style="width: 28px; height: 28px;" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="var(--color-base)" stroke="var(--color-info)" stroke-width="1.5"><rect x="9" y="3" width="18" height="22" rx="2"/><rect x="6" y="6" width="18" height="22" rx="2"/><rect x="3" y="9" width="18" height="22" rx="2"/></g><path d="M7 15H17M7 19H17M7 23H13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="logo-type">souan</span> の見本</h1>
   <p class="lead">紙のような落ち着いた配色と、同じ作りの部品の見本です。上の帯でテーマを切り替えると、どのページにも反映されます（ブラウザに覚えます）。</p>
   <ul class="index-list">
-    <li><a class="index-card" href="palette.html"><span class="index-card__icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg></span><span><b>配色</b><span>7 テーマの役割の色と、文字のコントラスト比</span></span></a></li>
+    <li><a class="index-card" href="palette.html"><span class="index-card__icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-palette"/></svg></span><span><b>配色</b><span>14 テーマの役割の色と、文字のコントラスト比</span></span></a></li>
     <li><a class="index-card" href="extra-colors.html"><span class="index-card__icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-folder-kanban"/></svg></span><span><b>その他の配色</b><span>30 色の印・バッジ・行の帯（ライトと夜）</span></span></a></li>
     <li><a class="index-card" href="ui-kit.html"><span class="index-card__icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-list-checks"/></svg></span><span><b>部品</b><span>ボタン、入力欄、チェックボックス、セレクト、タグ、ダイアログ、トースト、欄、一覧の行、バッジ、空の状態</span></span></a></li>
     <li><a class="index-card" href="patterns.html"><span class="index-card__icon"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#i-layout-dashboard"/></svg></span><span><b>画面の組み立てと中身</b><span>タブ、サイドバー、ツリー、目次、検索、カード、ログイン、表、本文、コード、差分、並べ替え</span></span></a></li>

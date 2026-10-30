@@ -1,4 +1,4 @@
-/* souan の 7 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
+/* souan の 14 テーマ。画面では必ずこの変数を使い、色を直接書かないこと。
    値を変えるときは tokens/palette.json と samples/*.html のインラインの値も同じにすること */
 
 /* 白紙（既定） */
@@ -248,6 +248,88 @@
   --shiki-token-changed: #73541c;
 }
 
+/* 墨 */
+:root[data-theme="sumi"] {
+  color-scheme: light;
+  --color-accent: #5f776f;
+  --color-accent-strong: #3a524a;
+  --color-on-accent-strong: #fffcf7;
+  --color-base: #fffcf7;
+  --color-surface: #f3eee5;
+  --color-border: #c8beaf;
+  --color-text: #2b241d;
+  --color-muted: #5a4e41;
+  --color-success: #3a5a2f;
+  --color-success-bg: #e6eedc;
+  --color-success-border: #93ad85;
+  --color-warning: #6a4d0d;
+  --color-warning-bg: #f5e9c8;
+  --color-warning-border: #c4a050;
+  --color-danger: #8a3125;
+  --color-danger-bg: #f6dcd4;
+  --color-danger-border: #c98678;
+  --color-info: #2f4f6b;
+  --color-info-bg: #dde7f0;
+  --color-info-border: #86a0b8;
+  --color-on-danger: #fffcf7;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #2b241d;
+  --shiki-background: #f3eee5;
+  --shiki-token-constant: #6a4d0d;
+  --shiki-token-string: #3a5a2f;
+  --shiki-token-comment: #5a4e41;
+  --shiki-token-keyword: #6a3460;
+  --shiki-token-parameter: #2b241d;
+  --shiki-token-function: #2f4f6b;
+  --shiki-token-string-expression: #3a5a2f;
+  --shiki-token-punctuation: #5a4e41;
+  --shiki-token-link: #2f4f6b;
+  --shiki-token-inserted: #3a5a2f;
+  --shiki-token-deleted: #8a3125;
+  --shiki-token-changed: #6a4d0d;
+}
+
+/* 色紙 */
+:root[data-theme="irogami"] {
+  color-scheme: light;
+  --color-accent: #3d8a76;
+  --color-accent-strong: #1d6654;
+  --color-on-accent-strong: #fffdf8;
+  --color-base: #fffdf8;
+  --color-surface: #f6f1e8;
+  --color-border: #d3c9ba;
+  --color-text: #2e261e;
+  --color-muted: #5d5143;
+  --color-success: #2d6a27;
+  --color-success-bg: #e2f0da;
+  --color-success-border: #86bd7c;
+  --color-warning: #7f5300;
+  --color-warning-bg: #fbeac0;
+  --color-warning-border: #dcac45;
+  --color-danger: #a82d1d;
+  --color-danger-bg: #fbdfd8;
+  --color-danger-border: #e48b7a;
+  --color-info: #1d5b94;
+  --color-info-bg: #dbe9f6;
+  --color-info-border: #7eaad6;
+  --color-on-danger: #fffdf8;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #2e261e;
+  --shiki-background: #f6f1e8;
+  --shiki-token-constant: #7f5300;
+  --shiki-token-string: #2d6a27;
+  --shiki-token-comment: #5d5143;
+  --shiki-token-keyword: #862c78;
+  --shiki-token-parameter: #2e261e;
+  --shiki-token-function: #1d5b94;
+  --shiki-token-string-expression: #2d6a27;
+  --shiki-token-punctuation: #5d5143;
+  --shiki-token-link: #1d5b94;
+  --shiki-token-inserted: #2d6a27;
+  --shiki-token-deleted: #a82d1d;
+  --shiki-token-changed: #7f5300;
+}
+
 /* 夜更かし */
 :root[data-theme="yofukashi"] {
   color-scheme: dark;
@@ -287,6 +369,211 @@
   --shiki-token-inserted: #a8c29a;
   --shiki-token-deleted: #e49c90;
   --shiki-token-changed: #d8b869;
+}
+
+/* 漆 */
+:root[data-theme="urushi"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #17130f;
+  --color-base: #17130f;
+  --color-surface: #231e19;
+  --color-border: #51473c;
+  --color-text: #f7f1e7;
+  --color-muted: #cbbfae;
+  --color-success: #b6daa4;
+  --color-success-bg: #1f2c1a;
+  --color-success-border: #4f7043;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2f2612;
+  --color-warning-border: #7a6224;
+  --color-danger: #f4a798;
+  --color-danger-bg: #3b1b17;
+  --color-danger-border: #8a4a40;
+  --color-info: #abcdec;
+  --color-info-bg: #192735;
+  --color-info-border: #4a6a8a;
+  --color-on-danger: #17130f;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f7f1e7;
+  --shiki-background: #231e19;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #cbbfae;
+  --shiki-token-keyword: #e2b4d6;
+  --shiki-token-parameter: #f7f1e7;
+  --shiki-token-function: #abcdec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #cbbfae;
+  --shiki-token-link: #abcdec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f4a798;
+  --shiki-token-changed: #f1cf75;
+}
+
+/* 藍 */
+:root[data-theme="ai"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #111722;
+  --color-base: #111722;
+  --color-surface: #1a2230;
+  --color-border: #3d4a5e;
+  --color-text: #f2efe8;
+  --color-muted: #bcc3cf;
+  --color-success: #b3d9a6;
+  --color-success-bg: #18291f;
+  --color-success-border: #456c4f;
+  --color-warning: #f0cf7a;
+  --color-warning-bg: #2a2618;
+  --color-warning-border: #76632c;
+  --color-danger: #f5a99c;
+  --color-danger-bg: #33191d;
+  --color-danger-border: #874a4b;
+  --color-info: #a9cdf0;
+  --color-info-bg: #16263b;
+  --color-info-border: #46699a;
+  --color-on-danger: #111722;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f2efe8;
+  --shiki-background: #1a2230;
+  --shiki-token-constant: #f0cf7a;
+  --shiki-token-string: #b3d9a6;
+  --shiki-token-comment: #bcc3cf;
+  --shiki-token-keyword: #dcb6e0;
+  --shiki-token-parameter: #f2efe8;
+  --shiki-token-function: #a9cdf0;
+  --shiki-token-string-expression: #b3d9a6;
+  --shiki-token-punctuation: #bcc3cf;
+  --shiki-token-link: #a9cdf0;
+  --shiki-token-inserted: #b3d9a6;
+  --shiki-token-deleted: #f5a99c;
+  --shiki-token-changed: #f0cf7a;
+}
+
+/* 深緑 */
+:root[data-theme="fukamidori"] {
+  color-scheme: dark;
+  --color-accent: #93b5a8;
+  --color-accent-strong: #bbd8cc;
+  --color-on-accent-strong: #101914;
+  --color-base: #101914;
+  --color-surface: #18231d;
+  --color-border: #3b4d42;
+  --color-text: #f1f0e6;
+  --color-muted: #bfc8bd;
+  --color-success: #b8dca2;
+  --color-success-bg: #1a2c18;
+  --color-success-border: #4b7243;
+  --color-warning: #f0cf73;
+  --color-warning-bg: #29270f;
+  --color-warning-border: #756424;
+  --color-danger: #f5a898;
+  --color-danger-bg: #331b16;
+  --color-danger-border: #874b40;
+  --color-info: #a8cdea;
+  --color-info-bg: #14252e;
+  --color-info-border: #456a80;
+  --color-on-danger: #101914;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f1f0e6;
+  --shiki-background: #18231d;
+  --shiki-token-constant: #f0cf73;
+  --shiki-token-string: #b8dca2;
+  --shiki-token-comment: #bfc8bd;
+  --shiki-token-keyword: #e0b4d4;
+  --shiki-token-parameter: #f1f0e6;
+  --shiki-token-function: #a8cdea;
+  --shiki-token-string-expression: #b8dca2;
+  --shiki-token-punctuation: #bfc8bd;
+  --shiki-token-link: #a8cdea;
+  --shiki-token-inserted: #b8dca2;
+  --shiki-token-deleted: #f5a898;
+  --shiki-token-changed: #f0cf73;
+}
+
+/* 消し炭 */
+:root[data-theme="keshizumi"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #171717;
+  --color-base: #171717;
+  --color-surface: #222221;
+  --color-border: #4a4946;
+  --color-text: #f5f3ee;
+  --color-muted: #c4c1ba;
+  --color-success: #b6daa4;
+  --color-success-bg: #1e2a1a;
+  --color-success-border: #4d6c43;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2c2614;
+  --color-warning-border: #776226;
+  --color-danger: #f4a798;
+  --color-danger-bg: #361c19;
+  --color-danger-border: #874b42;
+  --color-info: #abcdec;
+  --color-info-bg: #18242f;
+  --color-info-border: #486886;
+  --color-on-danger: #171717;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f5f3ee;
+  --shiki-background: #222221;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #c4c1ba;
+  --shiki-token-keyword: #e2b4d6;
+  --shiki-token-parameter: #f5f3ee;
+  --shiki-token-function: #abcdec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #c4c1ba;
+  --shiki-token-link: #abcdec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f4a798;
+  --shiki-token-changed: #f1cf75;
+}
+
+/* 葡萄 */
+:root[data-theme="budou"] {
+  color-scheme: dark;
+  --color-accent: #8fb0a5;
+  --color-accent-strong: #b7d3c9;
+  --color-on-accent-strong: #1b1219;
+  --color-base: #1b1219;
+  --color-surface: #261b24;
+  --color-border: #54434f;
+  --color-text: #f6efea;
+  --color-muted: #cdbec8;
+  --color-success: #b6daa4;
+  --color-success-bg: #1f2a1b;
+  --color-success-border: #4f6d45;
+  --color-warning: #f1cf75;
+  --color-warning-bg: #2f2514;
+  --color-warning-border: #7a6127;
+  --color-danger: #f6a99b;
+  --color-danger-bg: #3a1a1c;
+  --color-danger-border: #8c4a4a;
+  --color-info: #b0cbec;
+  --color-info-bg: #1d2234;
+  --color-info-border: #4e6489;
+  --color-on-danger: #1b1219;
+  /* コードの色分け（Shiki の CSS 変数テーマ）。背景はサーフェス、文字の色はすべて背景の上で 4.5 以上 */
+  --shiki-foreground: #f6efea;
+  --shiki-background: #261b24;
+  --shiki-token-constant: #f1cf75;
+  --shiki-token-string: #b6daa4;
+  --shiki-token-comment: #cdbec8;
+  --shiki-token-keyword: #ecbbe0;
+  --shiki-token-parameter: #f6efea;
+  --shiki-token-function: #b0cbec;
+  --shiki-token-string-expression: #b6daa4;
+  --shiki-token-punctuation: #cdbec8;
+  --shiki-token-link: #b0cbec;
+  --shiki-token-inserted: #b6daa4;
+  --shiki-token-deleted: #f6a99b;
+  --shiki-token-changed: #f1cf75;
 }
 
 /* テーマを選んでいないときは OS の設定に合わせる */
