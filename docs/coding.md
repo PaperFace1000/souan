@@ -10,6 +10,7 @@
 - CSS のフレームワーク（Bootstrap・Tailwind など）は使わない。独自の配色と部品の見本があるため
 - 大きさ・余白・角の値は `docs/layout.md` の段階から選ぶ
 - スクロールバーは `base.css` でテーマの色にそろえる。部品ごとに上書きしない
+- **リンクの既定の下線は `base.css` で外す**（下線はなぞったときだけ）。部品ごとに `text-decoration: none` を書き足す形にしない。書き忘れた部品だけ下線が残り、アイコンだけのボタンや注記のリンクに線が出てしまう。長文の本文（Markdown を描くところ）のリンクだけは下線を残し、`text-underline-offset: 0.2em` で文字から離す
 - 外部の CDN・Web フォントを読み込まない。フォントは npm から同梱する
 
 ### 🧱 base.css
@@ -26,7 +27,8 @@ body {
   line-height: 1.7;
 }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-a { color: var(--color-accent-strong); }
+a { color: var(--color-accent-strong); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 /* スクロールバーをテーマの色に。細くし、つまみは薄い文字の色を透かしたもの */
 :root { --scrollbar-thumb: color-mix(in srgb, var(--color-muted) 45%, transparent); }
